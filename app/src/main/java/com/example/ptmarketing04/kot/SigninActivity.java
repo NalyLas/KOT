@@ -61,6 +61,9 @@ public class SigninActivity extends AppCompatActivity {
             Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.emptyFields), Snackbar.LENGTH_LONG).show();
             exist = true;
 
+        }else if(!etPass.getText().toString().equals(etPass2.getText().toString())){
+            Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.wrongPass), Snackbar.LENGTH_LONG).show();
+            exist = true;
         }else{
             name = etName.getText().toString();
             mail = etEmail.getText().toString();
@@ -74,13 +77,11 @@ public class SigninActivity extends AppCompatActivity {
                 }
             }
 
-            if(pass.equals(etPass2.getText().toString()) && !exist) {
-                findId();
-                new SigninTask().execute();
-            }else{
-                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.wrongPass), Snackbar.LENGTH_LONG).show();
-            }
+        }
 
+        if(!exist) {
+            findId();
+            new SigninTask().execute();
         }
 
     }
