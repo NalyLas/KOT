@@ -1,0 +1,23 @@
+<resources>
+
+    <string name="app_name">KOT</string>
+
+    <!--    LOGUIN    -->
+    <string name="mail">Email</string>
+    <string name="pass">Contraseña</string>
+    <string name="repeatPass">Repite tu contraseña</string>
+    <string name="name">Nombre</string>
+    <string name="login">Entrar</string>
+    <string name="sign">Registrarse</string>
+    <string name="acept">Aceptar</string>
+    <string name="log_text">¿Aún no tienes una cuenta? ¡Consíguela ahora!</string>
+    <string name="loading">Cargando...</string>
+    <string name="wrongUser">Usuario o contraseña incorrectos.</string>
+    <string name="error">Ha ocurrido un problema con la conexión, vuelva a intentarlo en unos segundos.</string>
+    <string name="emptyFields">Debe rellenar todos los campos.</string>
+    <string name="emailExist">Ya existe un usuario con ese email.</string>
+    <string name="wrongPass">Las contrsaeñas no coinciden.</string>
+    <string name="signin">Usuario registrado correctamente. ¡Bienvenido a Keep on Task!</string>
+
+
+</resources>
