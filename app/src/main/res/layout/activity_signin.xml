@@ -7,10 +7,19 @@
     android:orientation="vertical"
     tools:context="com.example.ptmarketing04.kot.SigninActivity">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
     <EditText
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
         android:background="@android:drawable/editbox_background"
         android:ems="10"
         android:hint="@string/name"
@@ -20,6 +29,9 @@
         android:id="@+id/etMail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
         android:background="@android:drawable/editbox_background"
         android:ems="10"
         android:hint="@string/mail"
@@ -29,6 +41,9 @@
         android:id="@+id/etPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
         android:background="@android:drawable/editbox_background"
         android:ems="10"
         android:hint="@string/pass"
@@ -38,6 +53,9 @@
         android:id="@+id/etPass2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
         android:background="@android:drawable/editbox_background"
         android:ems="10"
         android:hint="@string/repeatPass"
@@ -51,10 +69,11 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/acept"
-            android:onClick="sign"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:onClick="sign"
+            android:text="@string/acept" />
     </RelativeLayout>
 
 </LinearLayout>

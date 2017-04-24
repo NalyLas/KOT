@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    ///////Task para comprobar conexcion de usuario
+    //      Task para comprobar conexcion de usuario
     class LoginTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
 

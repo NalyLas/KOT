@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--    Crear estilos personalizados para cada color de las preferencias    -->
+    <!--
+    <style name="BasicTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary(meter tus colores primero en colors y luego aqui)</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    De esta manera cuando inicies la app lo primero que harás será cargar el tema y en función de esto cambiarán los colores de las cosas
+
+    -->
+
 </resources>

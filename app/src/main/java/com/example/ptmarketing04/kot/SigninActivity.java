@@ -95,7 +95,7 @@ public class SigninActivity extends AppCompatActivity {
 
 
 
-    ///////Task para comprobar conexcion de usuario
+    //  Task para comprobar conexcion de usuario
     class LoginTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
 
@@ -154,7 +154,7 @@ public class SigninActivity extends AppCompatActivity {
         }
     }
 
-    ///////Task para registrar un nuevo usuario
+    //     Task para registrar un nuevo usuario
     class SigninTask extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         int add;
