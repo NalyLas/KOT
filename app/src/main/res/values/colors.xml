@@ -3,4 +3,16 @@
     <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="deepOrangePrimary">#FF5722</color>
+    <color name="deepOrangePrimaryDark">#BF360C</color>
+    <color name="deepOrangeAccent">#9C27B0</color>
+
+    <color name="blueGrayPrimary">#607D8B</color>
+    <color name="blueGrayPrimaryDark">#263238</color>
+    <color name="blueGrayAccent">#00BCD4</color>
+
+    <color name="tealPrimary">#009688</color>
+    <color name="tealPrimaryDark">#004D40</color>
+    <color name="tealAccent">#FFC107</color>
 </resources>

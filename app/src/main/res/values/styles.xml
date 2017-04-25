@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="OrangeTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/deepOrangePrimary</item>
+        <item name="colorPrimaryDark">@color/deepOrangePrimaryDark</item>
+        <item name="colorAccent">@color/deepOrangeAccent</item>
+    </style>
+
     <!--    Crear estilos personalizados para cada color de las preferencias    -->
     <!--
     <style name="BasicTheme" parent="Theme.AppCompat.Light.NoActionBar">

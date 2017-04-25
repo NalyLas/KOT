@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private JSONArray jSONArray;
     private Connection conn;
     private User user;
+    protected Toolbar tb;
     private ArrayList<User> arrayUsers;
     private ArrayList<HashMap<String, String>> userList;
 
@@ -32,11 +34,20 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.OrangeTheme);
         setContentView(R.layout.activity_login);
 
 
         etMail = (EditText)findViewById(R.id.etMail);
         etPass = (EditText)findViewById(R.id.etPass);
+
+       // tb = (Toolbar) findViewById(R.id.toolbar);
+
+      /*  if(tb != null){
+            setSupportActionBar(tb);
+            tb.setTitle("");
+        }*/
+
 
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
