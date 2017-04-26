@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="pref_ip"
+        android:title="Preferencias" />
+
+    <EditTextPreference android:key="ip"
+        android:title="Elije la Ip"
+        android:summary="Escribe la dirección del servidor al que desees conectarte"
+        />
+
+    <ListPreference
+        android:key="language_preference"
+        android:title="Language"
+        android:entries="@array/Language"
+        android:entryValues="@array/languageAlias"/>
+
+</PreferenceScreen>

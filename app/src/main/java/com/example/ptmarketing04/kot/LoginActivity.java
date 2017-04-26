@@ -55,6 +55,9 @@ public class LoginActivity extends AppCompatActivity {
         }*/
 
 
+        etMail.setText("nataliaramirezlas@gmail.com");
+        etPass.setText("123456");
+
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
 

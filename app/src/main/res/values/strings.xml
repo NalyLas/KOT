@@ -18,6 +18,7 @@
     <string name="emailExist">Ya existe un usuario con ese email.</string>
     <string name="wrongPass">Las contrsaeñas no coinciden.</string>
     <string name="signin">Usuario registrado correctamente. ¡Bienvenido a Keep on Task!</string>
+    <string name="title_activity_main">MainActivity</string>
 
 
 </resources>
