@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import org.json.JSONArray;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etMail, etPass;
+    private Button bt1,bt2;
 
     private ArrayList<String> users;
     private String url = "http://iesayala.ddns.net/natalia/php.php";
@@ -40,6 +42,10 @@ public class LoginActivity extends AppCompatActivity {
 
         etMail = (EditText)findViewById(R.id.etMail);
         etPass = (EditText)findViewById(R.id.etPass);
+        bt1 = (Button)findViewById(R.id.btLogin);
+        bt2 = (Button)findViewById(R.id.btSignin);
+
+
 
        // tb = (Toolbar) findViewById(R.id.toolbar);
 

@@ -15,16 +15,26 @@
         <item name="colorAccent">@color/deepOrangeAccent</item>
     </style>
 
-    <!--    Crear estilos personalizados para cada color de las preferencias    -->
-    <!--
-    <style name="BasicTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary(meter tus colores primero en colors y luego aqui)</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="GrayTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/blueGrayPrimary</item>
+        <item name="colorPrimaryDark">@color/blueGrayPrimaryDark</item>
+        <item name="colorAccent">@color/blueGrayAccent</item>
     </style>
 
-    De esta manera cuando inicies la app lo primero que harás será cargar el tema y en función de esto cambiarán los colores de las cosas
+    <style name="TealTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/tealPrimary</item>
+        <item name="colorPrimaryDark">@color/tealPrimaryDark</item>
+        <item name="colorAccent">@color/tealAccent</item>
+    </style>
 
-    -->
+    <style name="DeepPurpleTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/deepPurplePrimary</item>
+        <item name="colorPrimaryDark">@color/deepPurplePrimaryDark</item>
+        <item name="colorAccent">@color/deepPurpleAccent</item>
+    </style>
+
 
 </resources>

@@ -44,6 +44,7 @@
 
         <Button
             android:id="@+id/btLogin"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -67,11 +68,12 @@
 
         <Button
             android:id="@+id/btSignin"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="signIn"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:onClick="signIn"
             android:text="@string/sign" />
     </RelativeLayout>
 
