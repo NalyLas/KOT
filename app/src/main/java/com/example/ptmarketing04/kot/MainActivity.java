@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
-        theme = pref.getString("theme_pref","orange");
+        theme = pref.getString("theme_pref","OR");
         switch (theme){
             case "OR":
                 setTheme(R.style.OrangeTheme);
@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        setContentView(R.layout.activity_main);
 
+        setContentView(R.layout.activity_main);
         tb = (Toolbar) findViewById(R.id.toolbar);
         llist = (LinearLayout)findViewById(R.id.linerat_list);
 
@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         new ListTask().execute();
+
 
     }
 
@@ -189,6 +190,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
     }
+
 }
