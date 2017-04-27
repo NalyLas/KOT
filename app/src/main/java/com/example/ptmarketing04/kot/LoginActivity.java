@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
     private JSONArray jSONArray;
     private Connection conn;
     private User user;
-    protected Toolbar tb;
     private ArrayList<User> arrayUsers;
     private ArrayList<HashMap<String, String>> userList;
     protected String theme;
@@ -40,8 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
-        theme = pref.getString("theme_pref","orange");
+        theme = pref.getString("theme_pref","OR");
         switch (theme){
             case "OR":
                 setTheme(R.style.OrangeTheme);
@@ -63,16 +62,6 @@ public class LoginActivity extends AppCompatActivity {
         etPass = (EditText)findViewById(R.id.etPass);
         bt1 = (Button)findViewById(R.id.btLogin);
         bt2 = (Button)findViewById(R.id.btSignin);
-
-
-
-       // tb = (Toolbar) findViewById(R.id.toolbar);
-
-      /*  if(tb != null){
-            setSupportActionBar(tb);
-            tb.setTitle("");
-        }*/
-
 
         etMail.setText("nataliaramirezlas@gmail.com");
         etPass.setText("123456");
@@ -96,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         for(int i=0;i<arrayUsers.size();i++){
             if(email.equals(arrayUsers.get(i).getEmail()) && pass.equals(arrayUsers.get(i).getPass())){
                 Intent intent = new Intent(this, MainActivity.class);
-                //i.putExtra("toolbarAzul",true);
+                intent.putExtra("user",arrayUsers.get(i).getId());
                 startActivity(intent);
                 break;
             }else{

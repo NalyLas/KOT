@@ -6,22 +6,22 @@
     <color name="specialWhite">#f6f6f6</color>
 
     <color name="deepOrangePrimary">#ff5722</color>
-    <color name="deepOrangePrimaryDark">#BF360C</color>
+    <color name="deepOrangePrimaryDark">#DD2C00</color>
     <color name="deepOrangeAccent">#3f51b5</color>
     <color name="deepOrangeSemi">#64ff5722</color>
 
     <color name="blueGrayPrimary">#607D8B</color>
-    <color name="blueGrayPrimaryDark">#263238</color>
+    <color name="blueGrayPrimaryDark">#455A64</color>
     <color name="blueGrayAccent">#00bcd4</color>
     <color name="blueGraySemi">#64607d8b</color>
 
     <color name="tealPrimary">#009688</color>
-    <color name="tealPrimaryDark">#004D40</color>
+    <color name="tealPrimaryDark">#00695C</color>
     <color name="tealAccent">#FFC107</color>
     <color name="tealSemi">#64009688</color>
 
     <color name="deepPurplePrimary">#673AB7</color>
-    <color name="deepPurplePrimaryDark">#311B92</color>
+    <color name="deepPurplePrimaryDark">#4527A0</color>
     <color name="deepPurpleAccent">#CDDC39</color>
     <color name="deepPurpleSemi">#64673ab7</color>
 

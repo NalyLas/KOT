@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tema">
+        <item>Orange</item>
+        <item>Gray</item>
+        <item>Teal</item>
+        <item>Purple</item>
+    </string-array>
+
+    <string-array name="codTema">
+        <item>OR</item>
+        <item>GR</item>
+        <item>TL</item>
+        <item>PR</item>
+    </string-array>
+</resources>
