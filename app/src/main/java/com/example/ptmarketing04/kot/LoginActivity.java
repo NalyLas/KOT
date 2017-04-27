@@ -2,6 +2,7 @@ package com.example.ptmarketing04.kot;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -31,12 +32,30 @@ public class LoginActivity extends AppCompatActivity {
     protected Toolbar tb;
     private ArrayList<User> arrayUsers;
     private ArrayList<HashMap<String, String>> userList;
+    protected String theme;
+
+    static public SharedPreferences pref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.OrangeTheme);
+        pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
+        theme = pref.getString("theme_pref","orange");
+        switch (theme){
+            case "OR":
+                setTheme(R.style.OrangeTheme);
+                break;
+            case "GR":
+                setTheme(R.style.GrayTheme);
+                break;
+            case "TL":
+                setTheme(R.style.TealTheme);
+                break;
+            case "PR":
+                setTheme(R.style.DeepPurpleTheme);
+                break;
+        }
         setContentView(R.layout.activity_login);
 
 

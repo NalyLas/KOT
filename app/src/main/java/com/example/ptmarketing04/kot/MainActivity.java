@@ -2,7 +2,10 @@ package com.example.ptmarketing04.kot;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -18,19 +21,39 @@ public class MainActivity extends AppCompatActivity {
     protected LinearLayout llist;
     protected TextView tv;
     protected Toolbar tb;
+    protected String theme;
 
     static public SharedPreferences pref;
+    Color color;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
+        theme = pref.getString("theme_pref","orange");
+        switch (theme){
+            case "OR":
+                setTheme(R.style.OrangeTheme);
+                break;
+            case "GR":
+                setTheme(R.style.GrayTheme);
+                break;
+            case "TL":
+                setTheme(R.style.TealTheme);
+                break;
+            case "PR":
+                setTheme(R.style.DeepPurpleTheme);
+                break;
+        }
         setContentView(R.layout.activity_main);
 
         tb = (Toolbar) findViewById(R.id.toolbar);
         llist = (LinearLayout)findViewById(R.id.linerat_list);
 
-        pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
+
 
 
 

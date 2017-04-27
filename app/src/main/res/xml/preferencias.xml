@@ -10,9 +10,10 @@
         />
 
     <ListPreference
-        android:key="language_preference"
-        android:title="Language"
-        android:entries="@array/Language"
-        android:entryValues="@array/languageAlias"/>
+        android:key="theme_pref"
+        android:title="Tema"
+        android:summary="Elige un tema"
+        android:entries="@array/tema"
+        android:entryValues="@array/codTema" />
 
 </PreferenceScreen>
