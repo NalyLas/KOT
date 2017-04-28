@@ -6,14 +6,15 @@ package com.example.ptmarketing04.kot;
 
 public class GeneralList {
     protected int id,id_user;
-    protected String title;
+    protected String title, date;
 
     public GeneralList(){}
 
-    public GeneralList(int id, int id_user, String title) {
+    public GeneralList(int id, int id_user, String title, String date) {
         this.id = id;
         this.id_user = id_user;
         this.title = title;
+        this.date = date;
     }
 
     public int getId() {
@@ -24,6 +25,14 @@ public class GeneralList {
         this.id = id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public int getId_user() {
         return id_user;
     }
@@ -32,11 +41,11 @@ public class GeneralList {
         this.id_user = id_user;
     }
 
-    public String getTitle() {
-        return title;
+    public String getDate() {
+        return date;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDate(String date) {
+        this.date = date;
     }
 }

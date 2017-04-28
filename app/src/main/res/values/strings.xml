@@ -19,6 +19,7 @@
     <string name="wrongPass">Las contrsaeñas no coinciden.</string>
     <string name="signin">Usuario registrado correctamente. ¡Bienvenido a Keep on Task!</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_add">AddActivity</string>
 
 
 </resources>

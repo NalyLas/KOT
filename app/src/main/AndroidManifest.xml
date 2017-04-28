@@ -20,8 +20,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".SigninActivity" />
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".Preferences"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Preferences" />
+        <activity android:name=".ListActivity"/>
     </application>
 
 </manifest>

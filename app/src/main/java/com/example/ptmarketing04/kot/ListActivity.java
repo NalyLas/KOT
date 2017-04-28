@@ -1,20 +1,17 @@
 package com.example.ptmarketing04.kot;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,12 +22,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+public class ListActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-
-    protected LinearLayout llist;
-    protected TextView tv;
+    protected TextView tv,tv2,tv3;
     protected Toolbar tb;
+    protected LinearLayout llg;
     protected String theme;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
@@ -44,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
     static public SharedPreferences pref;
     Color color;
 
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,66 +61,55 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+        setContentView(R.layout.activity_list);
 
-        setContentView(R.layout.activity_main);
-        tb = (Toolbar) findViewById(R.id.toolbar);
-        llist = (LinearLayout)findViewById(R.id.linerat_list);
+        llg = (LinearLayout) findViewById(R.id.llGeneral);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
-
-        if(tb != null){
-            tb.setTitle("ninini");
-            setSupportActionBar(tb);
-        }
 
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
             cod = extras.getInt("user");
         }
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+
+        startTask();
+    }
+
+
+
+    private void startTask(){
+        llg.removeAllViews();
         new ListTask().execute();
-
-
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent i;
-        switch (item.getItemId()){
-            case R.id.preferencias:
-                i = new Intent(this,Preferences.class);
-                startActivity(i);
-                return true;
-            case R.id.add:
-                i = new Intent(this,ListActivity.class);
-                i.putExtra("user",cod);
-                startActivity(i);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void addChild() {
+    private void addCard() {
         LayoutInflater inflater = LayoutInflater.from(this);
-        int id = R.layout.list_card;
+        int id = R.layout.add_list_card;
 
         CardView cardView = (CardView)inflater.inflate(id,null,false);
-        tv = (TextView)cardView.findViewById(R.id.list_title);
+        tv = (TextView)cardView.findViewById(R.id.tvTitleList);
+        //Añadir campo de fehca de creación para añadirlo a este textview
+        tv2 = (TextView)cardView.findViewById(R.id.tvCreated);
+        tv3 = (TextView)cardView.findViewById(R.id.tvTotalTask);
 
-       // TextView textView = (TextView) relativeLayout.findViewById(R.id.textViewDate);
-       // textView.setText(String.valueOf(System.currentTimeMillis()));
-
-        llist.addView(cardView);
+        llg.addView(cardView);
 
     }
+
 
 
     //     Task para cargar las listas del usuario
@@ -135,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog = new ProgressDialog(ListActivity.this);
             pDialog.setMessage(getResources().getString(R.string.loading));
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -173,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                         list.setId(jsonObject.getInt("ID_lista"));
                         list.setId_user(jsonObject.getInt("user"));
                         list.setTitle(jsonObject.getString("Titulo"));
+                        list.setDate(jsonObject.getString("Fecha"));
                         arrayList.add(list);
 
 
@@ -182,8 +166,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 for(int l=0; l<arrayList.size(); l++){
-                    addChild();
+                    addCard();
                     tv.setText(arrayList.get(l).getTitle());
+                    tv2.setText("Lista creada el "+arrayList.get(l).getDate());
                 }
 
             } else {
