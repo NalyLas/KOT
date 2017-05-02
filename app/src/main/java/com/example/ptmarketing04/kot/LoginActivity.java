@@ -38,32 +38,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
-        theme = pref.getString("theme_pref","OR");
-        switch (theme){
-            case "OR":
-                setTheme(R.style.OrangeTheme);
-                break;
-            case "GR":
-                setTheme(R.style.GrayTheme);
-                break;
-            case "TL":
-                setTheme(R.style.TealTheme);
-                break;
-            case "PR":
-                setTheme(R.style.DeepPurpleTheme);
-                break;
-        }
+        setTheme(R.style.OrangeTheme);
         setContentView(R.layout.activity_login);
-
 
         etMail = (EditText)findViewById(R.id.etMail);
         etPass = (EditText)findViewById(R.id.etPass);
         bt1 = (Button)findViewById(R.id.btLogin);
         bt2 = (Button)findViewById(R.id.btSignin);
 
-        etMail.setText("nataliaramirezlas@gmail.com");
+        etMail.setText("natalia@gmail.com");
         etPass.setText("123456");
 
         url = "http://iesayala.ddns.net/natalia/php.php";
@@ -146,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                         user.setName(jsonObject.getString("Name"));
                         user.setEmail(jsonObject.getString("Email"));
                         user.setPass(jsonObject.getString("Password"));
+                        user.setTheme(jsonObject.getInt("Tema"));
                         arrayUsers.add(user);
 
                     } catch (JSONException e) {

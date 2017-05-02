@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected TextView tv;
     protected Toolbar tb;
     protected String theme;
+    protected ListView lvTask;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private JSONArray jSONArray;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private GeneralList list;
     private ArrayList<GeneralList> arrayList;
     private ArrayList<HashMap<String, String>> allList;
-    private int cod;
+    private int cod,idt;
 
     static public SharedPreferences pref;
     Color color;
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 i = new Intent(this,Preferences.class);
                 startActivity(i);
                 return true;
-            case R.id.add:
+            case R.id.task:
                 i = new Intent(this,ListActivity.class);
                 i.putExtra("user",cod);
                 startActivity(i);
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
         CardView cardView = (CardView)inflater.inflate(id,null,false);
         tv = (TextView)cardView.findViewById(R.id.list_title);
+        lvTask = (ListView)cardView.findViewById(R.id.lvTask);
 
        // TextView textView = (TextView) relativeLayout.findViewById(R.id.textViewDate);
        // textView.setText(String.valueOf(System.currentTimeMillis()));
@@ -184,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
                 for(int l=0; l<arrayList.size(); l++){
                     addChild();
                     tv.setText(arrayList.get(l).getTitle());
+                    idt=arrayList.get(l).getId();
+
                 }
 
             } else {
@@ -193,5 +198,72 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+    /**************** POR AQUIIIII
+    //     Task para cargar las tareas del usuario
+ /*   class UserTask extends AsyncTask<String, String, JSONArray> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog.setMessage(getResources().getString(R.string.loading));
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... args) {
+
+            try {
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "Select * from Tareas where Lista="+idt);
+
+                jSONArray = conn.sendRequest(url, parametrosPost);
+
+                if (jSONArray != null) {
+                    return jSONArray;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(JSONArray json) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (json != null) {
+                arrayList =new ArrayList<GeneralList>();
+                for (int i = 0; i < json.length(); i++) {
+                    try {
+                        JSONObject jsonObject = json.getJSONObject(i);
+                        list = new GeneralList();
+                        list.setId(jsonObject.getInt("ID_lista"));
+                        list.setId_user(jsonObject.getInt("user"));
+                        list.setTitle(jsonObject.getString("Titulo"));
+                        arrayList.add(list);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                for(int l=0; l<arrayList.size(); l++){
+                    addChild();
+                    tv.setText(arrayList.get(l).getTitle());
+                }
+
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+
+    }*/
 
 }

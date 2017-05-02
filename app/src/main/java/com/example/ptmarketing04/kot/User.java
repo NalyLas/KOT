@@ -5,16 +5,17 @@ package com.example.ptmarketing04.kot;
  */
 
 public class User {
-    protected int id;
+    protected int id,theme;
     protected String name,email,pass;
 
     public User(){}
 
-    public User(int id, String name, String email, String pass) {
+    public User(int id, String name, String email, String pass, int theme) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.pass = pass;
+        this.theme = theme;
     }
 
     public int getId() {
@@ -47,5 +48,13 @@ public class User {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public int getTheme() {
+        return theme;
+    }
+
+    public void setTheme(int theme) {
+        this.theme = theme;
     }
 }

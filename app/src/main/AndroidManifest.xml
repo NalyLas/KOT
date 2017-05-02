@@ -22,7 +22,11 @@
         <activity android:name=".SigninActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Preferences" />
-        <activity android:name=".ListActivity"/>
+        <activity android:name=".ListActivity" />
+        <activity
+            android:name=".AddActivity"
+            android:label="@string/title_activity_add"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
