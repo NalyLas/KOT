@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -29,17 +28,19 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected LinearLayout llist;
-    protected TextView tv;
+    protected LinearLayout llist,lvTask;
+    protected TextView tv, tv2, tv3, tv4, tv5;
     protected Toolbar tb;
     protected String theme;
-    protected ListView lvTask;
+   // protected ListView lvTask;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private JSONArray jSONArray;
     private Connection conn;
     private GeneralList list;
+    private GeneralTask task;
     private ArrayList<GeneralList> arrayList;
+    private ArrayList<GeneralTask> arrayTask;
     private ArrayList<HashMap<String, String>> allList;
     private int cod,idt;
 
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
         new ListTask().execute();
 
-
     }
 
     @Override
@@ -122,13 +122,10 @@ public class MainActivity extends AppCompatActivity {
 
         CardView cardView = (CardView)inflater.inflate(id,null,false);
         tv = (TextView)cardView.findViewById(R.id.list_title);
-        lvTask = (ListView)cardView.findViewById(R.id.lvTask);
 
        // TextView textView = (TextView) relativeLayout.findViewById(R.id.textViewDate);
        // textView.setText(String.valueOf(System.currentTimeMillis()));
-
         llist.addView(cardView);
-
     }
 
 
@@ -187,8 +184,8 @@ public class MainActivity extends AppCompatActivity {
                 for(int l=0; l<arrayList.size(); l++){
                     addChild();
                     tv.setText(arrayList.get(l).getTitle());
-                    idt=arrayList.get(l).getId();
-
+                    idt = arrayList.get(l).getId();
+                  //  new UserTask().execute();
                 }
 
             } else {
@@ -200,9 +197,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**************** POR AQUIIIII
     //     Task para cargar las tareas del usuario
- /*   class UserTask extends AsyncTask<String, String, JSONArray> {
+  /*  class UserTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
 
         @Override
@@ -220,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "Select * from Tareas where Lista="+idt);
+                Log.e("idt:--->",idt+"");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -237,26 +234,35 @@ public class MainActivity extends AppCompatActivity {
                 pDialog.dismiss();
             }
             if (json != null) {
-                arrayList =new ArrayList<GeneralList>();
+                arrayTask =new ArrayList<GeneralTask>();
                 for (int i = 0; i < json.length(); i++) {
+                    Log.e("total:--->",json.length()+"");
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
-                        list = new GeneralList();
-                        list.setId(jsonObject.getInt("ID_lista"));
-                        list.setId_user(jsonObject.getInt("user"));
-                        list.setTitle(jsonObject.getString("Titulo"));
-                        arrayList.add(list);
-
+                        task = new GeneralTask();
+                        task.setId_task(jsonObject.getInt("ID_tarea"));
+                        task.setTitle(jsonObject.getString("Titulo"));
+                        task.setTipe(jsonObject.getInt("Tipo"));
+                        task.setStart_date(jsonObject.getString("Fech_inicio"));
+                        task.setEnd_date(jsonObject.getString("Fech_fin"));
+                        task.setFinished(jsonObject.getInt("Finalizada"));
+                        task.setUrgent(jsonObject.getInt("Urgente"));
+                        task.setId_list(jsonObject.getInt("Lista"));
+                        arrayTask.add(task);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
                 }
 
-                for(int l=0; l<arrayList.size(); l++){
-                    addChild();
-                    tv.setText(arrayList.get(l).getTitle());
+                for(int l=0; l<arrayTask.size(); l++){
+                    addTasks();
+                    tv2.setText(arrayTask.get(l).getTitle());
+                  //  idt = arrayList.get(l).getId();
+                  //  new UserTask().execute();
                 }
+
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
