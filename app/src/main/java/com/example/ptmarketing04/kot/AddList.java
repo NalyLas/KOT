@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 /**
@@ -15,11 +16,9 @@ import android.widget.EditText;
 public class AddList extends Fragment {
 
     protected EditText etName;
-  //  protected LinearLayout send_mail;
+    protected Button addlist;
 
-    public AddList() {
-        // Required empty public constructor
-    }
+    public AddList() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,8 +31,14 @@ public class AddList extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         etName = (EditText) view.findViewById(R.id.etListName);
+        addlist = (Button) view.findViewById(R.id.btAddList);
 
-      //  send_mail = (LinearLayout)view.findViewById(R.id.btn_send_mail);
+        addlist.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
 

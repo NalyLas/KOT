@@ -1,65 +1,118 @@
 package com.example.ptmarketing04.kot;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AddActivity extends AppCompatActivity {
 
     protected Toolbar tb;
     protected ViewPager vp;
     protected TabLayout tabs;
-    protected int tab_activa;
+    protected int tab_activa,cod;
     Bundle extras,bundle;
+
+    private String url = "http://iesayala.ddns.net/natalia/php.php";
+    private JSONArray jSONArray;
+    private Connection conn;
+    private GeneralList list;
+    private GeneralTask task;
+    private ArrayList<GeneralList> arrayList;
+    private ArrayList<GeneralTask> arrayTask;
+    private ArrayList<HashMap<String, String>> allList;
+    protected String theme;
+
+    static public SharedPreferences pref;
+    Color color;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
+        theme = pref.getString("theme_pref","OR");
+        switch (theme){
+            case "OR":
+                setTheme(R.style.OrangeTheme);
+                break;
+            case "GR":
+                setTheme(R.style.GrayTheme);
+                break;
+            case "TL":
+                setTheme(R.style.TealTheme);
+                break;
+            case "PR":
+                setTheme(R.style.DeepPurpleTheme);
+                break;
+        }
+
         setContentView(R.layout.activity_add);
         //añadimos toolbar
-     /*   tbt = (Toolbar) findViewById(R.id.toolbartabs);
+        tb = (Toolbar) findViewById(R.id.toolbar);
 
-        if(tbt != null){
-            tbt.setTitle(getResources().getString(R.string.account_title));
-            tbt.setSubtitle(getResources().getString(R.string.account_subtitle));
-            tbt.setSubtitleTextColor(getResources().getColor(R.color.Gainsboro));
+        if(tb != null){
+            tb.setTitle("ninini");
+            setSupportActionBar(tb);
         }
 
-        if(sp.getBoolean("isPrefMargin",false)){
-            tbt.setBackgroundColor(getResources().getColor(R.color.main_orange));
-        }else{
-            tbt.setBackgroundColor(getResources().getColor(R.color.DeepSkyBlue));
-
-        }
-
-        setSupportActionBar(tbt);
-        //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
-
-        extras = getIntent().getExtras();
+        Bundle extras = getIntent().getExtras();
         if(extras!=null){
-            tab_activa = extras.getInt("tab_activa");
+            cod = extras.getInt("user");
         }
-
-
-      /*  url_codificada= GetUris.getFinancial(GlobalParams.COD_USER,GlobalParams.TOKEN_USER);
-        url_consulta = ServiceParams.CUSTOMER_FINANCIAL_CREDIT + url_codificada;
-        devuelveJSON = new ClaseConexion();
-        new Conectar().execute();*/
-
         vp = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(vp);
 
         //añadimos tabs
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(vp);
-        tabs.setBackgroundColor(getResources().getColor(R.color.blueGrayAccent));
-        tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.blueGrayPrimary));
+        tabs.setBackgroundColor(getResources().getColor(R.color.deepPurplePrimaryDark));
+        tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.deepPurplePrimary));
         tabs.setSelectedTabIndicatorHeight(15);
 
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent i;
+        switch (item.getItemId()){
+            case R.id.preferencias:
+                i = new Intent(this,Preferences.class);
+                startActivity(i);
+                return true;
+            case R.id.task:
+                i = new Intent(this,ListActivity.class);
+                i.putExtra("user",cod);
+                startActivity(i);
+                return true;
+            case R.id.add:
+                i = new Intent(this,AddActivity.class);
+                i.putExtra("user",cod);
+                i.putExtra("tab_activa",0);
+                startActivity(i);
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupViewPager(ViewPager viewPager) {
