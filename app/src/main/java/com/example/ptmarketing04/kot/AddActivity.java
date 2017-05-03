@@ -78,7 +78,7 @@ public class AddActivity extends AppCompatActivity {
         //añadimos tabs
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(vp);
-        tabs.setBackgroundColor(getResources().getColor(R.color.deepPurplePrimaryDark));
+        tabs.setBackgroundColor(getResources().getColor(R.color.greyGeneral));
         tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.deepPurplePrimary));
         tabs.setSelectedTabIndicatorHeight(15);
 
