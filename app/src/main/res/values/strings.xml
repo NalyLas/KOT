@@ -20,6 +20,10 @@
     <string name="signin">Usuario registrado correctamente. ¡Bienvenido a Keep on Task!</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_add">AddActivity</string>
+    <string name="add_list_text">Crea todas las listas que quieras, después podrás agregar las tareas que necesites a cada lista.</string>
+    <string name="add_list_title">Crea tu nueva lista</string>
+    <string name="add_list">Crear listas</string>
+    <string name="add_task">Crear tareas</string>
 
 
 </resources>

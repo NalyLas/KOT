@@ -111,6 +111,13 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("user",cod);
                 startActivity(i);
                 return true;
+            case R.id.add:
+                i = new Intent(this,AddActivity.class);
+                i.putExtra("user",cod);
+                i.putExtra("tab_activa",0);
+                startActivity(i);
+                return true;
+
         }
 
         return super.onOptionsItemSelected(item);
