@@ -13,13 +13,7 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbartabs"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        <include layout="@layout/toolbar"></include>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
