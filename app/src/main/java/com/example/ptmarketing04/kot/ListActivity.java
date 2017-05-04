@@ -123,6 +123,11 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //Como hacer que esto funcione ????
 
+
+        //
+       //igual tienes que cambiar esto y en lugar de hacer carviews tienes que hacer un recycler y items normales con su adaptador
+        //
+
         btDelList.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
