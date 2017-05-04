@@ -21,7 +21,7 @@ public class AddActivity extends AppCompatActivity {
     protected Toolbar tb;
     protected ViewPager vp;
     protected TabLayout tabs;
-    protected int tab_activa,cod,listas;
+    protected int tab_activa,cod,id,listas;
     Bundle extras,bundle;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
@@ -72,6 +72,12 @@ public class AddActivity extends AppCompatActivity {
         if(extras!=null){
             cod = extras.getInt("user");
         }
+
+     //   url = "http://iesayala.ddns.net/natalia/php.php";
+    //    conn = new Connection();
+
+    //    new ListTask().execute();
+
         vp = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(vp);
 
@@ -83,6 +89,7 @@ public class AddActivity extends AppCompatActivity {
         tabs.setSelectedTabIndicatorHeight(15);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,8 +129,8 @@ public class AddActivity extends AppCompatActivity {
         //Enviamos datos
         bundle=new Bundle();
         bundle.putInt("user",cod);
-     //   bundle.putInt("credito_limite",credito_limite);
-     //   bundle.putInt("impago",impago);
+     //   bundle.putInt("id",id);
+    //    bundle.putInt("listas",listas);
 
 
         //Creamos los fragment
@@ -140,4 +147,7 @@ public class AddActivity extends AppCompatActivity {
 
         viewPager.setCurrentItem(tab_activa);
     }
+
+
+
 }

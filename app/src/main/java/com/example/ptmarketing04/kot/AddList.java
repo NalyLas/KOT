@@ -50,12 +50,11 @@ public class AddList extends Fragment {
         url = "http://iesayala.ddns.net/natalia/php.php";
         url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
         conn = new Connection();
-        new ListTask().execute();
+
     }
 
 
     public void getParams(){
-        findId();
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         date = df.format(c.getTime());
@@ -66,15 +65,8 @@ public class AddList extends Fragment {
         }
     }
 
-    public void findId(){
-        int aux;
-        aux = arrayList.size()-1;
-        id = arrayList.get(aux).getId();
-        id = id+1;
-    }
-
     public boolean isExist(){
-        for(int i=0;i<arrayList.size();i++){
+        for(int i=0;i<listas;i++){
             if(arrayList.get(i).getTitle().equals(title)){
                 return true;
             }
@@ -92,6 +84,7 @@ public class AddList extends Fragment {
         addlist.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
                 getParams();
                 if(isExist()){
                     Snackbar.make(getView(), "ya tiene una trea con ese nombre", Snackbar.LENGTH_LONG).show();
@@ -107,11 +100,11 @@ public class AddList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         cod = getArguments().getInt("user");
-        listas = getArguments().getInt("listas");
+        id = getArguments().getInt("id");
+        new ListTask().execute();
+
         return inflater.inflate(R.layout.layout_add_list, container, false);
     }
-
-
 
 
     //     Task para cargar las listas del usuario
@@ -136,6 +129,7 @@ public class AddList extends Fragment {
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
+
                 if (jSONArray != null) {
                     return jSONArray;
                 }
@@ -150,6 +144,7 @@ public class AddList extends Fragment {
                 pDialog.dismiss();
             }
             if (json != null) {
+
                 arrayList =new ArrayList<GeneralList>();
                 for (int i = 0; i < json.length(); i++) {
                     try {
@@ -162,10 +157,18 @@ public class AddList extends Fragment {
 
 
                     } catch (JSONException e) {
+
                         e.printStackTrace();
                     }
                 }
+
+            /*    int aux;
+                aux = arrayList.size()-1;
+                id = arrayList.get(aux).getId();
+                id = id+1;*/
+                listas = arrayList.size();
             } else {
+
                 Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
             }
 
@@ -174,33 +177,32 @@ public class AddList extends Fragment {
     }
 
 
-    //     Task para agregar una lista al usuario
-    class AddListTask extends AsyncTask<String, String, JSONArray> {
+
+    //task para agregar listas
+
+    class AddListTask extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         int add;
-
 
         @Override
         protected void onPreExecute() {
             pDialog = new ProgressDialog(getContext());
-            pDialog.setMessage(getResources().getString(R.string.loading));
+            pDialog.setMessage("Cargando...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
         }
 
         @Override
-        protected JSONArray doInBackground(String... args) {
-
+        protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "Insert into Listas (`ID_lista`, `Titulo`, `user`, `Fecha`) VALUES ("+id+",'"+title+"',"+ cod +",'"+date+"')");
-                //Insert into Listas (`ID_lista`, `Titulo`, `user`, `Fecha`) VALUES (15,'title',1,'15/04/2017');
 
-                jSONArray = conn.sendRequest(url_dml, parametrosPost);
+                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 
-                if (jSONArray != null) {
-                    return jSONArray;
+                if (jsonObject != null) {
+                    return jsonObject;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -208,20 +210,20 @@ public class AddList extends Fragment {
             return null;
         }
 
-        protected void onPostExecute(JSONArray json) {
+        protected void onPostExecute(JSONObject json) {
             if (pDialog != null && pDialog.isShowing()) {
                 pDialog.dismiss();
             }
             if (json != null) {
                 try {
-                    add = json.getInt(Integer.parseInt("added"));
+                    add = json.getInt("added");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 if(add!=0){
-                    Snackbar.make(getView(), "añadido", Snackbar.LENGTH_LONG).show();
 
+                    Snackbar.make(getView(), "añadido", Snackbar.LENGTH_LONG).show();
 
                 }else{
                     Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -230,10 +232,10 @@ public class AddList extends Fragment {
             } else {
                 Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
             }
+
         }
 
     }
-
 
 
 }
