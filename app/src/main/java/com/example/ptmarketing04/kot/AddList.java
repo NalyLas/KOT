@@ -168,12 +168,9 @@ public class AddList extends Fragment {
                 id = id+1;
                 listas = arrayList.size();
             } else {
-
                 Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
             }
-
         }
-
     }
 
 
@@ -197,7 +194,7 @@ public class AddList extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into Listas (`ID_lista`, `Titulo`, `user`, `Fecha`) VALUES ("+id+",'"+title+"',"+ cod +",'"+date+"')");
+                parametrosPost.put("ins_sql", "Insert into Listas (`ID_lista`, `Titulo`, `user`, `Fecha`) VALUES ("+ id +",'"+ title +"',"+ cod +",'"+ date +"')");
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 

@@ -14,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,20 +26,23 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     protected TextView tv,tv2,tv3;
     protected Toolbar tb;
     protected LinearLayout llg;
     protected String theme;
+    protected ImageButton btDelList;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
+    private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
+    protected JSONObject jsonObject;
     private Connection conn;
     private GeneralList list;
     private ArrayList<GeneralList> arrayList;
     private ArrayList<HashMap<String, String>> allList;
-    private int cod;
+    private int cod,id;
 
     static public SharedPreferences pref;
     Color color;
@@ -67,6 +72,7 @@ public class ListActivity extends AppCompatActivity {
 
         llg = (LinearLayout) findViewById(R.id.llGeneral);
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -76,7 +82,6 @@ public class ListActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
             cod = extras.getInt("user");
-            Log.e("codigo",cod+"");
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -91,6 +96,8 @@ public class ListActivity extends AppCompatActivity {
 
 
         startTask();
+
+
     }
 
 
@@ -109,8 +116,34 @@ public class ListActivity extends AppCompatActivity {
         //Añadir campo de fehca de creación para añadirlo a este textview
         tv2 = (TextView)cardView.findViewById(R.id.tvCreated);
         tv3 = (TextView)cardView.findViewById(R.id.tvTotalTask);
+        btDelList = (ImageButton)cardView.findViewById(R.id.btDelList);
+
 
         llg.addView(cardView);
+
+        //Como hacer que esto funcione ????
+
+        btDelList.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(findViewById(android.R.id.content), "ya tiene una trea con ese nombre", Snackbar.LENGTH_LONG).show();
+               // new DelListTask().execute();
+            }
+        });
+
+    }
+
+    //Como hacer que esto funcione ????
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch(parent.getId()) {
+            //
+            case R.id.btDelList:
+                Log.e("asddfsfd",arrayList.get(position).getId()+"");
+                Snackbar.make(findViewById(android.R.id.content),arrayList.get(position).getTitle(), Snackbar.LENGTH_LONG).show();
+
+                break;
+        }
 
     }
 
@@ -173,6 +206,65 @@ public class ListActivity extends AppCompatActivity {
                     addCard();
                     tv.setText(arrayList.get(l).getTitle());
                     tv2.setText("Lista creada el "+arrayList.get(l).getDate());
+                }
+
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
+    //task para eliminar listas
+    class DelListTask extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+        int add;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(ListActivity.this);
+            pDialog.setMessage("Cargando...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            try {
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "Delete from Listas where ID_lista="+ id +")");
+
+                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
+
+                if (jsonObject != null) {
+                    return jsonObject;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(JSONObject json) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (json != null) {
+                try {
+                    add = json.getInt("added");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if(add!=0){
+
+                    Snackbar.make(findViewById(android.R.id.content), "eliminado", Snackbar.LENGTH_LONG).show();
+                    startTask();
+
+                }else{
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
                 }
 
             } else {
