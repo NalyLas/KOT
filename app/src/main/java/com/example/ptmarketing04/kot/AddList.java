@@ -162,10 +162,10 @@ public class AddList extends Fragment {
                     }
                 }
 
-            /*    int aux;
+                int aux;
                 aux = arrayList.size()-1;
                 id = arrayList.get(aux).getId();
-                id = id+1;*/
+                id = id+1;
                 listas = arrayList.size();
             } else {
 
