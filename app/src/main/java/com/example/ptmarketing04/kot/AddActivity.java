@@ -21,7 +21,7 @@ public class AddActivity extends AppCompatActivity {
     protected Toolbar tb;
     protected ViewPager vp;
     protected TabLayout tabs;
-    protected int tab_activa,cod;
+    protected int tab_activa,cod,listas;
     Bundle extras,bundle;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
@@ -120,17 +120,17 @@ public class AddActivity extends AppCompatActivity {
 
 
         //Enviamos datos
-      /*  bundle=new Bundle();
-        bundle.putInt("credito_actual",credito_actual);
-        bundle.putInt("credito_limite",credito_limite);
-        bundle.putInt("impago",impago);*/
+        bundle=new Bundle();
+        bundle.putInt("user",cod);
+     //   bundle.putInt("credito_limite",credito_limite);
+     //   bundle.putInt("impago",impago);
 
 
         //Creamos los fragment
         AddList al = new AddList();
-      //  al.setArguments(bundle);
+        al.setArguments(bundle);
         AddTask at = new AddTask();
-     //   pt2.setArguments(bundle);
+     //   at.setArguments(bundle);
 
 
         //Cargamos los fragment
