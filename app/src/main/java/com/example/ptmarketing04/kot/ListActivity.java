@@ -100,8 +100,6 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-
-
     private void startTask(){
         llg.removeAllViews();
         new ListTask().execute();
