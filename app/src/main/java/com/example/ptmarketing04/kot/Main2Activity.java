@@ -36,6 +36,10 @@ public class Main2Activity extends AppCompatActivity {
         adaptador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Si no consigues capturar el botón prueba al pulser el item abrir una nueva venta
+                //que contenga lo datos de la lista y ahi le metes un flotente de editar y un boton
+                // para eliminar la llita con todas sus tareas
                 Intent i = new Intent(Main2Activity.this, MainActivity.class);
                 startActivity(i);
                 Log.i("DemoRecView", "Pulsado el elemento " + recView.getChildPosition(v));

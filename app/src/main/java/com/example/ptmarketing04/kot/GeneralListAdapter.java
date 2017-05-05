@@ -39,6 +39,8 @@ public class GeneralListAdapter extends RecyclerView.Adapter<GeneralListAdapter.
             btDelList.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    //Asi lo capta pero no puedes hacer mucho mas que esto
                     Log.i("datos bton:--->","boton pulsado en "+ getPosition());
                 }
             });
