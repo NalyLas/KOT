@@ -11,10 +11,14 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,10 +32,11 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected LinearLayout llist,lvTask;
-    protected TextView tv, tv2, tv3, tv4, tv5;
+    protected LinearLayout llist;
+    protected TextView tv;
     protected Toolbar tb;
     protected String theme;
+    protected RecyclerView rvTask;
    // protected ListView lvTask;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
@@ -40,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
     private GeneralList list;
     private GeneralTask task;
     private ArrayList<GeneralList> arrayList;
-    private ArrayList<GeneralTask> arrayTask;
+    private ArrayList<GeneralTask> datos,arrayTask;
     private ArrayList<HashMap<String, String>> allList;
-    private int cod,idt;
+    private int cod,idt,aux;
 
     static public SharedPreferences pref;
     Color color;
@@ -88,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
             cod = extras.getInt("user");
         }
 
+        aux = 0;
+
+        llist.removeAllViews();
+        new GetTotalTask().execute();
         new ListTask().execute();
 
     }
@@ -136,9 +145,12 @@ public class MainActivity extends AppCompatActivity {
 
         CardView cardView = (CardView)inflater.inflate(id,null,false);
         tv = (TextView)cardView.findViewById(R.id.list_title);
+        rvTask = (RecyclerView) cardView.findViewById(R.id.rvTask);
+
 
        // TextView textView = (TextView) relativeLayout.findViewById(R.id.textViewDate);
        // textView.setText(String.valueOf(System.currentTimeMillis()));
+
         llist.addView(cardView);
     }
 
@@ -196,11 +208,31 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 for(int l=0; l<arrayList.size(); l++){
+                    arrayTask.clear();
+
                     addChild();
                     tv.setText(arrayList.get(l).getTitle());
                     idt = arrayList.get(l).getId();
-                  //  new UserTask().execute();
+
+                    for(int k=0; k<datos.size();k++){
+                        if(idt == datos.get(k).getId_list()){
+                            arrayTask.add(datos.get(k));
+                        }
+                    }
+
+                    //   emptyList.setVisibility(View.GONE);
+                    rvTask.setVisibility(View.VISIBLE);
+                    final GeneralTaskAdapter adaptador = new GeneralTaskAdapter(arrayTask);
+                    rvTask.setAdapter(adaptador);
+
+
+                    rvTask.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
+                    rvTask.addItemDecoration(
+                            new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL_LIST));
+                    rvTask.setItemAnimator(new DefaultItemAnimator());
+
                 }
+
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -210,9 +242,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    //     Task para cargar las tareas del usuario
-  /*  class UserTask extends AsyncTask<String, String, JSONArray> {
+    //     Task para cargar las tareas de la lista actual
+    class GetTotalTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
 
         @Override
@@ -229,10 +260,11 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Tareas where Lista="+idt);
-                Log.e("idt:--->",idt+"");
+                parametrosPost.put("ins_sql", "Select * from Tareas");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
+
+
 
                 if (jSONArray != null) {
                     return jSONArray;
@@ -248,33 +280,27 @@ public class MainActivity extends AppCompatActivity {
                 pDialog.dismiss();
             }
             if (json != null) {
-                arrayTask =new ArrayList<GeneralTask>();
+
+                datos = new ArrayList<GeneralTask>();
+                arrayTask = new ArrayList<GeneralTask>();
+
                 for (int i = 0; i < json.length(); i++) {
-                    Log.e("total:--->",json.length()+"");
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
                         task = new GeneralTask();
                         task.setId_task(jsonObject.getInt("ID_tarea"));
                         task.setTitle(jsonObject.getString("Titulo"));
-                        task.setTipe(jsonObject.getInt("Tipo"));
                         task.setStart_date(jsonObject.getString("Fech_inicio"));
-                        task.setEnd_date(jsonObject.getString("Fech_fin"));
+                        task.setEnd_date(jsonObject.getString("Fecha_fin"));
                         task.setFinished(jsonObject.getInt("Finalizada"));
                         task.setUrgent(jsonObject.getInt("Urgente"));
                         task.setId_list(jsonObject.getInt("Lista"));
-                        arrayTask.add(task);
+
+                        datos.add(task);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-                }
-
-                for(int l=0; l<arrayTask.size(); l++){
-                    addTasks();
-                    tv2.setText(arrayTask.get(l).getTitle());
-                  //  idt = arrayList.get(l).getId();
-                  //  new UserTask().execute();
                 }
 
 
@@ -284,12 +310,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    }*/
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        llist.removeAllViews();
-        new ListTask().execute();
     }
 }
