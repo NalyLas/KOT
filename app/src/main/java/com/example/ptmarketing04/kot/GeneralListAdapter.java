@@ -48,7 +48,7 @@ public class GeneralListAdapter extends RecyclerView.Adapter<GeneralListAdapter.
 
         public void bindList(GeneralList l) {
             tvTitleList.setText(l.getTitle());
-            tvCreated.setText("Lista creada el "+l.getDate());
+            tvCreated.setText(l.getDate());
         }
     }
 

@@ -21,6 +21,7 @@ public class GeneralTaskAdapter extends RecyclerView.Adapter<GeneralTaskAdapter.
 
     public class ListViewHolder
             extends RecyclerView.ViewHolder {
+
         private TextView tvTitleTask, tvStartTask, tvEndTask, tvFinished;
         private ImageView ivUrgent;
 
@@ -37,18 +38,19 @@ public class GeneralTaskAdapter extends RecyclerView.Adapter<GeneralTaskAdapter.
 
         public void bindList(GeneralTask l) {
             tvTitleTask.setText(l.getTitle());
-            tvStartTask.setText("Fecha de inicio: "+l.getStart_date());
-            tvEndTask.setText("Fecha limite: "+l.getEnd_date());
+            tvStartTask.setText(R.string.task_start+" "+l.getStart_date());
+            tvEndTask.setText(R.string.task_end+" "+l.getEnd_date());
             if(l.getFinished()==0){
-                tvFinished.setText("Tarea sin finalizar.");
+                tvFinished.setText(R.string.no_finish);
             }else{
-                tvFinished.setText("Tarea finalizada.");
+                tvFinished.setText(R.string.finish);
             }
 
-            if(l.getFinished()==0){
+            if(l.getUrgent()==0){
                 ivUrgent.setImageResource(R.mipmap.ic_launcher);
             }else{
-                ivUrgent.setImageResource(R.mipmap.ic_launcher_round);            }
+                ivUrgent.setImageResource(R.mipmap.ic_launcher_round);
+            }
 
         }
     }
@@ -60,7 +62,7 @@ public class GeneralTaskAdapter extends RecyclerView.Adapter<GeneralTaskAdapter.
     @Override
     public GeneralTaskAdapter.ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_list, parent, false);
+                .inflate(R.layout.item_task, parent, false);
 
         itemView.setOnClickListener(this);
         // android:background="?android:attr/selectableItemBackground"

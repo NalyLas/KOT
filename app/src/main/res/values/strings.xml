@@ -25,7 +25,10 @@
     <string name="add_list">Crear listas</string>
     <string name="add_task">Crear tareas</string>
     <string name="list_date">Lista creada el</string>
-    <string name="title_activity_basic_list">BasicListActivity</string>
+    <string name="task_start_adapter">Fecha de inicio:</string>
+    <string name="task_end_adapter">Fecha limite:</string>
+    <string name="finish">Tarea sin finalizar.</string>
+    <string name="no_finish">Tarea finalizada.</string>
 
 
 </resources>

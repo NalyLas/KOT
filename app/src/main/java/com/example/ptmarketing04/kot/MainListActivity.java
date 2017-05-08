@@ -173,7 +173,7 @@ public class MainListActivity extends AppCompatActivity {
                     }
                 }
 
-                GeneralTaskAdapter adaptador = new GeneralTaskAdapter(datos);
+                final GeneralTaskAdapter adaptador = new GeneralTaskAdapter(datos);
                 recView.setAdapter(adaptador);
 
                 recView.setLayoutManager(new LinearLayoutManager(MainListActivity.this, LinearLayoutManager.VERTICAL, false));
