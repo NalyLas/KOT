@@ -208,6 +208,11 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 for(int l=0; l<arrayList.size(); l++){
+
+                    //Esto no funciona bien!!!!!!
+                    //Prueba  hacerte un recyclerview horizontal con su adaptador
+                    //que contenga las cardviews y pasarle todos los datos que necesitas
+                    //de la form que esta hecho se repiten las tareas
                     arrayTask.clear();
 
                     addChild();
