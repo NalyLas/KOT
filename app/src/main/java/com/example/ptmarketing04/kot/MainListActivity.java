@@ -1,6 +1,10 @@
 package com.example.ptmarketing04.kot;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,8 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,8 +27,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainListActivity extends AppCompatActivity {
+
     private RecyclerView recView;
     private CollapsingToolbarLayout ctlLayout;
+    protected Dialog dialog;
+    protected EditText etNewTitle;
+    protected RelativeLayout emptyList;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
@@ -32,10 +41,11 @@ public class MainListActivity extends AppCompatActivity {
     private Connection conn;
     private GeneralList list;
     private GeneralTask task;
-    private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> datos;
     private ArrayList<HashMap<String, String>> allList;
-    private int id;
+    private int id,cod;
+    private String title,new_title;
+
 
     static public SharedPreferences pref;
     protected String theme;
@@ -63,9 +73,43 @@ public class MainListActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main_list);
+        new_title = null;
 
         //RecyclerView
         recView = (RecyclerView)findViewById(R.id.recView);
+        emptyList = (RelativeLayout) findViewById(R.id.emptyList);
+        //Dialog
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.layout_dialog);
+        dialog.setTitle(getResources().getString(R.string.update_title));
+
+        etNewTitle = (EditText)dialog.findViewById(R.id.etNewTitle);
+
+
+        //Accion de boton guardar filtrado
+        dialog.findViewById(R.id.btAcept).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                new_title = etNewTitle.getText().toString();
+                if(new_title != null && !new_title.equals(" ") && !new_title.equals("")){
+                    new UpdateListTask().execute();
+                }else{
+                    Snackbar.make(view, getResources().getString(R.string.empty_text), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+
+            }
+        });
+
+        //Accion de boton cancelar
+        dialog.findViewById(R.id.btCancel).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
 
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
@@ -74,6 +118,8 @@ public class MainListActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
             id = extras.getInt("lista");
+            title = extras.getString("title");
+            cod = extras.getInt("user");
         }
 
         startTask();
@@ -82,8 +128,27 @@ public class MainListActivity extends AppCompatActivity {
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //alert
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainListActivity.this);
+                builder.setTitle(getResources().getString(R.string.del_list));
+                builder.setMessage(getResources().getString(R.string.del_list_text));
+                builder.setPositiveButton(getResources().getString(R.string.acept),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Comprobamos si la lista tiene tareas asociadas
+                              if(datos.size()>0){
+                                  new DeleteTotalListTask().execute();
+                              }else{
+                                  new DelListTask().execute();
+                              }
+                            }
+                        });
+
+                builder.setNegativeButton(getResources().getString(R.string.cancel),null);
+                builder.create();
+                builder.show();
+
+
             }
         });
 
@@ -91,13 +156,13 @@ public class MainListActivity extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "fsdgtshdjny", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                dialog.show();
+
             }
         });
 
         ctlLayout = (CollapsingToolbarLayout)findViewById(R.id.ctlLayout);
-        ctlLayout.setTitle("Mi Aplicación");
+        ctlLayout.setTitle(title);
     }
 
     private void startTask(){
@@ -145,11 +210,10 @@ public class MainListActivity extends AppCompatActivity {
                 pDialog.dismiss();
             }
             if (json != null) {
-                Log.e("tareas",json.toString());
+
 
                 datos = new ArrayList<GeneralTask>();
 
-                Log.e("tamaño_----",json.length()+"");
                 for (int i = 0; i < json.length(); i++) {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
@@ -162,24 +226,151 @@ public class MainListActivity extends AppCompatActivity {
                         task.setUrgent(jsonObject.getInt("Urgente"));
                         task.setId_list(jsonObject.getInt("Lista"));
 
-                        Log.e("objeto:",json.getJSONObject(i).getString("Titulo"));
-
                         datos.add(task);
 
-                        Log.e("tamaño tras:",datos.size()+"");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-                final GeneralTaskAdapter adaptador = new GeneralTaskAdapter(datos);
-                recView.setAdapter(adaptador);
+                if(datos.size()>0){
+                    emptyList.setVisibility(View.GONE);
+                    recView.setVisibility(View.VISIBLE);
+                    final GeneralTaskAdapter adaptador = new GeneralTaskAdapter(datos);
+                    recView.setAdapter(adaptador);
 
-                recView.setLayoutManager(new LinearLayoutManager(MainListActivity.this, LinearLayoutManager.VERTICAL, false));
-                recView.addItemDecoration(
-                        new DividerItemDecoration(MainListActivity.this, DividerItemDecoration.VERTICAL_LIST));
-                recView.setItemAnimator(new DefaultItemAnimator());
+
+                    recView.setLayoutManager(new LinearLayoutManager(MainListActivity.this, LinearLayoutManager.VERTICAL, false));
+                    recView.addItemDecoration(
+                            new DividerItemDecoration(MainListActivity.this, DividerItemDecoration.VERTICAL_LIST));
+                    recView.setItemAnimator(new DefaultItemAnimator());
+
+                }else{
+                    emptyList.setVisibility(View.VISIBLE);
+                    recView.setVisibility(View.GONE);
+                }
+
+
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
+
+    //     Task para modificar el titulo de la lista
+    class UpdateListTask extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+        int add;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(MainListActivity.this);
+            pDialog.setMessage("Cargando...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            try {
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "Update Listas SET `Titulo` = '"+ new_title +"' where `ID_lista`="+ id);
+
+                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
+
+                if (jsonObject != null) {
+                    return jsonObject;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(JSONObject json) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (json != null) {
+                try {
+                    add = json.getInt("added");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if(add!=0){
+
+                    Snackbar.make(findViewById(android.R.id.content), "modificado", Snackbar.LENGTH_LONG).show();
+                    dialog.dismiss();
+                    ctlLayout.setTitle(new_title);
+
+                }else{
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+                }
+
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
+    //task para eliminar las tareas asociadas a la lista
+    class DeleteTotalListTask extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+        int add;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(MainListActivity.this);
+            pDialog.setMessage("Cargando...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            try {
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "Delete from Tareas where Lista="+ id);
+
+                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
+
+                if (jsonObject != null) {
+                    return jsonObject;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(JSONObject json) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (json != null) {
+                try {
+                    add = json.getInt("added");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if(add!=0){
+
+                    Snackbar.make(findViewById(android.R.id.content), "eliminadas", Snackbar.LENGTH_LONG).show();
+                    new DelListTask().execute();
+
+                }else{
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+                }
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -191,15 +382,14 @@ public class MainListActivity extends AppCompatActivity {
 
 
 
-    /*
-    *    //task para eliminar listas
+    //task para eliminar listas
     class DelListTask extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         int add;
 
         @Override
         protected void onPreExecute() {
-            pDialog = new ProgressDialog(ListActivity.this);
+            pDialog = new ProgressDialog(MainListActivity.this);
             pDialog.setMessage("Cargando...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -210,7 +400,7 @@ public class MainListActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Delete from Listas where ID_lista="+ id +")");
+                parametrosPost.put("ins_sql", "Delete from Listas where ID_lista="+ id);
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 
@@ -237,7 +427,9 @@ public class MainListActivity extends AppCompatActivity {
                 if(add!=0){
 
                     Snackbar.make(findViewById(android.R.id.content), "eliminado", Snackbar.LENGTH_LONG).show();
-                    startTask();
+                    Intent i = new Intent(MainListActivity.this, ListActivity.class);
+                    i.putExtra("user",cod);
+                    startActivity(i);
 
                 }else{
                     Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -251,6 +443,6 @@ public class MainListActivity extends AppCompatActivity {
 
     }
 
-    * */
+
 
 }

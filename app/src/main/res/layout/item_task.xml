@@ -8,7 +8,9 @@
     <TextView
         android:id="@+id/tvTitleTask"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,26 +21,40 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="tas" />
+            android:layout_margin="6dp"
+            android:text="@string/task_start_adapter" />
 
         <TextView
             android:id="@+id/tvStartTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
             android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:text="@string/task_end_adapter" />
 
         <TextView
             android:id="@+id/tvEndTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
             android:layout_weight="1" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tvFinished"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:textColor="?attr/colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -38,8 +38,8 @@ public class GeneralTaskAdapter extends RecyclerView.Adapter<GeneralTaskAdapter.
 
         public void bindList(GeneralTask l) {
             tvTitleTask.setText(l.getTitle());
-            tvStartTask.setText(R.string.task_start+" "+l.getStart_date());
-            tvEndTask.setText(R.string.task_end+" "+l.getEnd_date());
+            tvStartTask.setText(l.getStart_date());
+            tvEndTask.setText(l.getEnd_date());
             if(l.getFinished()==0){
                 tvFinished.setText(R.string.no_finish);
             }else{

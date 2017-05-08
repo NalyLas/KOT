@@ -170,6 +170,8 @@ public class ListActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent i = new Intent(ListActivity.this, MainListActivity.class);
                         i.putExtra("lista",arrayList.get(recView.getChildPosition(v)).getId());
+                        i.putExtra("title",arrayList.get(recView.getChildPosition(v)).getTitle());
+                        i.putExtra("user",cod);
                         startActivity(i);
                     }
                 });
@@ -197,132 +199,9 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
-    //     Task para cargar las listas del usuario
-/*    class TotalCountTask extends AsyncTask<String, String, JSONArray> {
-        private ProgressDialog pDialog;
-
-        @Override
-        protected void onPreExecute() {
-            pDialog = new ProgressDialog(ListActivity.this);
-            pDialog.setMessage(getResources().getString(R.string.loading));
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-
-        @Override
-        protected JSONArray doInBackground(String... args) {
-
-            try {
-                HashMap<String, String> parametrosPost = new HashMap<>();
-                Log.e("id recibido",id+"");
-
-                parametrosPost.put("ins_sql", "Select * from Tareas");
-
-                jSONArray = conn.sendRequest(url, parametrosPost);
-
-                Log.e("tareas",jSONArray.toString());
-
-                if (jSONArray != null) {
-                    return jSONArray;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        protected void onPostExecute(JSONArray json) {
-            if (pDialog != null && pDialog.isShowing()) {
-                pDialog.dismiss();
-            }
-            if (json != null) {
-                datos = new ArrayList<GeneralTask>();
-                for (int i = 0; i < json.length(); i++) {
-                    try {
-                        JSONObject jsonObject = json.getJSONObject(i);
-                        task = new GeneralTask();
-                        task.setId_task(jsonObject.getInt("ID_task"));
-                        task.setId_list(jsonObject.getInt("Lista"));
-                        datos.add(task);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-
-
-            } else {
-                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
-            }
-
-        }
-
-    }*/
-
-
-
-    /*
-    *    //task para eliminar listas
-    class DelListTask extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
-        int add;
-
-        @Override
-        protected void onPreExecute() {
-            pDialog = new ProgressDialog(ListActivity.this);
-            pDialog.setMessage("Cargando...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... args) {
-            try {
-                HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Delete from Listas where ID_lista="+ id +")");
-
-                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
-
-                if (jsonObject != null) {
-                    return jsonObject;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        protected void onPostExecute(JSONObject json) {
-            if (pDialog != null && pDialog.isShowing()) {
-                pDialog.dismiss();
-            }
-            if (json != null) {
-                try {
-                    add = json.getInt("added");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                if(add!=0){
-
-                    Snackbar.make(findViewById(android.R.id.content), "eliminado", Snackbar.LENGTH_LONG).show();
-                    startTask();
-
-                }else{
-                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
-                }
-
-            } else {
-                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
-            }
-
-        }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTask();
     }
-
-    * */
-
 }

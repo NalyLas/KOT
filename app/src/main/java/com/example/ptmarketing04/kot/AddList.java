@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class AddList extends Fragment {
 
     public boolean isExist(){
         for(int i=0;i<listas;i++){
-            if(arrayList.get(i).getTitle().equals(title)){
+            if(arrayList.get(i).getId_user()==cod && arrayList.get(i).getTitle().equals(title)){
                 return true;
             }
         }
@@ -86,8 +87,9 @@ public class AddList extends Fragment {
             public void onClick(View v) {
 
                 getParams();
+
                 if(isExist()){
-                    Snackbar.make(getView(), "ya tiene una trea con ese nombre", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getView(), "ya tiene una tarea con ese nombre", Snackbar.LENGTH_LONG).show();
                 }else{
                     new AddListTask().execute();
                 }
@@ -100,7 +102,7 @@ public class AddList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         cod = getArguments().getInt("user");
-        id = getArguments().getInt("id");
+       // id = getArguments().getInt("id");
         new ListTask().execute();
 
         return inflater.inflate(R.layout.layout_add_list, container, false);
@@ -125,7 +127,7 @@ public class AddList extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Listas where user="+cod);
+                parametrosPost.put("ins_sql", "Select * from Listas");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -154,7 +156,6 @@ public class AddList extends Fragment {
                         list.setId_user(jsonObject.getInt("user"));
                         list.setTitle(jsonObject.getString("Titulo"));
                         arrayList.add(list);
-
 
                     } catch (JSONException e) {
 
@@ -214,6 +215,8 @@ public class AddList extends Fragment {
             if (json != null) {
                 try {
                     add = json.getInt("added");
+
+                    Log.e("añadido??", add+"");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

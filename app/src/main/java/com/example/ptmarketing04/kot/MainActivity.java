@@ -286,4 +286,10 @@ public class MainActivity extends AppCompatActivity {
 
     }*/
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        llist.removeAllViews();
+        new ListTask().execute();
+    }
 }
