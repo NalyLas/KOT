@@ -1,17 +1,17 @@
 package com.example.ptmarketing04.kot;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import org.json.JSONArray;
@@ -21,9 +21,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ListActivity extends AppCompatActivity {
-
+public class MainListActivity extends AppCompatActivity {
     private RecyclerView recView;
+    private CollapsingToolbarLayout ctlLayout;
+
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
@@ -34,12 +35,10 @@ public class ListActivity extends AppCompatActivity {
     private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> datos;
     private ArrayList<HashMap<String, String>> allList;
-    private int cod,id;
+    private int id;
 
     static public SharedPreferences pref;
     protected String theme;
-
-
 
 
     @Override
@@ -63,12 +62,10 @@ public class ListActivity extends AppCompatActivity {
                 break;
         }
 
+        setContentView(R.layout.activity_main_list);
 
-        setContentView(R.layout.activity_list);
-
-        recView = (RecyclerView) findViewById(R.id.recView);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //RecyclerView
+        recView = (RecyclerView)findViewById(R.id.recView);
 
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
@@ -76,38 +73,47 @@ public class ListActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
-            cod = extras.getInt("user");
+            id = extras.getInt("lista");
         }
 
         startTask();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton del = (FloatingActionButton) findViewById(R.id.fab);
+        del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ListActivity.this, AddActivity.class);
-                i.putExtra("user",cod);
-                startActivity(i);
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
+        FloatingActionButton edit = (FloatingActionButton) findViewById(R.id.btnFab);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "fsdgtshdjny", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
+        ctlLayout = (CollapsingToolbarLayout)findViewById(R.id.ctlLayout);
+        ctlLayout.setTitle("Mi Aplicación");
     }
 
     private void startTask(){
         recView.removeAllViews();
-        new ListTask().execute();
+        new GetTotalTask().execute();
 
     }
 
-    //     Task para cargar las listas del usuario
-    class ListTask extends AsyncTask<String, String, JSONArray> {
+
+    //     Task para cargar las tareas de la lista actual
+    class GetTotalTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
-        private int count=0;
 
         @Override
         protected void onPreExecute() {
-            pDialog = new ProgressDialog(ListActivity.this);
+            pDialog = new ProgressDialog(MainListActivity.this);
             pDialog.setMessage(getResources().getString(R.string.loading));
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -119,9 +125,11 @@ public class ListActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Listas where user="+cod);
+                parametrosPost.put("ins_sql", "Select * from Tareas where Lista = "+id);
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
+
+
 
                 if (jSONArray != null) {
                     return jSONArray;
@@ -137,56 +145,40 @@ public class ListActivity extends AppCompatActivity {
                 pDialog.dismiss();
             }
             if (json != null) {
-                arrayList =new ArrayList<GeneralList>();
+                Log.e("tareas",json.toString());
+
+                datos = new ArrayList<GeneralTask>();
+
+                Log.e("tamaño_----",json.length()+"");
                 for (int i = 0; i < json.length(); i++) {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
-                        list = new GeneralList();
-                        list.setId(jsonObject.getInt("ID_lista"));
-                        list.setId_user(jsonObject.getInt("user"));
-                        list.setTitle(jsonObject.getString("Titulo"));
-                        list.setDate(jsonObject.getString("Fecha"));
-                        arrayList.add(list);
+                        task = new GeneralTask();
+                        task.setId_task(jsonObject.getInt("ID_tarea"));
+                        task.setTitle(jsonObject.getString("Titulo"));
+                        task.setStart_date(jsonObject.getString("Fech_inicio"));
+                        task.setEnd_date(jsonObject.getString("Fecha_fin"));
+                        task.setFinished(jsonObject.getInt("Finalizada"));
+                        task.setUrgent(jsonObject.getInt("Urgente"));
+                        task.setId_list(jsonObject.getInt("Lista"));
 
+                        Log.e("objeto:",json.getJSONObject(i).getString("Titulo"));
+
+                        datos.add(task);
+
+                        Log.e("tamaño tras:",datos.size()+"");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
 
-
-
-                //Esto no es obligatorio pero si recomendable si siempre va a tener un nº de elementos fijo
-                recView.setHasFixedSize(true);
-
-                final GeneralListAdapter adaptador = new GeneralListAdapter(arrayList);
-
-
-                 //   adaptador.totalTask(datos.size());
-
-                adaptador.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(ListActivity.this, MainListActivity.class);
-                        i.putExtra("lista",arrayList.get(recView.getChildPosition(v)).getId());
-                        startActivity(i);
-                    }
-                });
-
-
+                GeneralTaskAdapter adaptador = new GeneralTaskAdapter(datos);
                 recView.setAdapter(adaptador);
 
-                recView.setLayoutManager(new LinearLayoutManager(ListActivity.this,LinearLayoutManager.VERTICAL,false));
-                //recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-                // recView.setLayoutManager(new GridLayoutManager(this,3));
-
+                recView.setLayoutManager(new LinearLayoutManager(MainListActivity.this, LinearLayoutManager.VERTICAL, false));
                 recView.addItemDecoration(
-                        new DividerItemDecoration(ListActivity.this,DividerItemDecoration.VERTICAL_LIST));
-
-                //   recView.addItemDecoration(
-                //           new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL_LIST));
-
+                        new DividerItemDecoration(MainListActivity.this, DividerItemDecoration.VERTICAL_LIST));
                 recView.setItemAnimator(new DefaultItemAnimator());
 
             } else {
@@ -196,70 +188,6 @@ public class ListActivity extends AppCompatActivity {
         }
 
     }
-
-    //     Task para cargar las listas del usuario
-/*    class TotalCountTask extends AsyncTask<String, String, JSONArray> {
-        private ProgressDialog pDialog;
-
-        @Override
-        protected void onPreExecute() {
-            pDialog = new ProgressDialog(ListActivity.this);
-            pDialog.setMessage(getResources().getString(R.string.loading));
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-
-        @Override
-        protected JSONArray doInBackground(String... args) {
-
-            try {
-                HashMap<String, String> parametrosPost = new HashMap<>();
-                Log.e("id recibido",id+"");
-
-                parametrosPost.put("ins_sql", "Select * from Tareas");
-
-                jSONArray = conn.sendRequest(url, parametrosPost);
-
-                Log.e("tareas",jSONArray.toString());
-
-                if (jSONArray != null) {
-                    return jSONArray;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        protected void onPostExecute(JSONArray json) {
-            if (pDialog != null && pDialog.isShowing()) {
-                pDialog.dismiss();
-            }
-            if (json != null) {
-                datos = new ArrayList<GeneralTask>();
-                for (int i = 0; i < json.length(); i++) {
-                    try {
-                        JSONObject jsonObject = json.getJSONObject(i);
-                        task = new GeneralTask();
-                        task.setId_task(jsonObject.getInt("ID_task"));
-                        task.setId_list(jsonObject.getInt("Lista"));
-                        datos.add(task);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-
-
-            } else {
-                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
-            }
-
-        }
-
-    }*/
 
 
 

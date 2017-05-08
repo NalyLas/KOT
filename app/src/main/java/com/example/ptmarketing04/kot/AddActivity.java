@@ -85,7 +85,7 @@ public class AddActivity extends AppCompatActivity {
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(vp);
         tabs.setBackgroundColor(getResources().getColor(R.color.greyGeneral));
-        tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.deepPurplePrimary));
+        tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.deepOrangePrimary));
         tabs.setSelectedTabIndicatorHeight(15);
 
     }
@@ -106,9 +106,9 @@ public class AddActivity extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.task:
-                i = new Intent(this,ListActivity.class);
-                i.putExtra("user",cod);
-                startActivity(i);
+          //      i = new Intent(this,ListActivity.class);
+            //    i.putExtra("user",cod);
+            //    startActivity(i);
                 return true;
             case R.id.add:
                 i = new Intent(this,AddActivity.class);

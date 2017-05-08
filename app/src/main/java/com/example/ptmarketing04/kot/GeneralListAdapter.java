@@ -1,7 +1,6 @@
 package com.example.ptmarketing04.kot;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,12 @@ public class GeneralListAdapter extends RecyclerView.Adapter<GeneralListAdapter.
 
     private View.OnClickListener listener;
     private ArrayList<GeneralList> datos;
+    private TextView tvTitleList, tvCreated, tvTotalTask;
 
     public class ListViewHolder
             extends RecyclerView.ViewHolder {
 
-        private TextView tvTitleList, tvCreated, tvTotalTask;
+
         private ImageButton btEditList, btDelList;
 
         public ListViewHolder(final View itemView) {
@@ -32,32 +32,29 @@ public class GeneralListAdapter extends RecyclerView.Adapter<GeneralListAdapter.
             tvTitleList = (TextView)itemView.findViewById(R.id.tvTitleList);
             tvCreated = (TextView)itemView.findViewById(R.id.tvCreated);
             tvTotalTask = (TextView)itemView.findViewById(R.id.tvTotalTask);
-            btEditList = (ImageButton)itemView.findViewById(R.id.btEditList);
-            btDelList = (ImageButton)itemView.findViewById(R.id.btDelList);
+        //    btEditList = (ImageButton)itemView.findViewById(R.id.btEditList);
+        //    btDelList = (ImageButton)itemView.findViewById(R.id.btDelList);
 
 
-            btDelList.setOnClickListener(new View.OnClickListener() {
+         /*   btDelList.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     //Asi lo capta pero no puedes hacer mucho mas que esto
                     Log.i("datos bton:--->","boton pulsado en "+ getPosition());
                 }
-            });
+            });*/
         }
-
-
 
         public void bindList(GeneralList l) {
             tvTitleList.setText(l.getTitle());
-            tvCreated.setText(l.getDate());
+            tvCreated.setText("Lista creada el "+l.getDate());
         }
     }
 
     public GeneralListAdapter(ArrayList<GeneralList> datos) {
         this.datos = datos;
     }
-
 
     @Override
     public GeneralListAdapter.ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

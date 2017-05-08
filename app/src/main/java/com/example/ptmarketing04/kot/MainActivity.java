@@ -119,10 +119,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.important:
-                i = new Intent(this,Main2Activity.class);
-           //     i.putExtra("user",cod);
-           //     i.putExtra("tab_activa",0);
-                startActivity(i);
+            //    i = new Intent(this,ListActivity.class);
+            //    i.putExtra("user",cod);
+            //    startActivity(i);
                 return true;
 
 

@@ -24,6 +24,8 @@
     <string name="add_list_title">Crea tu nueva lista</string>
     <string name="add_list">Crear listas</string>
     <string name="add_task">Crear tareas</string>
+    <string name="list_date">Lista creada el</string>
+    <string name="title_activity_basic_list">BasicListActivity</string>
 
 
 </resources>

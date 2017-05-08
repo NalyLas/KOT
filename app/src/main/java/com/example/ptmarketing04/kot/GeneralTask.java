@@ -7,7 +7,6 @@ package com.example.ptmarketing04.kot;
 public class GeneralTask {
     private int id_task;
     private String title;
-    private int tipe;
     private String start_date;
     private String end_date;
     private int finished;
@@ -16,10 +15,9 @@ public class GeneralTask {
 
     public GeneralTask() {}
 
-    public GeneralTask(int id_task, String title, int tipe, String start_date, String end_date, int finished, int urgent, int id_list) {
+    public GeneralTask(int id_task, String title, String start_date, String end_date, int finished, int urgent, int id_list) {
         this.id_task = id_task;
         this.title = title;
-        this.tipe = tipe;
         this.start_date = start_date;
         this.end_date = end_date;
         this.finished = finished;
@@ -41,14 +39,6 @@ public class GeneralTask {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getTipe() {
-        return tipe;
-    }
-
-    public void setTipe(int tipe) {
-        this.tipe = tipe;
     }
 
     public String getStart_date() {

@@ -22,9 +22,9 @@
         <activity android:name=".SigninActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Preferences" />
-        <activity android:name=".ListActivity" />
         <activity android:name=".AddActivity" />
-        <activity android:name=".Main2Activity"></activity>
+        <activity android:name=".ListActivity" />
+        <activity android:name=".MainListActivity"></activity>
     </application>
 
 </manifest>

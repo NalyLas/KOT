@@ -8,18 +8,13 @@
     tools:context="com.example.ptmarketing04.kot.ListActivity"
     tools:showIn="@layout/activity_list">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/llGeneral"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 </LinearLayout>
