@@ -284,6 +284,8 @@ public class AddTask extends Fragment {
                         e.printStackTrace();
                     }
                 }
+
+                //Buscar la manera de que añada ids aunque no existan tareas
                 int aux;
                 aux = arrayList.size()-1;
                 idl = arrayTask.get(aux).getId_task();
