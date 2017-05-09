@@ -109,9 +109,7 @@ public class AddTask extends Fragment {
         addTask.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                new GetTotalTask().execute();
                 getParams();
-
 
                 new AddNewTask().execute();
 
@@ -126,6 +124,7 @@ public class AddTask extends Fragment {
         // Inflate the layout for this fragment
         cod = getArguments().getInt("user");
         new ListTask().execute();
+        new GetTotalTask().execute();
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.layout_add_task, container, false);
@@ -155,6 +154,12 @@ public class AddTask extends Fragment {
                 break;
             }
         }
+
+   /*     if(arrayTask.size()>0){
+            idl = arrayTask.get(arrayTask.size()-1).getId_task()+1;
+        }else{
+            idt=0;
+        }*/
 
 
     }
@@ -285,14 +290,7 @@ public class AddTask extends Fragment {
                     }
                 }
 
-                //Buscar la manera de que añada ids aunque no existan tareas
-                int aux;
-                aux = arrayList.size()-1;
-                idl = arrayTask.get(aux).getId_task();
-                idl = idl+1;
-
             } else {
-                idl = 1;
                 Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
             }
 
@@ -323,7 +321,7 @@ public class AddTask extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into Tareas (`ID_tarea`, `Titulo`, `Fech_inicio`, `Fecha_fin`, `Finalizada`, `Urgente`, `Lista`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,0,"+ idl +")");
+                parametrosPost.put("ins_sql", "Insert into Tareas (`ID_tarea`, `Titulo`, `Fech_inicio`, `Fecha_fin`, `Finalizada`, `Urgente`, `Lista`) VALUES ("+ 2 +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,0,"+ idl +")");
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 
