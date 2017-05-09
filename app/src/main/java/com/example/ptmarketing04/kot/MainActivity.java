@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -239,7 +240,26 @@ public class MainActivity extends AppCompatActivity {
 
                 fillTask();
 
+                for(int i=0;i<arrayList.size();i++){
+                    if(arrayList.get(i).getTasks().size()<1){
+                        arrayList.remove(i);
+                    }
+                }
+
                 final ListCardAdapter adaptador = new ListCardAdapter(arrayList);
+
+                adaptador.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(MainActivity.this, MainListActivity.class);
+                        i.putExtra("lista",arrayList.get(rvList.getChildPosition(v)).getId());
+                        i.putExtra("title",arrayList.get(rvList.getChildPosition(v)).getTitle());
+                        i.putExtra("user",cod);
+                        startActivity(i);
+                    }
+                });
+
+
                 rvList.setAdapter(adaptador);
                 rvList.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
 

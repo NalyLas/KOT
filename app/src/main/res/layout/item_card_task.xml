@@ -8,6 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
@@ -15,13 +17,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingTop="12dp"
             android:text="TextView" />
 
         <ImageView
             android:id="@+id/ivUrgent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             app:srcCompat="@mipmap/ic_launcher_round" />
 
     </LinearLayout>
