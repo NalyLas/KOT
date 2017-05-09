@@ -141,7 +141,7 @@ public class AddActivity extends AppCompatActivity {
         AddList al = new AddList();
         al.setArguments(bundle);
         AddTask at = new AddTask();
-     //   at.setArguments(bundle);
+        at.setArguments(bundle);
 
 
         //Cargamos los fragment
