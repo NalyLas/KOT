@@ -37,6 +37,11 @@
     <string name="empty_list">Aún no tienes ninguna tarea en esta lista</string>
     <string name="del_list">Eliminar lista</string>
     <string name="del_list_text">¡Atención! Al eliminar esta lista, eliminarás todas las tareas asociadas a ella. ¿Estás seguro de querer eliminarla?</string>
+    <string name="choose_list">Elija una lista:</string>
+    <string name="task_title">Título: </string>
+    <string name="task_hint">Nombre de la tarea</string>
+    <string name="task_details">Detalles: </string>
+    <string name="task_details_hint">Detalles de la tarea </string>
 
 
 </resources>

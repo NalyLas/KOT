@@ -44,4 +44,12 @@ public class AddTask extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.layout_add_task, container, false);
     }
+
+    //
+    //  Formato para añadir más de un item a la vez
+    //  INSERT INTO `Listas` (`ID_lista`, `Titulo`, `user`, `Fecha`) VALUES ('2', 'Lista numero 2', '1', '02/05/2017'), ('6', 'Lista numero 2', '1', '02/05/2017');
+    //
+
+
+
 }
