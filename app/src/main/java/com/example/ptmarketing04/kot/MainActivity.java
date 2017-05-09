@@ -160,6 +160,13 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
 
+
+   //Tendras que averif¡guar una forma más optima de realizar este proceso
+    //De esta forma por ahora es la unica que funciona
+    //Pero carga todas las tareas de la tabla y luego comprueba una a una
+    // Cuano existan muchas tareas irá muy lento
+    //Intenta crear un nuevo array cada vez que lances la task y averigua como pararle todos los ids
+    //Sienpre se saltaba el primero
    public void fillTask(){
        aux = 0;
        while(aux<arrayList.size()){
