@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
@@ -161,6 +160,23 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
 
+   public void fillTask(){
+       aux = 0;
+       while(aux<arrayList.size()){
+           idt = arrayList.get(aux).getId();
+           ArrayList<GeneralTask> array = new ArrayList<>();
+           for(int i=0;i<datos.size();i++){
+               if(idt == datos.get(i).getId_list()){
+                  array.add(datos.get(i));
+               }
+           }
+
+           arrayList.get(aux).setTasks(array);
+           aux++;
+       }
+   }
+
+
     //     Task para cargar las listas del usuario
     class ListTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
@@ -206,14 +222,6 @@ public class MainActivity extends AppCompatActivity {
                         list.setId_user(jsonObject.getInt("user"));
                         list.setTitle(jsonObject.getString("Titulo"));
 
-                        idt = jsonObject.getInt("ID_lista");
-                        for(int j=0;j<datos.size();j++){
-                            if(idt == datos.get(j).getId_list()){
-                                arrayTask.add(datos.get(j));
-                            }
-                        }
-
-                        list.setTasks(arrayTask);
 
                         arrayList.add(list);
 
@@ -222,10 +230,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-
-                for (int i=0;i<arrayList.size();i++){
-                    Log.e("que hay dentro",arrayList.get(i).getTasks().size()+"");
-                }
+                fillTask();
 
                 final ListCardAdapter adaptador = new ListCardAdapter(arrayList);
                 rvList.setAdapter(adaptador);
@@ -255,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Tareas ");
+                parametrosPost.put("ins_sql", "Select * from Tareas");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
