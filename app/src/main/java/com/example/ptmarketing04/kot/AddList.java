@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.ptmarketing04.kot.Objects.GeneralList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

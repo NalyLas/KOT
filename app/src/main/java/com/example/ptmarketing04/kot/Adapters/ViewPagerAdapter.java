@@ -1,4 +1,4 @@
-package com.example.ptmarketing04.kot;
+package com.example.ptmarketing04.kot.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

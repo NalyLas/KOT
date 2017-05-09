@@ -19,6 +19,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import com.example.ptmarketing04.kot.Adapters.GeneralTaskAdapter;
+import com.example.ptmarketing04.kot.Objects.GeneralList;
+import com.example.ptmarketing04.kot.Objects.GeneralTask;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

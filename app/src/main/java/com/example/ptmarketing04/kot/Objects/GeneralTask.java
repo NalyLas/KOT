@@ -1,4 +1,4 @@
-package com.example.ptmarketing04.kot;
+package com.example.ptmarketing04.kot.Objects;
 
 /**
  * Created by ptmarketing04 on 02/05/2017.

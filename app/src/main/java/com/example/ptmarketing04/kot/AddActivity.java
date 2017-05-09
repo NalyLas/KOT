@@ -11,6 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.ptmarketing04.kot.Adapters.ViewPagerAdapter;
+import com.example.ptmarketing04.kot.Objects.GeneralList;
+import com.example.ptmarketing04.kot.Objects.GeneralTask;
+
 import org.json.JSONArray;
 
 import java.util.ArrayList;

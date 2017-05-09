@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.ptmarketing04.kot.Objects.User;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

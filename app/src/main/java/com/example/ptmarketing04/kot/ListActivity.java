@@ -14,6 +14,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.example.ptmarketing04.kot.Adapters.GeneralListAdapter;
+import com.example.ptmarketing04.kot.Objects.GeneralList;
+import com.example.ptmarketing04.kot.Objects.GeneralTask;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
