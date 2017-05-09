@@ -10,19 +10,16 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.ptmarketing04.kot.Adapters.GeneralTaskAdapter;
+import com.example.ptmarketing04.kot.Adapters.ListCardAdapter;
 import com.example.ptmarketing04.kot.Objects.GeneralList;
 import com.example.ptmarketing04.kot.Objects.GeneralTask;
 
@@ -40,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected TextView tv;
     protected Toolbar tb;
     protected String theme;
-    protected RecyclerView rvTask;
+    protected RecyclerView rvTask,rvList;
    // protected ListView lvTask;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
@@ -82,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         tb = (Toolbar) findViewById(R.id.toolbar);
-        llist = (LinearLayout)findViewById(R.id.linerat_list);
+        rvList = (RecyclerView)findViewById(R.id.rvList);
+        rvTask = (RecyclerView)findViewById(R.id.rvTask);
+       // llist = (LinearLayout)findViewById(R.id.linerat_list);
 
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
@@ -99,8 +98,12 @@ public class MainActivity extends AppCompatActivity {
 
         aux = 0;
 
-        llist.removeAllViews();
+        datos = new ArrayList<GeneralTask>();
+        arrayTask = new ArrayList<GeneralTask>();
+//        llist.removeAllViews();
         new GetTotalTask().execute();
+
+
         new ListTask().execute();
 
     }
@@ -136,14 +139,13 @@ public class MainActivity extends AppCompatActivity {
             //    i.putExtra("user",cod);
             //    startActivity(i);
                 return true;
-
-
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void addChild() {
+
+   /* private void addChild() {
         LayoutInflater inflater = LayoutInflater.from(this);
         int id = R.layout.list_card;
 
@@ -156,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
        // textView.setText(String.valueOf(System.currentTimeMillis()));
 
         llist.addView(cardView);
-    }
+    }*/
 
 
     //     Task para cargar las listas del usuario
@@ -203,52 +205,36 @@ public class MainActivity extends AppCompatActivity {
                         list.setId(jsonObject.getInt("ID_lista"));
                         list.setId_user(jsonObject.getInt("user"));
                         list.setTitle(jsonObject.getString("Titulo"));
-                        arrayList.add(list);
 
+                        idt = jsonObject.getInt("ID_lista");
+                        for(int j=0;j<datos.size();j++){
+                            if(idt == datos.get(j).getId_list()){
+                                arrayTask.add(datos.get(j));
+                            }
+                        }
+
+                        list.setTasks(arrayTask);
+
+                        arrayList.add(list);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-                for(int l=0; l<arrayList.size(); l++){
 
-                    //Esto no funciona bien!!!!!!
-                    //Prueba  hacerte un recyclerview horizontal con su adaptador
-                    //que contenga las cardviews y pasarle todos los datos que necesitas
-                    //de la form que esta hecho se repiten las tareas
-                    arrayTask.clear();
-
-                    addChild();
-                    tv.setText(arrayList.get(l).getTitle());
-                    idt = arrayList.get(l).getId();
-
-                    for(int k=0; k<datos.size();k++){
-                        if(idt == datos.get(k).getId_list()){
-                            arrayTask.add(datos.get(k));
-                        }
-                    }
-
-                    //   emptyList.setVisibility(View.GONE);
-                    rvTask.setVisibility(View.VISIBLE);
-                    final GeneralTaskAdapter adaptador = new GeneralTaskAdapter(arrayTask);
-                    rvTask.setAdapter(adaptador);
-
-
-                    rvTask.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
-                    rvTask.addItemDecoration(
-                            new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL_LIST));
-                    rvTask.setItemAnimator(new DefaultItemAnimator());
-
+                for (int i=0;i<arrayList.size();i++){
+                    Log.e("que hay dentro",arrayList.get(i).getTasks().size()+"");
                 }
 
+                final ListCardAdapter adaptador = new ListCardAdapter(arrayList);
+                rvList.setAdapter(adaptador);
+                rvList.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
             }
-
         }
-
     }
 
     //     Task para cargar las tareas de la lista actual
@@ -269,11 +255,9 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Tareas");
+                parametrosPost.put("ins_sql", "Select * from Tareas ");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
-
-
 
                 if (jSONArray != null) {
                     return jSONArray;
@@ -290,11 +274,9 @@ public class MainActivity extends AppCompatActivity {
             }
             if (json != null) {
 
-                datos = new ArrayList<GeneralTask>();
-                arrayTask = new ArrayList<GeneralTask>();
-
                 for (int i = 0; i < json.length(); i++) {
                     try {
+
                         JSONObject jsonObject = json.getJSONObject(i);
                         task = new GeneralTask();
                         task.setId_task(jsonObject.getInt("ID_tarea"));
@@ -307,10 +289,12 @@ public class MainActivity extends AppCompatActivity {
 
                         datos.add(task);
 
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
+
 
 
             } else {

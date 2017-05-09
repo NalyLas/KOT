@@ -1,5 +1,7 @@
 package com.example.ptmarketing04.kot.Objects;
 
+import java.util.ArrayList;
+
 /**
  * Created by ptmarketing04 on 27/04/2017.
  */
@@ -7,6 +9,7 @@ package com.example.ptmarketing04.kot.Objects;
 public class GeneralList {
     protected int id,id_user;
     protected String title, date;
+    protected ArrayList<GeneralTask> tasks;
 
     public GeneralList(){}
 
@@ -47,5 +50,13 @@ public class GeneralList {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public ArrayList<GeneralTask> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<GeneralTask> tasks) {
+        this.tasks = tasks;
     }
 }
