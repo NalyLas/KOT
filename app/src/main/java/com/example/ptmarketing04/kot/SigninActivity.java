@@ -31,7 +31,6 @@ public class SigninActivity extends AppCompatActivity {
     private Connection conn;
     private User user;
     private ArrayList<User> arrayUsers;
-    private ArrayList<HashMap<String, String>> userList;
     private String name,mail,pass;
     private int id;
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.ptmarketing04.kot.Objects.GeneralList;
-import com.example.ptmarketing04.kot.Objects.GeneralTask;
 import com.example.ptmarketing04.kot.R;
 
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ public class ListCardAdapter extends RecyclerView.Adapter<ListCardAdapter.ListVi
 
     private View.OnClickListener listener;
     private ArrayList<GeneralList> listas;
-    private ArrayList<GeneralTask> tasks;
     private TextView list_title;
     private RecyclerView rcv;
 

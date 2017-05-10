@@ -21,7 +21,7 @@ public class GeneralListAdapter extends RecyclerView.Adapter<GeneralListAdapter.
 
     private View.OnClickListener listener;
     private ArrayList<GeneralList> datos;
-    private TextView tvTitleList, tvCreated, tvTotalTask;
+    private TextView tvTitleList, tvCreated;
 
     public class ListViewHolder
             extends RecyclerView.ViewHolder {
@@ -34,10 +34,6 @@ public class GeneralListAdapter extends RecyclerView.Adapter<GeneralListAdapter.
 
             tvTitleList = (TextView)itemView.findViewById(R.id.tvTitleList);
             tvCreated = (TextView)itemView.findViewById(R.id.tvCreated);
-            tvTotalTask = (TextView)itemView.findViewById(R.id.tvTotalTask);
-        //    btEditList = (ImageButton)itemView.findViewById(R.id.btEditList);
-        //    btDelList = (ImageButton)itemView.findViewById(R.id.btDelList);
-
 
          /*   btDelList.setOnClickListener(new View.OnClickListener() {
                 @Override

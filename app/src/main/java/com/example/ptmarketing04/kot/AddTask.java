@@ -55,7 +55,6 @@ public class AddTask extends Fragment {
     private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> arrayTask;
     private ArrayList<GeneralContent> arrayContent;
-    private ArrayList<HashMap<String, String>> allList;
     private int cod,urgent,idt,idl,idc,tipe;
     private String date,title,dateEnd, details;
 

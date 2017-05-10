@@ -33,7 +33,6 @@ public class AllListsActivity extends Fragment {
     protected RecyclerView recView;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
-    private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
     private Connection conn;
     private GeneralList list;
@@ -70,7 +69,6 @@ public class AllListsActivity extends Fragment {
     //     Task para cargar las listas del usuario
     class ListTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
-        private int count=0;
 
         @Override
         protected void onPreExecute() {
@@ -122,14 +120,10 @@ public class AllListsActivity extends Fragment {
 
                 }
 
-
                 //Esto no es obligatorio pero si recomendable si siempre va a tener un nº de elementos fijo
                 recView.setHasFixedSize(true);
 
                 final GeneralListAdapter adaptador = new GeneralListAdapter(arrayList);
-
-                //   adaptador.totalTask(datos.size());
-
                 adaptador.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

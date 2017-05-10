@@ -2,7 +2,6 @@ package com.example.ptmarketing04.kot;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -12,34 +11,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.ptmarketing04.kot.Adapters.ViewPagerAdapter;
-import com.example.ptmarketing04.kot.Objects.GeneralList;
-import com.example.ptmarketing04.kot.Objects.GeneralTask;
-
-import org.json.JSONArray;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class AddActivity extends AppCompatActivity {
 
     protected Toolbar tb;
     protected ViewPager vp;
     protected TabLayout tabs;
-    protected int tab_activa,cod,id,listas;
-    Bundle extras,bundle;
-
-    private String url = "http://iesayala.ddns.net/natalia/php.php";
-    private JSONArray jSONArray;
-    private Connection conn;
-    private GeneralList list;
-    private GeneralTask task;
-    private ArrayList<GeneralList> arrayList;
-    private ArrayList<GeneralTask> arrayTask;
-    private ArrayList<HashMap<String, String>> allList;
+    protected int tab_activa,cod,id;
+    Bundle bundle;
     protected String theme;
-
     static public SharedPreferences pref;
-    Color color;
 
 
     @Override
@@ -76,11 +57,6 @@ public class AddActivity extends AppCompatActivity {
         if(extras!=null){
             cod = extras.getInt("user");
         }
-
-     //   url = "http://iesayala.ddns.net/natalia/php.php";
-    //    conn = new Connection();
-
-    //    new ListTask().execute();
 
         vp = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(vp);
@@ -133,16 +109,12 @@ public class AddActivity extends AppCompatActivity {
         //Enviamos datos
         bundle=new Bundle();
         bundle.putInt("user",cod);
-     //   bundle.putInt("id",id);
-    //    bundle.putInt("listas",listas);
-
 
         //Creamos los fragment
         AddList al = new AddList();
         al.setArguments(bundle);
         AddTask at = new AddTask();
         at.setArguments(bundle);
-
 
         //Cargamos los fragment
         adapter.addFragment(al, getResources().getString(R.string.add_list));

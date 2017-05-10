@@ -46,7 +46,6 @@ public class MainListActivity extends AppCompatActivity {
     private GeneralList list;
     private GeneralTask task;
     private ArrayList<GeneralTask> datos;
-    private ArrayList<HashMap<String, String>> allList;
     private int id,cod;
     private String title,new_title;
 

@@ -68,8 +68,6 @@ public class GeneralTaskAdapter extends RecyclerView.Adapter<GeneralTaskAdapter.
                 .inflate(R.layout.item_task, parent, false);
 
         itemView.setOnClickListener(this);
-        // android:background="?android:attr/selectableItemBackground"
-
         ListViewHolder lvh = new ListViewHolder(itemView);
 
         return lvh;

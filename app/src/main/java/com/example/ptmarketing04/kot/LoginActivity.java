@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etMail, etPass;
     private Button bt1,bt2;
 
-    private ArrayList<String> users;
+
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private JSONArray jSONArray;
     private Connection conn;
@@ -82,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void signIn(View view){
         Intent intent = new Intent(this, SigninActivity.class);
-        //i.putExtra("toolbarAzul",true);
         startActivity(intent);
     }
 

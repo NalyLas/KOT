@@ -39,7 +39,6 @@ public class AddList extends Fragment {
     private Connection conn;
     private GeneralList list;
     private ArrayList<GeneralList> arrayList;
-    private ArrayList<HashMap<String, String>> allList;
     private int cod,listas,id;
     private String date,title;
 
@@ -112,7 +111,6 @@ public class AddList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         cod = getArguments().getInt("user");
-       // id = getArguments().getInt("id");
         new ListTask().execute();
 
         return inflater.inflate(R.layout.layout_add_list, container, false);

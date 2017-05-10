@@ -33,17 +33,13 @@ public class AllTaskActivity extends Fragment {
 
     protected RecyclerView recView;
     private String url = "http://iesayala.ddns.net/natalia/php.php";
-    private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
-    protected JSONObject jsonObject;
     private Connection conn;
     private GeneralList list;
     private GeneralTask task;
     private ArrayList<GeneralTask> datos;
     private ArrayList<GeneralList> arrayList;
-    private ArrayList<HashMap<String, String>> allList;
-    private int id,cod,aux;
-    private String title,new_title;
+    private int cod;
 
     public AllTaskActivity() { }
 
@@ -71,48 +67,6 @@ public class AllTaskActivity extends Fragment {
 
         return inflater.inflate(R.layout.layout_all_lists, container, false);
     }
-
-  /*  public void getTask(){
-        aux = 0;
-        ArrayList<GeneralTask> arrayAux = new ArrayList<>();
-        while(aux<arrayList.size()){
-            id = arrayList.get(aux).getId();
-
-            for(int i=0;i<datos.size();i++){
-                if(id == datos.get(i).getId_list()){
-                    arrayAux.add(datos.get(i));
-                }
-            }
-            aux++;
-        }
-
-        if(datos.size()>0){
-           // emptyList.setVisibility(View.GONE);
-            recView.setVisibility(View.VISIBLE);
-            final GeneralTaskAdapter adaptador = new GeneralTaskAdapter(arrayAux);
-
-            adaptador.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getContext(), MainTaskActivity.class);
-                    i.putExtra("tarea",datos.get(recView.getChildPosition(v)).getId_task());
-                    i.putExtra("title",datos.get(recView.getChildPosition(v)).getTitle());
-                    i.putExtra("user",cod);
-                    startActivity(i);
-                }
-            });
-            recView.setAdapter(adaptador);
-
-            recView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-            recView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
-            recView.setItemAnimator(new DefaultItemAnimator());
-
-        }else{
-           // emptyList.setVisibility(View.VISIBLE);
-            recView.setVisibility(View.GONE);
-        }
-    }*/
-
 
     //     Task para cargar las listas del usuario
     class ListTask extends AsyncTask<String, String, JSONArray> {

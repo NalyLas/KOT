@@ -51,8 +51,6 @@ public class UrgentTaskAdapter extends RecyclerView.Adapter<UrgentTaskAdapter.Li
                 .inflate(R.layout.layout_urgent_task, parent, false);
 
         itemView.setOnClickListener(this);
-        // android:background="?android:attr/selectableItemBackground"
-
         ListViewHolder lvh = new ListViewHolder(itemView);
 
         return lvh;

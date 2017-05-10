@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ptmarketing04.kot.Adapters.ListCardAdapter;
@@ -34,7 +33,6 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected LinearLayout llist;
     protected TextView tv,tvUrgent;
     protected Toolbar tb;
     protected String theme;
@@ -48,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private GeneralTask task;
     private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> datos,arrayTask;
-    private ArrayList<HashMap<String, String>> allList;
     private int cod,idt,aux;
 
     static public SharedPreferences pref;
@@ -82,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         rvUrgent = (RecyclerView)findViewById(R.id.rvUrgentTask);
         tv = (TextView)findViewById(R.id.tvEmpty);
         tvUrgent = (TextView)findViewById(R.id.tvEmptyUrgent);
-       // llist = (LinearLayout)findViewById(R.id.linerat_list);
 
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
@@ -100,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         aux = 0;
         datos = new ArrayList<GeneralTask>();
         arrayTask = new ArrayList<GeneralTask>();
-//        llist.removeAllViews();
         new GetTotalTask().execute();
         new ListTask().execute();
 
@@ -157,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
 
         llist.addView(cardView);
     }*/
-
-
 
    //Tendras que averif¡guar una forma más optima de realizar este proceso
     //De esta forma por ahora es la unica que funciona
