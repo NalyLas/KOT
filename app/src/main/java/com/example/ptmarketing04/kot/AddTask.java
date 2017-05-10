@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,6 +113,8 @@ public class AddTask extends Fragment {
                 getParams();
 
                 new AddNewTask().execute();
+                new ListTask().execute();
+                new GetTotalTask().execute();
 
             }
         });
@@ -155,11 +158,19 @@ public class AddTask extends Fragment {
             }
         }
 
-   /*     if(arrayTask.size()>0){
-            idl = arrayTask.get(arrayTask.size()-1).getId_task()+1;
+        if(arrayTask.size()>0){
+            idt = arrayTask.get(arrayTask.size()-1).getId_task()+1;
         }else{
             idt=0;
-        }*/
+        }
+
+
+        Log.e("inicio:",date);
+        Log.e("detail:",details);
+        Log.e("final:",dateEnd);
+        Log.e("id lista:",idl+"");
+        Log.e("id tarea:",idt+"");
+
 
 
     }
@@ -284,7 +295,6 @@ public class AddTask extends Fragment {
 
                         arrayTask.add(task);
 
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -321,7 +331,7 @@ public class AddTask extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into Tareas (`ID_tarea`, `Titulo`, `Fech_inicio`, `Fecha_fin`, `Finalizada`, `Urgente`, `Lista`) VALUES ("+ 2 +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,0,"+ idl +")");
+                parametrosPost.put("ins_sql", "Insert into Tareas (`ID_tarea`, `Titulo`, `Fech_inicio`, `Fecha_fin`, `Finalizada`, `Urgente`, `Lista`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,0,"+ idl +")");
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 

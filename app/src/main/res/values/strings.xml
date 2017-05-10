@@ -43,6 +43,7 @@
     <string name="task_details">Detalles: </string>
     <string name="task_date">Hasta: </string>
     <string name="task_details_hint">Detalles de la tarea </string>
+    <string name="task_urgent">Tarea urgente</string>
 
 
 </resources>
