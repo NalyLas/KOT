@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import com.example.ptmarketing04.kot.Objects.GeneralContent;
 import com.example.ptmarketing04.kot.Objects.GeneralList;
 import com.example.ptmarketing04.kot.Objects.GeneralTask;
 
@@ -49,10 +51,12 @@ public class AddTask extends Fragment {
     private Connection conn;
     private GeneralList list;
     private GeneralTask task;
+    private GeneralContent content;
     private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> arrayTask;
+    private ArrayList<GeneralContent> arrayContent;
     private ArrayList<HashMap<String, String>> allList;
-    private int cod,urgent,idt,idl;
+    private int cod,urgent,idt,idl,idc,tipe;
     private String date,title,dateEnd, details;
 
     public AddTask() {
@@ -117,6 +121,7 @@ public class AddTask extends Fragment {
                 new AddNewTask().execute();
                 //Recargamos tareas
                 new GetTotalTask().execute();
+                new GetContentTask().execute();
 
             }
         });
@@ -130,29 +135,34 @@ public class AddTask extends Fragment {
         cod = getArguments().getInt("user");
         new ListTask().execute();
         new GetTotalTask().execute();
+        new GetContentTask().execute();
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.layout_add_task, container, false);
     }
 
     public void getParams(){
+
+        //calculamos la fecha de inicio de la tarea
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         date = df.format(c.getTime());
 
-        details = etDetail.getText().toString();
-
+        //Comprobamos la fecha limite de la tarea
         if(etDate.getText().toString().equals("") || etDate.getText() == null){
             Snackbar.make(getView(), "Elija una fecha de finalización para la tarea", Snackbar.LENGTH_LONG).show();
         }else{
             dateEnd = etDate.getText().toString();
         }
+
+        //Comprobamos el titulo de la tarea
         if(!etTitle.getText().toString().equals(" ") && !etTitle.getText().equals(null)){
             title = etTitle.getText().toString();
         }else{
             Snackbar.make(getView(), "Debe introducir un titulo para la tarea", Snackbar.LENGTH_LONG).show();
         }
 
+        //obtenemos el id de la lista a la que pertenece
         for(int i=0;i<arrayList.size();i++){
             if(arrayList.get(i).getTitle().equals(spinner.getSelectedItem())){
                 idl = arrayList.get(i).getId();
@@ -160,17 +170,29 @@ public class AddTask extends Fragment {
             }
         }
 
+        //calculamos el id de la tarea
         if(arrayTask.size()>0){
             idt = arrayTask.get(arrayTask.size()-1).getId_task()+1;
         }else{
             idt=0;
         }
 
+        //calculamos el id del contenido
+        if(arrayContent.size()>0){
+            idc = arrayContent.get(arrayContent.size()-1).getId()+1;
+        }else{
+            idc=0;
+        }
+
+        //comprobamos si es una tarea urgente
         if(cbUrgent.isChecked()) {
             urgent = 1;
         }else{
             urgent = 0;
         }
+
+        //Comprobamos los detalles
+        details = etDetail.getText().toString();
 
     }
 
@@ -307,10 +329,68 @@ public class AddTask extends Fragment {
 
     }
 
-    //
-    //  Formato para añadir más de un item a la vez
-    //  INSERT INTO `Listas` (`ID_lista`, `Titulo`, `user`, `Fecha`) VALUES ('2', 'Lista numero 2', '1', '02/05/2017'), ('6', 'Lista numero 2', '1', '02/05/2017');
-    //
+    //     Task para cargar el contenido de las tareas
+    class GetContentTask extends AsyncTask<String, String, JSONArray> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(getContext());
+            pDialog.setMessage(getResources().getString(R.string.loading));
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... args) {
+
+            try {
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "Select * from Contenido");
+
+                jSONArray = conn.sendRequest(url, parametrosPost);
+
+                if (jSONArray != null) {
+                    return jSONArray;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(JSONArray json) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (json != null) {
+                arrayContent =new ArrayList<GeneralContent>();
+                for (int i = 0; i < json.length(); i++) {
+                    try {
+
+                        JSONObject jsonObject = json.getJSONObject(i);
+                        content = new GeneralContent();
+                        content.setId(jsonObject.getInt("ID_contenido"));
+                        content.setTask(jsonObject.getInt("Tarea"));
+                        content.setTipe(jsonObject.getInt("Tipo"));
+                        content.setDetail(jsonObject.getString("Info"));
+
+                        arrayContent.add(content);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            } else {
+                Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
 
     //task para agregar tareas
     class AddNewTask extends AsyncTask<String, String, JSONObject> {
@@ -357,6 +437,7 @@ public class AddTask extends Fragment {
                 if(add!=0){
 
                     Snackbar.make(getView(), "añadido", Snackbar.LENGTH_LONG).show();
+                    new AddContentTask().execute();
 
                 }else{
                     Snackbar.make(getView(), "un carajo", Snackbar.LENGTH_LONG).show();
@@ -371,7 +452,7 @@ public class AddTask extends Fragment {
     }
 
     //task para agregar contenido a las tareas
-   /* class AddContendTask extends AsyncTask<String, String, JSONObject> {
+    class AddContentTask extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         int add;
 
@@ -388,7 +469,11 @@ public class AddTask extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into Tareas (`ID_tarea`, `Titulo`, `Fech_inicio`, `Fecha_fin`, `Finalizada`, `Urgente`, `Lista`) VALUES ("+ id +",'"+ title +"',"+ cod +",'"+ date +"')");
+                parametrosPost.put("ins_sql", "INSERT INTO `Contenido`(`ID_contenido`, `Tarea`, `Tipo`, `Info`) VALUES ("+ idc +","+ idt +","+ tipe +",'"+ details +"')");
+                //
+                //  Formato para añadir más de un item a la vez
+                //  INSERT INTO `Listas` (`ID_lista`, `Titulo`, `user`, `Fecha`) VALUES ('2', 'Lista numero 2', '1', '02/05/2017'), ('6', 'Lista numero 2', '1', '02/05/2017');
+                //
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 
@@ -409,7 +494,7 @@ public class AddTask extends Fragment {
                 try {
                     add = json.getInt("added");
 
-                    Log.e("añadido??", add+"");
+                    Log.e("añadido detaaalle??", add+"");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -428,7 +513,7 @@ public class AddTask extends Fragment {
 
         }
 
-    }*/
+    }
 
 
 
