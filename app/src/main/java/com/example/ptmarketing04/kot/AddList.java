@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +65,13 @@ public class AddList extends Fragment {
         }else{
             Snackbar.make(getView(), "Debe introducir un titulo para la lista", Snackbar.LENGTH_LONG).show();
         }
+
+        if(arrayList.size()>0){
+            id = (arrayList.get(arrayList.size()-1).getId())+1;
+        }else{
+            id=0;
+        }
+        listas = arrayList.size();
     }
 
     public boolean isExist(){
@@ -94,6 +100,8 @@ public class AddList extends Fragment {
                     Snackbar.make(getView(), "ya tiene una tarea con ese nombre", Snackbar.LENGTH_LONG).show();
                 }else{
                     new AddListTask().execute();
+                    //recargamos las listas nuevas
+                    new ListTask().execute();
                 }
 
             }
@@ -165,11 +173,6 @@ public class AddList extends Fragment {
                     }
                 }
 
-                int aux;
-                aux = arrayList.size()-1;
-                id = arrayList.get(aux).getId();
-                id = id+1;
-                listas = arrayList.size();
             } else {
                 Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
             }
@@ -217,8 +220,6 @@ public class AddList extends Fragment {
             if (json != null) {
                 try {
                     add = json.getInt("added");
-
-                    Log.e("añadido??", add+"");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

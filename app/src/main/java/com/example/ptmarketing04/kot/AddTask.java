@@ -83,7 +83,7 @@ public class AddTask extends Fragment {
         addImg = (ImageButton) view.findViewById(R.id.btImage);
         addPdf = (ImageButton) view.findViewById(R.id.btPdf);
         addDate = (ImageButton) view.findViewById(R.id.btDate);
-
+        new ListTask().execute();
 
 
         addDate.setOnClickListener(new View.OnClickListener(){
@@ -171,9 +171,6 @@ public class AddTask extends Fragment {
         }else{
             urgent = 0;
         }
-
-
-
 
     }
 

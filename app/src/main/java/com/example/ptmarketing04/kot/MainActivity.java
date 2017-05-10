@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         tb = (Toolbar) findViewById(R.id.toolbar);
         rvList = (RecyclerView)findViewById(R.id.rvList);
         rvTask = (RecyclerView)findViewById(R.id.rvTask);
+        tv = (TextView)findViewById(R.id.tvEmpty);
        // llist = (LinearLayout)findViewById(R.id.linerat_list);
 
         url = "http://iesayala.ddns.net/natalia/php.php";
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         new ListTask().execute();
+
 
     }
 
@@ -238,30 +240,42 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                fillTask();
+                if(arrayList.size()>0){
+                    fillTask();
 
-                for(int i=0;i<arrayList.size();i++){
-                    if(arrayList.get(i).getTasks().size()<1){
-                        arrayList.remove(i);
+                    for(int i=0;i<arrayList.size();i++){
+                        if(arrayList.get(i).getTasks().size()<1){
+                            arrayList.remove(i);
+                        }
                     }
+
+                    final ListCardAdapter adaptador = new ListCardAdapter(arrayList);
+
+                    adaptador.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(MainActivity.this, MainListActivity.class);
+                            i.putExtra("lista",arrayList.get(rvList.getChildPosition(v)).getId());
+                            i.putExtra("title",arrayList.get(rvList.getChildPosition(v)).getTitle());
+                            i.putExtra("user",cod);
+                            startActivity(i);
+                        }
+                    });
+
+
+                    rvList.setAdapter(adaptador);
+                    rvList.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
+
+
+
+                    tv.setVisibility(View.GONE);
+                    rvList.setVisibility(View.VISIBLE);
+                }else{
+                    rvList.setVisibility(View.GONE);
+                    tv.setVisibility(View.VISIBLE);
                 }
 
-                final ListCardAdapter adaptador = new ListCardAdapter(arrayList);
-
-                adaptador.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(MainActivity.this, MainListActivity.class);
-                        i.putExtra("lista",arrayList.get(rvList.getChildPosition(v)).getId());
-                        i.putExtra("title",arrayList.get(rvList.getChildPosition(v)).getTitle());
-                        i.putExtra("user",cod);
-                        startActivity(i);
-                    }
-                });
-
-
-                rvList.setAdapter(adaptador);
-                rvList.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();

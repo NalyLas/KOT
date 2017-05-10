@@ -35,6 +35,7 @@
     <string name="title">Nuevo título</string>
     <string name="empty_text">Debes escribir un título.</string>
     <string name="empty_list">Aún no tienes ninguna tarea en esta lista</string>
+    <string name="empty_main">Aún no tienes ninguna lista</string>
     <string name="del_list">Eliminar lista</string>
     <string name="del_list_text">¡Atención! Al eliminar esta lista, eliminarás todas las tareas asociadas a ella. ¿Estás seguro de querer eliminarla?</string>
     <string name="choose_list">Elija una lista:</string>
