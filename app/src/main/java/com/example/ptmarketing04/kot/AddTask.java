@@ -113,7 +113,7 @@ public class AddTask extends Fragment {
                 getParams();
 
                 new AddNewTask().execute();
-                new ListTask().execute();
+                //Recargamos tareas
                 new GetTotalTask().execute();
 
             }
