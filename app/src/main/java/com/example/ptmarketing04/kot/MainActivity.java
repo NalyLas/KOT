@@ -3,7 +3,6 @@ package com.example.ptmarketing04.kot;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private int cod,idt,aux;
 
     static public SharedPreferences pref;
-    Color color;
-
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -76,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-
         setContentView(R.layout.activity_main);
         tb = (Toolbar) findViewById(R.id.toolbar);
         rvList = (RecyclerView)findViewById(R.id.rvList);
@@ -98,15 +94,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         aux = 0;
-
         datos = new ArrayList<GeneralTask>();
         arrayTask = new ArrayList<GeneralTask>();
 //        llist.removeAllViews();
         new GetTotalTask().execute();
-
-
         new ListTask().execute();
-
 
     }
 
@@ -185,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
            aux++;
        }
    }
-
 
     //     Task para cargar las listas del usuario
     class ListTask extends AsyncTask<String, String, JSONArray> {
@@ -266,11 +257,9 @@ public class MainActivity extends AppCompatActivity {
                     rvList.setAdapter(adaptador);
                     rvList.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
 
-
-
-
                     tv.setVisibility(View.GONE);
                     rvList.setVisibility(View.VISIBLE);
+
                 }else{
                     rvList.setVisibility(View.GONE);
                     tv.setVisibility(View.VISIBLE);
@@ -340,8 +329,6 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-
-
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
