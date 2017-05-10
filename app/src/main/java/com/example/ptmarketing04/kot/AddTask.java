@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -40,6 +40,7 @@ public class AddTask extends Fragment {
     protected EditText etTitle, etDetail, etDate;
     protected Button addTask;
     protected  ImageButton addCheck, addImg, addPdf, addDate;
+    protected CheckBox cbUrgent;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
@@ -51,7 +52,7 @@ public class AddTask extends Fragment {
     private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> arrayTask;
     private ArrayList<HashMap<String, String>> allList;
-    private int cod,listas,idt,idl;
+    private int cod,urgent,idt,idl;
     private String date,title,dateEnd, details;
 
     public AddTask() {
@@ -75,6 +76,7 @@ public class AddTask extends Fragment {
         etDetail = (EditText) view.findViewById(R.id.etDetailTask);
         etDate = (EditText) view.findViewById(R.id.etDate);
         spinner = (Spinner) view.findViewById(R.id.spinner_list);
+        cbUrgent = (CheckBox) view.findViewById(R.id.cbUrgent);
 
         addTask = (Button) view.findViewById(R.id.btAddTask);
         addCheck = (ImageButton) view.findViewById(R.id.btCheck);
@@ -164,12 +166,12 @@ public class AddTask extends Fragment {
             idt=0;
         }
 
+        if(cbUrgent.isChecked()) {
+            urgent = 1;
+        }else{
+            urgent = 0;
+        }
 
-        Log.e("inicio:",date);
-        Log.e("detail:",details);
-        Log.e("final:",dateEnd);
-        Log.e("id lista:",idl+"");
-        Log.e("id tarea:",idt+"");
 
 
 
@@ -331,7 +333,7 @@ public class AddTask extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into Tareas (`ID_tarea`, `Titulo`, `Fech_inicio`, `Fecha_fin`, `Finalizada`, `Urgente`, `Lista`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,0,"+ idl +")");
+                parametrosPost.put("ins_sql", "Insert into Tareas (`ID_tarea`, `Titulo`, `Fech_inicio`, `Fecha_fin`, `Finalizada`, `Urgente`, `Lista`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,"+ urgent +","+ idl +")");
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 
