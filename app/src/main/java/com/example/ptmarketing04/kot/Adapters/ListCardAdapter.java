@@ -35,7 +35,6 @@ public class ListCardAdapter extends RecyclerView.Adapter<ListCardAdapter.ListVi
 
             list_title = (TextView)itemView.findViewById(R.id.list_title);
             rcv = (RecyclerView) itemView.findViewById(R.id.rvTask);
-
         }
 
         public void bindList(GeneralList l) {

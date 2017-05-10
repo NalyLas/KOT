@@ -23,6 +23,7 @@
     <string name="add_list_text">Crea todas las listas que quieras, después podrás agregar las tareas que necesites a cada lista.</string>
     <string name="add_list_title">Crea tu nueva lista</string>
     <string name="add_list">Crear listas</string>
+    <string name="list_title">Tus listas</string>
     <string name="list_date">Lista creada el</string>
     <string name="update_title">Modificar lista</string>
     <string name="update_text">Introduce el nuevo nombre de tu lista</string>
@@ -34,6 +35,7 @@
     <string name="add_task">Crear tareas</string>
     <string name="task_start_adapter">Fecha de inicio:</string>
     <string name="task_end_adapter">Fecha limite:</string>
+    <string name="all_task_title">Tus tareas</string>
     <string name="finish">Tarea finalizada.</string>
     <string name="no_finish">Tarea sin finalizar.</string>
     <string name="choose_list">Elija una lista:</string>
@@ -51,7 +53,7 @@
     <string name="empty_list">Aún no tienes ninguna tarea en esta lista</string>
     <string name="empty_main">Aún no tienes ninguna lista, crea algunas listas y tareas para verlas en esta pantalla.</string>
     <string name="empty_urgent">No tienes ninguna tarea urgente sin finalizar.</string>
-
+    <string name="title_activity_main_task">MainTaskActivity</string>
 
 
 </resources>

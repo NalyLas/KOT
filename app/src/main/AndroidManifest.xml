@@ -24,7 +24,11 @@
         <activity android:name=".Preferences" />
         <activity android:name=".AddActivity" />
         <activity android:name=".ListActivity" />
-        <activity android:name=".MainListActivity"></activity>
+        <activity android:name=".MainListActivity" />
+        <activity
+            android:name=".MainTaskActivity"
+            android:label="@string/title_activity_main_task"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

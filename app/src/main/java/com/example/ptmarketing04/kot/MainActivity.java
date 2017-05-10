@@ -206,6 +206,18 @@ public class MainActivity extends AppCompatActivity {
 
            final UrgentTaskAdapter adaptadoru = new UrgentTaskAdapter(arrayTask);
 
+           adaptadoru.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   Intent i = new Intent(MainActivity.this, MainTaskActivity.class);
+                   i.putExtra("tarea",arrayTask.get(rvUrgent.getChildPosition(v)).getId_task());
+                   i.putExtra("title",arrayTask.get(rvUrgent.getChildPosition(v)).getTitle());
+                   i.putExtra("user",cod);
+                   startActivity(i);
+               }
+           });
+
+
            rvUrgent.setAdapter(adaptadoru);
            rvUrgent.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
 
@@ -292,7 +304,6 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(i);
                         }
                     });
-
 
                     rvList.setAdapter(adaptador);
                     rvList.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));

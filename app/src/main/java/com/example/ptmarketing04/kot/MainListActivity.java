@@ -50,7 +50,6 @@ public class MainListActivity extends AppCompatActivity {
     private int id,cod;
     private String title,new_title;
 
-
     static public SharedPreferences pref;
     protected String theme;
 
@@ -175,7 +174,6 @@ public class MainListActivity extends AppCompatActivity {
 
     }
 
-
     //     Task para cargar las tareas de la lista actual
     class GetTotalTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
@@ -215,7 +213,6 @@ public class MainListActivity extends AppCompatActivity {
             }
             if (json != null) {
 
-
                 datos = new ArrayList<GeneralTask>();
 
                 for (int i = 0; i < json.length(); i++) {
@@ -232,7 +229,6 @@ public class MainListActivity extends AppCompatActivity {
 
                         datos.add(task);
 
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -242,8 +238,18 @@ public class MainListActivity extends AppCompatActivity {
                     emptyList.setVisibility(View.GONE);
                     recView.setVisibility(View.VISIBLE);
                     final GeneralTaskAdapter adaptador = new GeneralTaskAdapter(datos);
-                    recView.setAdapter(adaptador);
 
+                    adaptador.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(MainListActivity.this, MainTaskActivity.class);
+                            i.putExtra("tarea",datos.get(recView.getChildPosition(v)).getId_task());
+                            i.putExtra("title",datos.get(recView.getChildPosition(v)).getTitle());
+                            i.putExtra("user",cod);
+                            startActivity(i);
+                        }
+                    });
+                    recView.setAdapter(adaptador);
 
                     recView.setLayoutManager(new LinearLayoutManager(MainListActivity.this, LinearLayoutManager.VERTICAL, false));
                     recView.addItemDecoration(
@@ -254,7 +260,6 @@ public class MainListActivity extends AppCompatActivity {
                     emptyList.setVisibility(View.VISIBLE);
                     recView.setVisibility(View.GONE);
                 }
-
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -384,8 +389,6 @@ public class MainListActivity extends AppCompatActivity {
 
     }
 
-
-
     //task para eliminar listas
     class DelListTask extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
@@ -446,7 +449,5 @@ public class MainListActivity extends AppCompatActivity {
         }
 
     }
-
-
 
 }

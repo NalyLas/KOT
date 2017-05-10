@@ -1,12 +1,16 @@
 package com.example.ptmarketing04.kot.Adapters;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ptmarketing04.kot.MainTaskActivity;
 import com.example.ptmarketing04.kot.Objects.GeneralTask;
 import com.example.ptmarketing04.kot.R;
 
@@ -27,6 +31,7 @@ public class TaskCardAdapter extends RecyclerView.Adapter<TaskCardAdapter.ListVi
 
         private TextView tvTitle;
         private ImageView ivUrgent;
+        private LinearLayout llinear;
 
 
         public ListViewHolder(final View itemView) {
@@ -34,15 +39,31 @@ public class TaskCardAdapter extends RecyclerView.Adapter<TaskCardAdapter.ListVi
 
             tvTitle = (TextView)itemView.findViewById(R.id.tvTitle);
             ivUrgent = (ImageView)itemView.findViewById(R.id.ivUrgent);
+            llinear = (LinearLayout) itemView.findViewById(R.id.llinear);
+
         }
 
-        public void bindList(GeneralTask l) {
+        public void bindList(final GeneralTask l) {
             tvTitle.setText(l.getTitle());
             if(l.getUrgent()==0){
                 ivUrgent.setImageResource(R.mipmap.ic_launcher);
             }else{
                 ivUrgent.setImageResource(R.mipmap.ic_launcher_round);
             }
+
+            llinear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(itemView.getContext(), MainTaskActivity.class);
+                    i.putExtra("tarea",l.getId_task());
+                    i.putExtra("title",l.getTitle());
+                   // i.putExtra("user",cod);
+                    itemView.getContext().startActivity(i);
+
+                    //Asi lo capta pero no puedes hacer mucho mas que esto
+                    Log.e("datos bton:--->","boton pulsado en "+ getPosition());
+                }
+            });
 
         }
     }
