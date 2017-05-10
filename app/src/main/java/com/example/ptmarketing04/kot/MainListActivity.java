@@ -288,7 +288,7 @@ public class MainListActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Update Listas SET `Titulo` = '"+ new_title +"' where `ID_lista`="+ id);
+                parametrosPost.put("ins_sql", "Update Listas SET `Titulo_lista` = '"+ new_title +"' where `ID_lista`="+ id);
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 

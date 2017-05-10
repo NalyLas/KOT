@@ -181,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
            aux++;
        }
 
-
    }
 
    //Planteate hacer esto filtrando por tareas urgentes
@@ -273,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
                         list = new GeneralList();
                         list.setId(jsonObject.getInt("ID_lista"));
                         list.setId_user(jsonObject.getInt("user"));
-                        list.setTitle(jsonObject.getString("Titulo"));
+                        list.setTitle(jsonObject.getString("Titulo_lista"));
 
 
                         arrayList.add(list);

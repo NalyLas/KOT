@@ -2,7 +2,6 @@ package com.example.ptmarketing04.kot.Adapters;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,8 +59,6 @@ public class TaskCardAdapter extends RecyclerView.Adapter<TaskCardAdapter.ListVi
                    // i.putExtra("user",cod);
                     itemView.getContext().startActivity(i);
 
-                    //Asi lo capta pero no puedes hacer mucho mas que esto
-                    Log.e("datos bton:--->","boton pulsado en "+ getPosition());
                 }
             });
 

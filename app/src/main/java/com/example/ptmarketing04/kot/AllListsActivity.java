@@ -111,7 +111,7 @@ public class AllListsActivity extends Fragment {
                         list = new GeneralList();
                         list.setId(jsonObject.getInt("ID_lista"));
                         list.setId_user(jsonObject.getInt("user"));
-                        list.setTitle(jsonObject.getString("Titulo"));
+                        list.setTitle(jsonObject.getString("Titulo_lista"));
                         list.setDate(jsonObject.getString("Fecha"));
                         arrayList.add(list);
 

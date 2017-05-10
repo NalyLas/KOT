@@ -241,7 +241,7 @@ public class AddTask extends Fragment {
                         list = new GeneralList();
                         list.setId(jsonObject.getInt("ID_lista"));
                         list.setId_user(jsonObject.getInt("user"));
-                        list.setTitle(jsonObject.getString("Titulo"));
+                        list.setTitle(jsonObject.getString("Titulo_lista"));
                         arrayList.add(list);
 
                     } catch (JSONException e) {
