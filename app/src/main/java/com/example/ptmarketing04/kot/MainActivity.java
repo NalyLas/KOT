@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Modificamos tema en función de las preferencias del usuario
         pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
         theme = pref.getString("theme_pref","OR");
         switch (theme){
@@ -73,12 +73,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
+
         tb = (Toolbar) findViewById(R.id.toolbar);
         rvList = (RecyclerView)findViewById(R.id.rvList);
         rvTask = (RecyclerView)findViewById(R.id.rvTask);
         rvUrgent = (RecyclerView)findViewById(R.id.rvUrgentTask);
         tv = (TextView)findViewById(R.id.tvEmpty);
         tvUrgent = (TextView)findViewById(R.id.tvEmptyUrgent);
+
 
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
@@ -159,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
     // Cuano existan muchas tareas irá muy lento
     //Intenta crear un nuevo array cada vez que lances la task y averigua como pararle todos los ids
     //Sienpre se saltaba el primero
+
+    //Obtenemos las tareas de cada lista
    public void fillTask(){
        aux = 0;
        while(aux<arrayList.size()){
@@ -179,6 +183,8 @@ public class MainActivity extends AppCompatActivity {
    //Planteate hacer esto filtrando por tareas urgentes
     // select * from task where urgent = 1 and finished = 0 order by fecha_final ASC;
     // es decir obtener solo aquellas tareas que sean urgentes y no esten finalizadas
+
+    //Obtenemos las tareas urgentes
    public void urgentTask(){
        aux = 0;
        while(aux<arrayList.size()){
@@ -190,9 +196,6 @@ public class MainActivity extends AppCompatActivity {
            }
            aux++;
        }
-
-       Log.e("tareas urgentes",arrayTask.size()+"");
-
 
        if (arrayTask.size()>0){
 
@@ -284,6 +287,9 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
+
+
+                    //Creamos el adapatador
                     final ListCardAdapter adaptador = new ListCardAdapter(arrayList);
 
                     adaptador.setOnClickListener(new View.OnClickListener() {

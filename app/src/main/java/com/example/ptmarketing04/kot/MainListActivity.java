@@ -57,6 +57,7 @@ public class MainListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Modificamos tema en función de las preferencias del usuario
         pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
         theme = pref.getString("theme_pref","OR");
         switch (theme){
