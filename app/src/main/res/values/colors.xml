@@ -26,6 +26,7 @@
     <color name="deepPurpleSemi">#64673ab7</color>
 
 
-    <color name="greyGeneral">#19303C</color>
+    <color name="greyGeneral">#19303c</color>
+    <color name="bckGeneral">#49b7b4b0</color>
 
 </resources>

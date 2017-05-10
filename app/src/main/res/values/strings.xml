@@ -15,29 +15,27 @@
     <string name="loading">Cargando...</string>
     <string name="wrongUser">Usuario o contraseña incorrectos.</string>
     <string name="error">Ha ocurrido un problema con la conexión, vuelva a intentarlo en unos segundos.</string>
-    <string name="emptyFields">Debe rellenar todos los campos.</string>
     <string name="emailExist">Ya existe un usuario con ese email.</string>
     <string name="wrongPass">Las contrsaeñas no coinciden.</string>
     <string name="signin">Usuario registrado correctamente. ¡Bienvenido a Keep on Task!</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_add">AddActivity</string>
+
+    <!--     LISTAS       -->
     <string name="add_list_text">Crea todas las listas que quieras, después podrás agregar las tareas que necesites a cada lista.</string>
     <string name="add_list_title">Crea tu nueva lista</string>
     <string name="add_list">Crear listas</string>
-    <string name="add_task">Crear tareas</string>
     <string name="list_date">Lista creada el</string>
-    <string name="task_start_adapter">Fecha de inicio:</string>
-    <string name="task_end_adapter">Fecha limite:</string>
-    <string name="finish">Tarea sin finalizar.</string>
-    <string name="no_finish">Tarea finalizada.</string>
     <string name="update_title">Modificar lista</string>
     <string name="update_text">Introduce el nuevo nombre de tu lista</string>
     <string name="title">Nuevo título</string>
-    <string name="empty_text">Debes escribir un título.</string>
-    <string name="empty_list">Aún no tienes ninguna tarea en esta lista</string>
-    <string name="empty_main">Aún no tienes ninguna lista, crea algunas listas y tareas para verlas en esta pantalla.</string>
     <string name="del_list">Eliminar lista</string>
     <string name="del_list_text">¡Atención! Al eliminar esta lista, eliminarás todas las tareas asociadas a ella. ¿Estás seguro de querer eliminarla?</string>
+
+    <!--     TAREAS       -->
+    <string name="add_task">Crear tareas</string>
+    <string name="task_start_adapter">Fecha de inicio:</string>
+    <string name="task_end_adapter">Fecha limite:</string>
+    <string name="finish">Tarea finalizada.</string>
+    <string name="no_finish">Tarea sin finalizar.</string>
     <string name="choose_list">Elija una lista:</string>
     <string name="task_title">Título: </string>
     <string name="task_hint">Nombre de la tarea</string>
@@ -45,6 +43,15 @@
     <string name="task_date">Hasta: </string>
     <string name="task_details_hint">Detalles de la tarea </string>
     <string name="task_urgent">Tarea urgente</string>
+    <string name="task_urgent_title">Tus tareas urgentes</string>
+
+    <!--     CAMPOS VACIOS    -->
+    <string name="emptyFields">Debe rellenar todos los campos.</string>
+    <string name="empty_text">Debes escribir un título.</string>
+    <string name="empty_list">Aún no tienes ninguna tarea en esta lista</string>
+    <string name="empty_main">Aún no tienes ninguna lista, crea algunas listas y tareas para verlas en esta pantalla.</string>
+    <string name="empty_urgent">No tienes ninguna tarea urgente sin finalizar.</string>
+
 
 
 </resources>

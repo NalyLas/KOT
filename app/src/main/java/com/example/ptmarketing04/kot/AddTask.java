@@ -515,7 +515,4 @@ public class AddTask extends Fragment {
 
     }
 
-
-
-
 }

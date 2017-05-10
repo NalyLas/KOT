@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ptmarketing04.kot.Adapters.ListCardAdapter;
+import com.example.ptmarketing04.kot.Adapters.UrgentTaskAdapter;
 import com.example.ptmarketing04.kot.Objects.GeneralList;
 import com.example.ptmarketing04.kot.Objects.GeneralTask;
 
@@ -33,10 +35,10 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     protected LinearLayout llist;
-    protected TextView tv;
+    protected TextView tv,tvUrgent;
     protected Toolbar tb;
     protected String theme;
-    protected RecyclerView rvTask,rvList;
+    protected RecyclerView rvTask,rvList,rvUrgent;
    // protected ListView lvTask;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
@@ -77,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
         tb = (Toolbar) findViewById(R.id.toolbar);
         rvList = (RecyclerView)findViewById(R.id.rvList);
         rvTask = (RecyclerView)findViewById(R.id.rvTask);
+        rvUrgent = (RecyclerView)findViewById(R.id.rvUrgentTask);
         tv = (TextView)findViewById(R.id.tvEmpty);
+        tvUrgent = (TextView)findViewById(R.id.tvEmptyUrgent);
        // llist = (LinearLayout)findViewById(R.id.linerat_list);
 
         url = "http://iesayala.ddns.net/natalia/php.php";
@@ -176,6 +180,42 @@ public class MainActivity extends AppCompatActivity {
            arrayList.get(aux).setTasks(array);
            aux++;
        }
+
+
+   }
+
+   //Planteate hacer esto filtrando por tareas urgentes
+    // select * from task where urgent = 1 and finished = 0 order by fecha_final ASC;
+    // es decir obtener solo aquellas tareas que sean urgentes y no esten finalizadas
+   public void urgentTask(){
+       aux = 0;
+       while(aux<arrayList.size()){
+           arrayTask = new ArrayList<>();
+           for(int i=0;i<datos.size();i++){
+               if(datos.get(i).getFinished()==0 && datos.get(i).getUrgent()==1){
+                   arrayTask.add(datos.get(i));
+               }
+           }
+           aux++;
+       }
+
+       Log.e("tareas urgentes",arrayTask.size()+"");
+
+
+       if (arrayTask.size()>0){
+
+           final UrgentTaskAdapter adaptadoru = new UrgentTaskAdapter(arrayTask);
+
+           rvUrgent.setAdapter(adaptadoru);
+           rvUrgent.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
+
+           tvUrgent.setVisibility(View.GONE);
+           rvUrgent.setVisibility(View.VISIBLE);
+
+       }else{
+           rvUrgent.setVisibility(View.GONE);
+           tvUrgent.setVisibility(View.VISIBLE);
+       }
    }
 
     //     Task para cargar las listas del usuario
@@ -260,6 +300,9 @@ public class MainActivity extends AppCompatActivity {
                     tv.setVisibility(View.GONE);
                     rvList.setVisibility(View.VISIBLE);
 
+                    urgentTask();
+
+
                 }else{
                     rvList.setVisibility(View.GONE);
                     tv.setVisibility(View.VISIBLE);
@@ -272,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //     Task para cargar las tareas de la lista actual
+    //     Task para cargar las tareas del usuario
     class GetTotalTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
 
