@@ -95,11 +95,11 @@ public class MainActivity extends AppCompatActivity {
             cod = extras.getInt("user");
         }
 
-        aux = 0;
+      /*  aux = 0;
         datos = new ArrayList<GeneralTask>();
         arrayTask = new ArrayList<GeneralTask>();
         new GetTotalTask().execute();
-        new ListTask().execute();
+        new ListTask().execute();*/
 
     }
 
@@ -115,7 +115,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.preferencias:
                 i = new Intent(this,Preferences.class);
+                i.putExtra("user",cod);
                 startActivity(i);
+                finish();
                 return true;
             case R.id.task:
                 i = new Intent(this,ListActivity.class);
@@ -388,5 +390,15 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        aux = 0;
+        datos = new ArrayList<GeneralTask>();
+        arrayTask = new ArrayList<GeneralTask>();
+        new GetTotalTask().execute();
+        new ListTask().execute();
     }
 }

@@ -67,7 +67,7 @@ public class ListActivity extends AppCompatActivity {
         //añadimos tabs
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(vp);
-        tabs.setBackgroundColor(getResources().getColor(R.color.deepOrangePrimary));
+        tabs.setBackgroundColor(getResources().getColor(R.color.greyGeneral));
         switch (theme){
             case "OR":
                 tabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.deepOrangePrimary));
@@ -88,6 +88,7 @@ public class ListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
+        menu.findItem(R.id.preferencias).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -95,20 +96,12 @@ public class ListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent i;
         switch (item.getItemId()){
-            case R.id.preferencias:
-                i = new Intent(this,Preferences.class);
-                startActivity(i);
-                return true;
-            case R.id.task:
-                //      i = new Intent(this,ListActivity.class);
-                //    i.putExtra("user",cod);
-                //    startActivity(i);
-                return true;
             case R.id.add:
                 i = new Intent(this,AddActivity.class);
                 i.putExtra("user",cod);
                 i.putExtra("tab_activa",0);
                 startActivity(i);
+                finish();
                 return true;
 
         }

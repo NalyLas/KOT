@@ -65,7 +65,6 @@ public class AllListsActivity extends Fragment {
         return inflater.inflate(R.layout.layout_all_lists, container, false);
     }
 
-
     //     Task para cargar las listas del usuario
     class ListTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;

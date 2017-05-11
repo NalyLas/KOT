@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:key="pref_ip"
-        android:title="Preferencias" />
-
-    <EditTextPreference android:key="ip"
-        android:title="Elije la Ip"
-        android:summary="Escribe la dirección del servidor al que desees conectarte"
-        />
+    <PreferenceCategory android:key="pref_ip" />
 
     <ListPreference
-        android:key="theme_pref"
-        android:title="Tema"
-        android:summary="Elige un tema"
         android:entries="@array/tema"
-        android:entryValues="@array/codTema" />
+        android:entryValues="@array/codTema"
+        android:key="theme_pref"
+        android:summary="Elige un tema"
+        android:title="Tema" />
+
+    <SwitchPreference
+        android:key="notification"
+        android:title="Activar notificaciones"
+        android:summary="KOT te avisará cuando tengas tareas urgentes"/>
 
 </PreferenceScreen>
