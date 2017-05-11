@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KOT</string>
+    <string name="add_list">Add Lists</string>
+    <string name="acept">Ok</string>
+    <string name="add_task">Add Tasks</string>
+    <string name="all_task_title">My Tasks</string>
+    <string name="cancel">Cancel</string>
+    <string name="mail">Email</string>
+    <string name="name">Name</string>
+    <string name="login">Log in</string>
+    <string name="nav_close">Close</string>
+    <string name="nav_open">Open</string>
+</resources>

@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         tv = (TextView)findViewById(R.id.tvEmpty);
         tvUrgent = (TextView)findViewById(R.id.tvEmptyUrgent);
 
-
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
 
@@ -127,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
             tb.setTitle("ninini");
             setSupportActionBar(tb);
         }
-
 
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -152,13 +150,13 @@ public class MainActivity extends AppCompatActivity {
         items.clear();
 
         //Creamos los elementos del menu
-        items.add(new NavItem(0,getResources().getDrawable(R.mipmap.ic_add_task),getResources().getString(R.string.nav_all_list)));
-        items.add(new NavItem(1,getResources().getDrawable(R.mipmap.ic_task),getResources().getString(R.string.nav_all_task)));
-        items.add(new NavItem(2,getResources().getDrawable(R.mipmap.ic_urgent),getResources().getString(R.string.nav_add_list)));
-        items.add(new NavItem(3,getResources().getDrawable(R.mipmap.ic_delete),getResources().getString(R.string.nav_add_task)));
-        items.add(new NavItem(4,getResources().getDrawable(R.mipmap.ic_delete),getResources().getString(R.string.nav_urgent)));
-        items.add(new NavItem(5,getResources().getDrawable(R.mipmap.ic_delete),getResources().getString(R.string.nav_chart)));
-        items.add(new NavItem(6,getResources().getDrawable(R.mipmap.ic_delete),getResources().getString(R.string.nav_logout)));
+        items.add(new NavItem(0,getResources().getDrawable(R.mipmap.nav_all_list),getResources().getString(R.string.nav_all_list)));
+        items.add(new NavItem(1,getResources().getDrawable(R.mipmap.nv_all_task),getResources().getString(R.string.nav_all_task)));
+        items.add(new NavItem(2,getResources().getDrawable(R.mipmap.nav_add_list),getResources().getString(R.string.nav_add_list)));
+        items.add(new NavItem(3,getResources().getDrawable(R.mipmap.nav_add_task),getResources().getString(R.string.nav_add_task)));
+        items.add(new NavItem(4,getResources().getDrawable(R.mipmap.nav_urgent),getResources().getString(R.string.nav_urgent)));
+        items.add(new NavItem(5,getResources().getDrawable(R.mipmap.nav_chart),getResources().getString(R.string.nav_chart)));
+        items.add(new NavItem(6,getResources().getDrawable(R.mipmap.nav_logout),getResources().getString(R.string.nav_logout)));
 
 
         //Creamos los eventos para ir a las distintas actividades
@@ -217,9 +215,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
     @Override
@@ -265,21 +260,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-   /* private void addChild() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        int id = R.layout.list_card;
-
-        CardView cardView = (CardView)inflater.inflate(id,null,false);
-        tv = (TextView)cardView.findViewById(R.id.list_title);
-        rvTask = (RecyclerView) cardView.findViewById(R.id.rvTask);
-
-
-       // TextView textView = (TextView) relativeLayout.findViewById(R.id.textViewDate);
-       // textView.setText(String.valueOf(System.currentTimeMillis()));
-
-        llist.addView(cardView);
-    }*/
-
    //Tendras que averif¡guar una forma más optima de realizar este proceso
     //De esta forma por ahora es la unica que funciona
     //Pero carga todas las tareas de la tabla y luego comprueba una a una
@@ -304,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
        }
 
    }
+
 
    //Planteate hacer esto filtrando por tareas urgentes
     // select * from task where urgent = 1 and finished = 0 order by fecha_final ASC;
@@ -411,8 +392,6 @@ public class MainActivity extends AppCompatActivity {
                             arrayList.remove(i);
                         }
                     }
-
-
 
                     //Creamos el adapatador
                     final ListCardAdapter adaptador = new ListCardAdapter(arrayList);
