@@ -57,6 +57,7 @@ public class AddActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
             cod = extras.getInt("user");
+            tab_activa = extras.getInt("tab_activa");
         }
 
         vp = (ViewPager) findViewById(R.id.viewpager);

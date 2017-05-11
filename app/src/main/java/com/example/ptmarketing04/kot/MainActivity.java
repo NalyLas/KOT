@@ -3,24 +3,33 @@ package com.example.ptmarketing04.kot;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ptmarketing04.kot.Adapters.ListCardAdapter;
+import com.example.ptmarketing04.kot.Adapters.NavAdapter;
 import com.example.ptmarketing04.kot.Adapters.UrgentTaskAdapter;
 import com.example.ptmarketing04.kot.Objects.GeneralList;
 import com.example.ptmarketing04.kot.Objects.GeneralTask;
+import com.example.ptmarketing04.kot.Objects.NavItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
     protected Toolbar tb;
     protected String theme;
     protected RecyclerView rvTask,rvList,rvUrgent;
+
+    protected DrawerLayout dl;
+    protected ImageView imagec;
+    protected ListView lv;
+    protected ActionBarDrawerToggle action;
+    protected ArrayList<NavItem> items = new ArrayList<>();
+    protected NavAdapter nav;
+
    // protected ListView lvTask;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
@@ -46,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> datos,arrayTask;
     private int cod,idt,aux;
+    private Drawable nav_bckg;
 
     static public SharedPreferences pref;
 
@@ -60,21 +78,34 @@ public class MainActivity extends AppCompatActivity {
         switch (theme){
             case "OR":
                 setTheme(R.style.OrangeTheme);
+                nav_bckg = getDrawable(R.drawable.deep_orange_bck);
                 break;
             case "GR":
                 setTheme(R.style.GrayTheme);
+           //     nav_bckg = getDrawable(R.drawable.deep_orange_bck);
+
                 break;
             case "TL":
                 setTheme(R.style.TealTheme);
+           //     nav_bckg = getDrawable(R.drawable.deep_orange_bck);
+
                 break;
             case "PR":
                 setTheme(R.style.DeepPurpleTheme);
+             //   nav_bckg = getDrawable(R.drawable.deep_orange_bck);
+
                 break;
         }
 
         setContentView(R.layout.activity_main);
 
         tb = (Toolbar) findViewById(R.id.toolbar);
+        dl = (DrawerLayout) findViewById(R.id.drawer);
+        lv = (ListView) findViewById(R.id.lv);
+        View header = getLayoutInflater().inflate(R.layout.nav_header, lv, false);
+        imagec = (ImageView) header.findViewById(R.id.ivNavHeader);
+        imagec.setImageDrawable(nav_bckg);
+
         rvList = (RecyclerView)findViewById(R.id.rvList);
         rvTask = (RecyclerView)findViewById(R.id.rvTask);
         rvUrgent = (RecyclerView)findViewById(R.id.rvUrgentTask);
@@ -85,10 +116,24 @@ public class MainActivity extends AppCompatActivity {
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
 
+        createNav();
+
+        nav = new NavAdapter(this,items);
+        nav.notifyDataSetChanged();
+        lv.addHeaderView(header, null, false);
+        lv.setAdapter(nav);
+
         if(tb != null){
             tb.setTitle("ninini");
             setSupportActionBar(tb);
         }
+
+
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        action = new ActionBarDrawerToggle(this, dl, tb, R.string.nav_open, R.string.nav_close);
+        dl.addDrawerListener(action);
 
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
@@ -103,9 +148,87 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void createNav(){
+        items.clear();
+
+        //Creamos los elementos del menu
+        items.add(new NavItem(0,getResources().getDrawable(R.mipmap.ic_add_task),getResources().getString(R.string.nav_all_list)));
+        items.add(new NavItem(1,getResources().getDrawable(R.mipmap.ic_task),getResources().getString(R.string.nav_all_task)));
+        items.add(new NavItem(2,getResources().getDrawable(R.mipmap.ic_urgent),getResources().getString(R.string.nav_add_list)));
+        items.add(new NavItem(3,getResources().getDrawable(R.mipmap.ic_delete),getResources().getString(R.string.nav_add_task)));
+        items.add(new NavItem(4,getResources().getDrawable(R.mipmap.ic_delete),getResources().getString(R.string.nav_urgent)));
+        items.add(new NavItem(5,getResources().getDrawable(R.mipmap.ic_delete),getResources().getString(R.string.nav_chart)));
+        items.add(new NavItem(6,getResources().getDrawable(R.mipmap.ic_delete),getResources().getString(R.string.nav_logout)));
+
+
+        //Creamos los eventos para ir a las distintas actividades
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+                switch (items.get(position).getId()) {
+                    case 0:
+                        intent = new Intent(MainActivity.this,ListActivity.class);
+                        intent.putExtra("user",cod);
+                        intent.putExtra("tab_activa",0);
+                        startActivity(intent);
+                        dl.closeDrawer(Gravity.LEFT);
+                        break;
+                    case 1:
+                        intent = new Intent(MainActivity.this,ListActivity.class);
+                        intent.putExtra("user",cod);
+                        intent.putExtra("tab_activa",1);
+                        startActivity(intent);
+                        dl.closeDrawer(Gravity.LEFT);
+                        break;
+                    case 2:
+                        intent = new Intent(MainActivity.this,AddActivity.class);
+                        intent.putExtra("user",cod);
+                        intent.putExtra("tab_activa",0);
+                        startActivity(intent);
+                        dl.closeDrawer(Gravity.LEFT);
+                        break;
+                    case 3:
+                        intent = new Intent(MainActivity.this,AddActivity.class);
+                        intent.putExtra("user",cod);
+                        intent.putExtra("tab_activa",1);
+                        startActivity(intent);
+                        dl.closeDrawer(Gravity.LEFT);
+                        break;
+                    case 4:
+                      /*  intent = new Intent(MainActivity.this,ListActivity.class);
+                        intent.putExtra("user",cod);
+                        intent.putExtra("tab_activa",0);
+                        startActivity(intent);*/
+                        break;
+                    case 5:
+                       /* intent = new Intent(MainActivity.this,ListActivity.class);
+                        intent.putExtra("user",cod);
+                        intent.putExtra("tab_activa",0);
+                        startActivity(intent);*/
+                        break;
+                    case 6:
+                      /*  intent = new Intent(MainActivity.this,ListActivity.class);
+                        intent.putExtra("user",cod);
+                        intent.putExtra("tab_activa",0);
+                        startActivity(intent);
+                        break;*/
+
+                }
+            }
+        });
+
+
+
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
+        menu.findItem(R.id.task).setVisible(false);
+        menu.findItem(R.id.add).setVisible(false);
+        menu.findItem(R.id.important).setVisible(false);
+        menu.findItem(R.id.chart).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -395,6 +518,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        action.syncState();
         aux = 0;
         datos = new ArrayList<GeneralTask>();
         arrayTask = new ArrayList<GeneralTask>();

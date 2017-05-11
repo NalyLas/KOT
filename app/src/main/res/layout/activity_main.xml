@@ -10,81 +10,105 @@
     <include layout="@layout/toolbar"></include>
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/relative">
 
-           <!-- <HorizontalScrollView
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:id="@+id/linerat_list"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                   <!-- <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:id="@+id/linerat_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
 
 
+                        </LinearLayout>
+
+                    </HorizontalScrollView>     -->
+
+                    <TextView
+                        android:id="@+id/tvEmpty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="24dp"
+                        android:text="@string/empty_main"
+                        android:textAlignment="center"
+                        android:visibility="gone" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvList"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@color/bckGeneral"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="6dp"
+                            android:text="@string/task_urgent_title"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textColor="@color/greyGeneral"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tvEmptyUrgent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="24dp"
+                            android:text="@string/empty_urgent"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:visibility="gone" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rvUrgentTask"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone" />
+                    </LinearLayout>
                 </LinearLayout>
 
-            </HorizontalScrollView>     -->
+            </ScrollView>
 
-            <TextView
-                android:id="@+id/tvEmpty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="24dp"
-                android:text="@string/empty_main"
-                android:textAlignment="center"
-                android:visibility="gone" />
+        </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvList"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:visibility="gone" />
+        <ListView
+            android:layout_height="match_parent"
+            android:layout_width="250dp"
+            android:id="@+id/lv"
+            android:layout_gravity="start"
+            android:background="@color/specialWhite"
+            android:choiceMode="singleChoice">
+        </ListView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="12dp"
-                android:background="@color/bckGeneral"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="@string/task_urgent_title"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textColor="@color/greyGeneral"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tvEmptyUrgent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="24dp"
-                    android:text="@string/empty_urgent"
-                    android:textAlignment="center"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rvUrgentTask"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </ScrollView>
+    </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>

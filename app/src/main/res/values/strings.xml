@@ -1,6 +1,16 @@
 <resources>
 
+    <!--    GENERAL     -->
     <string name="app_name">KOT</string>
+    <string name="nav_open">Abierto</string>
+    <string name="nav_close">Cerrado</string>
+    <string name="nav_add_list">Agregar listas</string>
+    <string name="nav_add_task">Agregar tareas</string>
+    <string name="nav_all_list">Mis listas</string>
+    <string name="nav_all_task">Mis tareas</string>
+    <string name="nav_urgent">Tareas urgentes</string>
+    <string name="nav_chart">Mis resumenes</string>
+    <string name="nav_logout">Desconectar</string>
 
     <!--    LOGUIN    -->
     <string name="mail">Email</string>
@@ -23,7 +33,7 @@
     <string name="add_list_text">Crea todas las listas que quieras, después podrás agregar las tareas que necesites a cada lista.</string>
     <string name="add_list_title">Crea tu nueva lista</string>
     <string name="add_list">Crear listas</string>
-    <string name="list_title">Tus listas</string>
+    <string name="list_title">Mis listas</string>
     <string name="list_date">Lista creada el</string>
     <string name="update_title">Modificar lista</string>
     <string name="update_text">Introduce el nuevo nombre de tu lista</string>
@@ -35,7 +45,7 @@
     <string name="add_task">Crear tareas</string>
     <string name="task_start_adapter">Fecha de inicio:</string>
     <string name="task_end_adapter">Fecha limite:</string>
-    <string name="all_task_title">Tus tareas</string>
+    <string name="all_task_title">Mis tareas</string>
     <string name="finish">Tarea finalizada.</string>
     <string name="no_finish">Tarea sin finalizar.</string>
     <string name="choose_list">Elija una lista:</string>

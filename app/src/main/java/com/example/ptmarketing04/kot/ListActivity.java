@@ -58,6 +58,7 @@ public class ListActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
             cod = extras.getInt("user");
+            tab_activa = extras.getInt("tab_activa");
         }
 
 
