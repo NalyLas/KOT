@@ -89,6 +89,7 @@ public class AddActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
+     //   menu.findItem(R.id.add).setIcon(getResources().getDrawable(R.mipmap.ic_add_active));
         menu.findItem(R.id.preferencias).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }

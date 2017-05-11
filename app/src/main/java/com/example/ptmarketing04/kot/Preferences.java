@@ -33,9 +33,6 @@ public class Preferences extends PreferenceActivity implements SharedPreferences
         }
     }
 
-
-    //Asi se quedan abiertas todas y además no carga las card whyyyyyyyyyyyyyyyyyyyy o whyyyyyyyyyyyyyyyyyyyyyyyy
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
