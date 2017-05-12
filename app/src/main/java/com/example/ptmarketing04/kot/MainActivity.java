@@ -433,7 +433,10 @@ public class MainActivity extends AppCompatActivity {
         String p = String.valueOf(c.get(Calendar.DAY_OF_WEEK));
 
         Log.d("dia de la semana", p+"");
+
+
         //Aqui el problema es que el primer dia de la semana es domingo
+        //Como controlar esto ??
 
     }
 
