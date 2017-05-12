@@ -437,6 +437,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Aqui el problema es que el primer dia de la semana es domingo
         //Como controlar esto ??
+        //Puedes hacer un switch y asignar string a los dias
+        // el problema es que cogera el domingo anterior
 
     }
 
