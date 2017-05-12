@@ -55,7 +55,7 @@
     <string name="task_date">Hasta: </string>
     <string name="task_details_hint">Detalles de la tarea </string>
     <string name="task_urgent">Tarea urgente</string>
-    <string name="task_urgent_title">Tus tareas urgentes</string>
+    <string name="task_urgent_title">Mis tareas urgentes</string>
 
     <!--     CAMPOS VACIOS    -->
     <string name="emptyFields">Debe rellenar todos los campos.</string>
@@ -63,7 +63,7 @@
     <string name="empty_list">Aún no tienes ninguna tarea en esta lista</string>
     <string name="empty_main">Aún no tienes ninguna lista, crea algunas listas y tareas para verlas en esta pantalla.</string>
     <string name="empty_urgent">No tienes ninguna tarea urgente sin finalizar.</string>
-    <string name="title_activity_main_task">MainTaskActivity</string>
+    <string name="title_activity_main_task" translatable="false">MainTaskActivity</string>
 
 
 </resources>
