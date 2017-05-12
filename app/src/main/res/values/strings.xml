@@ -57,13 +57,29 @@
     <string name="task_urgent">Tarea urgente</string>
     <string name="task_urgent_title">Mis tareas urgentes</string>
 
+    <!--    RESUMENES       -->
+    <string name="chart_title">Mi resumen semanal</string>
+    <string name="mon">L</string>
+    <string name="tue">M</string>
+    <string name="wed">X</string>
+    <string name="thur">J</string>
+    <string name="fri">V</string>
+    <string name="sat">S</string>
+    <string name="sun">D</string>
+    <string name="val_urgent">Tareas urgentes</string>
+    <string name="val_no_urgent">Tareas no urgentes</string>
+
     <!--     CAMPOS VACIOS    -->
     <string name="emptyFields">Debe rellenar todos los campos.</string>
     <string name="empty_text">Debes escribir un título.</string>
     <string name="empty_list">Aún no tienes ninguna tarea en esta lista</string>
     <string name="empty_main">Aún no tienes ninguna lista, crea algunas listas y tareas para verlas en esta pantalla.</string>
     <string name="empty_urgent">No tienes ninguna tarea urgente sin finalizar.</string>
+    <string name="empty_chart">No tienes ninguna tarea pendiente durante esta semana.</string>
+
     <string name="title_activity_main_task" translatable="false">MainTaskActivity</string>
+
+
 
 
 </resources>

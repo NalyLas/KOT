@@ -30,6 +30,10 @@ import com.example.ptmarketing04.kot.Adapters.UrgentTaskAdapter;
 import com.example.ptmarketing04.kot.Objects.GeneralList;
 import com.example.ptmarketing04.kot.Objects.GeneralTask;
 import com.example.ptmarketing04.kot.Objects.NavItem;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     protected Toolbar tb;
     protected String theme;
     protected RecyclerView rvTask,rvList,rvUrgent;
+    private BarChart barChart;
+
 
     protected DrawerLayout dl;
     protected ImageView imagec;
@@ -64,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<GeneralTask> datos,arrayTask;
     private int cod,idt,aux;
     private Drawable nav_bckg;
+    ArrayList<Integer> colors = new ArrayList<Integer>();
 
     static public SharedPreferences pref;
 
@@ -72,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //limpiamos el array de colores
+        colors.clear();
+
         //Modificamos tema en función de las preferencias del usuario
         pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
         theme = pref.getString("theme_pref","OR");
@@ -79,19 +89,27 @@ public class MainActivity extends AppCompatActivity {
             case "OR":
                 setTheme(R.style.OrangeTheme);
                 nav_bckg = getDrawable(R.drawable.deep_orange_bck);
+                colors.add(getResources().getColor(R.color.deepOrangePrimary));
+                colors.add(getResources().getColor(R.color.deepOrangeAccent));
                 break;
             case "GR":
                 setTheme(R.style.GrayTheme);
+                colors.add(getResources().getColor(R.color.blueGrayPrimary));
+                colors.add(getResources().getColor(R.color.blueGrayAccent));
            //     nav_bckg = getDrawable(R.drawable.deep_orange_bck);
 
                 break;
             case "TL":
                 setTheme(R.style.TealTheme);
+                colors.add(getResources().getColor(R.color.tealPrimary));
+                colors.add(getResources().getColor(R.color.tealAccent));
            //     nav_bckg = getDrawable(R.drawable.deep_orange_bck);
 
                 break;
             case "PR":
                 setTheme(R.style.DeepPurpleTheme);
+                colors.add(getResources().getColor(R.color.deepPurplePrimary));
+                colors.add(getResources().getColor(R.color.deepPurpleAccent));
              //   nav_bckg = getDrawable(R.drawable.deep_orange_bck);
 
                 break;
@@ -111,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         rvUrgent = (RecyclerView)findViewById(R.id.rvUrgentTask);
         tv = (TextView)findViewById(R.id.tvEmpty);
         tvUrgent = (TextView)findViewById(R.id.tvEmptyUrgent);
+        barChart = (BarChart)findViewById(R.id.barChart);
 
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
@@ -331,6 +350,75 @@ public class MainActivity extends AppCompatActivity {
        }
    }
 
+   public void createChart(){
+       BarData data = new BarData(getDaysValues(), getDataSet());
+       barChart.setData(data);
+       barChart.setDescription("");
+       barChart.animateXY(3000, 3000);
+       barChart.invalidate();
+
+   }
+
+    private ArrayList<BarDataSet> getDataSet() {
+        ArrayList<BarDataSet> dataSets = null;
+
+        ArrayList<BarEntry> valueSet1 = new ArrayList<>();
+        BarEntry v1e1 = new BarEntry(110.000f, 0); // Jan
+        valueSet1.add(v1e1);
+        BarEntry v1e2 = new BarEntry(40.000f, 1); // Feb
+        valueSet1.add(v1e2);
+        BarEntry v1e3 = new BarEntry(60.000f, 2); // Mar
+        valueSet1.add(v1e3);
+        BarEntry v1e4 = new BarEntry(30.000f, 3); // Apr
+        valueSet1.add(v1e4);
+        BarEntry v1e5 = new BarEntry(90.000f, 4); // May
+        valueSet1.add(v1e5);
+        BarEntry v1e6 = new BarEntry(100.000f, 5); // Jun
+        valueSet1.add(v1e6);
+        BarEntry v1e7 = new BarEntry(100.000f, 6); // Jun
+        valueSet1.add(v1e7);
+
+        ArrayList<BarEntry> valueSet2 = new ArrayList<>();
+        BarEntry v2e1 = new BarEntry(150.000f, 0); // Jan
+        valueSet2.add(v2e1);
+        BarEntry v2e2 = new BarEntry(90.000f, 1); // Feb
+        valueSet2.add(v2e2);
+        BarEntry v2e3 = new BarEntry(120.000f, 2); // Mar
+        valueSet2.add(v2e3);
+        BarEntry v2e4 = new BarEntry(60.000f, 3); // Apr
+        valueSet2.add(v2e4);
+        BarEntry v2e5 = new BarEntry(20.000f, 4); // May
+        valueSet2.add(v2e5);
+        BarEntry v2e6 = new BarEntry(80.000f, 5); // Jun
+        valueSet2.add(v2e6);
+        BarEntry v2e7 = new BarEntry(80.000f, 6); // Jun
+        valueSet2.add(v2e7);
+
+        BarDataSet barDataSet1 = new BarDataSet(valueSet1, getResources().getString(R.string.val_no_urgent));
+        barDataSet1.setColor(colors.get(0));
+        BarDataSet barDataSet2 = new BarDataSet(valueSet2, getResources().getString(R.string.val_urgent));
+        barDataSet2.setColor(colors.get(1));
+
+        dataSets = new ArrayList<>();
+        dataSets.add(barDataSet1);
+        dataSets.add(barDataSet2);
+        return dataSets;
+    }
+
+    private ArrayList<String> getDaysValues() {
+        ArrayList<String> days = new ArrayList<>();
+        days.add(getResources().getString(R.string.mon));
+        days.add(getResources().getString(R.string.tue));
+        days.add(getResources().getString(R.string.wed));
+        days.add(getResources().getString(R.string.thur));
+        days.add(getResources().getString(R.string.fri));
+        days.add(getResources().getString(R.string.sat));
+        days.add(getResources().getString(R.string.sun));
+        return days;
+    }
+
+
+
     //     Task para cargar las listas del usuario
     class ListTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
@@ -388,7 +476,7 @@ public class MainActivity extends AppCompatActivity {
                     fillTask();
 
                     for(int i=0;i<arrayList.size();i++){
-                        if(arrayList.get(i).getTasks().size()<1){
+                        if(arrayList.get(i).getTasks().size()==0){
                             arrayList.remove(i);
                         }
                     }
@@ -412,12 +500,17 @@ public class MainActivity extends AppCompatActivity {
 
                     tv.setVisibility(View.GONE);
                     rvList.setVisibility(View.VISIBLE);
+                    createChart();
+                    tvUrgent.setVisibility(View.GONE);
+                    barChart.setVisibility(View.VISIBLE);
 
                     urgentTask();
 
 
                 }else{
                     rvList.setVisibility(View.GONE);
+                    tvUrgent.setVisibility(View.VISIBLE);
+                    barChart.setVisibility(View.GONE);
                     tv.setVisibility(View.VISIBLE);
                 }
 

@@ -54,4 +54,13 @@
     <string name="update_title">Change list</string>
     <string name="wrongPass">The passwords don\'t match.</string>
     <string name="wrongUser">Wrong user or password.</string>
+    <string name="chart_title">My weekly summary</string>
+    <string name="empty_chart">Don\'t have any unfinished task this week.</string>
+    <string name="fri">Friday</string>
+    <string name="mon">Monday</string>
+    <string name="sat">Saturday</string>
+    <string name="sun">Sunday</string>
+    <string name="thur">Thursday</string>
+    <string name="tue">Tuesday</string>
+    <string name="wed">Wednesday</string>
 </resources>
