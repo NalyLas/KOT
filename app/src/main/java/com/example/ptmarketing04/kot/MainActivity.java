@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,7 +40,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 
@@ -69,8 +72,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> datos,arrayTask;
     private int cod,idt,aux;
+    private String date;
     private Drawable nav_bckg;
-    ArrayList<Integer> colors = new ArrayList<Integer>();
+    private ArrayList<Integer> colors = new ArrayList<Integer>();
 
     static public SharedPreferences pref;
 
@@ -357,28 +361,32 @@ public class MainActivity extends AppCompatActivity {
        barChart.animateXY(3000, 3000);
        barChart.invalidate();
 
+       getNumberTask();
+
    }
 
     private ArrayList<BarDataSet> getDataSet() {
         ArrayList<BarDataSet> dataSets = null;
 
         ArrayList<BarEntry> valueSet1 = new ArrayList<>();
-        BarEntry v1e1 = new BarEntry(110.000f, 0); // Jan
+
+        BarEntry v1e1 = new BarEntry(110.000f, 0); // l
         valueSet1.add(v1e1);
-        BarEntry v1e2 = new BarEntry(40.000f, 1); // Feb
+        BarEntry v1e2 = new BarEntry(40.000f, 1); // m
         valueSet1.add(v1e2);
-        BarEntry v1e3 = new BarEntry(60.000f, 2); // Mar
+        BarEntry v1e3 = new BarEntry(60.000f, 2); // x
         valueSet1.add(v1e3);
-        BarEntry v1e4 = new BarEntry(30.000f, 3); // Apr
+        BarEntry v1e4 = new BarEntry(30.000f, 3); // j
         valueSet1.add(v1e4);
-        BarEntry v1e5 = new BarEntry(90.000f, 4); // May
+        BarEntry v1e5 = new BarEntry(90.000f, 4); // v
         valueSet1.add(v1e5);
-        BarEntry v1e6 = new BarEntry(100.000f, 5); // Jun
+        BarEntry v1e6 = new BarEntry(100.000f, 5); // s
         valueSet1.add(v1e6);
-        BarEntry v1e7 = new BarEntry(100.000f, 6); // Jun
+        BarEntry v1e7 = new BarEntry(100.000f, 6); // d
         valueSet1.add(v1e7);
 
         ArrayList<BarEntry> valueSet2 = new ArrayList<>();
+
         BarEntry v2e1 = new BarEntry(150.000f, 0); // Jan
         valueSet2.add(v2e1);
         BarEntry v2e2 = new BarEntry(90.000f, 1); // Feb
@@ -415,6 +423,18 @@ public class MainActivity extends AppCompatActivity {
         days.add(getResources().getString(R.string.sat));
         days.add(getResources().getString(R.string.sun));
         return days;
+    }
+
+    private void getNumberTask(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        date = df.format(c.getTime());
+
+        String p = String.valueOf(c.get(Calendar.DAY_OF_WEEK));
+
+        Log.d("dia de la semana", p+"");
+        //Aqui el problema es que el primer dia de la semana es domingo
+
     }
 
 
