@@ -442,8 +442,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     //     Task para cargar las listas del usuario
     class ListTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
