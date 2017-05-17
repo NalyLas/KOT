@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> colors = new ArrayList<Integer>();
 
     static public SharedPreferences pref;
+    public SharedPreferences.Editor editor;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -161,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
             cod = extras.getInt("user");
         }
 
+
       /*  aux = 0;
         datos = new ArrayList<GeneralTask>();
         arrayTask = new ArrayList<GeneralTask>();
@@ -186,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
-                switch (items.get(position).getId()) {
+                switch (items.get(position-1).getId()) {
                     case 0:
                         intent = new Intent(MainActivity.this,ListActivity.class);
                         intent.putExtra("user",cod);
@@ -228,11 +231,16 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);*/
                         break;
                     case 6:
-                      /*  intent = new Intent(MainActivity.this,ListActivity.class);
-                        intent.putExtra("user",cod);
-                        intent.putExtra("tab_activa",0);
+                        intent = new Intent(MainActivity.this,LoginActivity.class);
+                        intent.putExtra("email",pref.getString("email",""));
+                        editor = pref.edit();
+                        editor.putBoolean("pre_login",false);
+                        editor.putString("user","");
+                        editor.putString("pass","");
+                        editor.putInt("cod",0);
+                        editor.commit();
                         startActivity(intent);
-                        break;*/
+                        break;
 
                 }
             }

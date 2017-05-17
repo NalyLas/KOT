@@ -33,8 +33,10 @@ public class LoginActivity extends AppCompatActivity {
     private ArrayList<User> arrayUsers;
     private ArrayList<HashMap<String, String>> userList;
     protected String theme;
+    protected int cod;
 
-    static public SharedPreferences pref;
+    public SharedPreferences pref;
+    public SharedPreferences.Editor editor;
 
 
     @Override
@@ -48,8 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         bt1 = (Button)findViewById(R.id.btLogin);
         bt2 = (Button)findViewById(R.id.btSignin);
 
-        etMail.setText("natalia@gmail.com");
-        etPass.setText("123456");
+       // etMail.setText("natalia@gmail.com");
+      //  etPass.setText("123456");
 
         url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
@@ -58,22 +60,43 @@ public class LoginActivity extends AppCompatActivity {
         if(extras!=null){
             etMail.setText(extras.getString("email"));
         }
+        pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
 
-        new LoginTask().execute();
-
+        //Comprobamos si el usuario estaba previamente logueado
+        //si estaba logueado lo enviamos directamente a la pantalla principal
+        if(pref.getBoolean("pre_login",false)){
+            etMail.setText(pref.getString("user",""));
+            etPass.setText(pref.getString("pass",""));
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("user",pref.getInt("cod",0));
+            startActivity(intent);
+        }else{
+            new LoginTask().execute();
+        }
 
 
     }
-
 
     public void logUser(View view){
         String email = etMail.getText().toString();
         String pass = etPass.getText().toString();
         for(int i=0;i<arrayUsers.size();i++){
             if(email.equals(arrayUsers.get(i).getEmail()) && pass.equals(arrayUsers.get(i).getPass())){
+                cod = arrayUsers.get(i).getId();
+
+                //guardamos preferencias para futuros logueos
+                editor = pref.edit();
+                editor.putBoolean("pre_login",true);
+                editor.putString("user",email);
+                editor.putString("pass",pass);
+                editor.putInt("cod",cod);
+                editor.commit();
+
+                //abrimos MainActivity
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("user",arrayUsers.get(i).getId());
+                intent.putExtra("user",cod);
                 startActivity(intent);
+
                 break;
             }else{
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.wrongUser), Snackbar.LENGTH_LONG).show();
