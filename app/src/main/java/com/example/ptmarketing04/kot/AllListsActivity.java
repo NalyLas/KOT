@@ -30,7 +30,7 @@ import java.util.HashMap;
 
 public class AllListsActivity extends Fragment {
 
-    protected RecyclerView recView;
+    private RecyclerView recView;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private JSONArray jSONArray;

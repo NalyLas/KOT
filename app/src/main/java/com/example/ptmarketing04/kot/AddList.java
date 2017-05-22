@@ -29,13 +29,13 @@ import java.util.HashMap;
 
 public class AddList extends Fragment {
 
-    protected EditText etName;
-    protected Button addlist;
+    private EditText etName;
+    private Button addlist;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
-    protected JSONObject jsonObject;
+    private JSONObject jsonObject;
     private Connection conn;
     private GeneralList list;
     private ArrayList<GeneralList> arrayList;

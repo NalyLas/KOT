@@ -25,12 +25,12 @@ import java.util.HashMap;
 
 public class MainTaskActivity extends AppCompatActivity {
 
-    protected TextView tv;
+    private TextView tv;
     private RecyclerView recView;
     private CollapsingToolbarLayout ctlLayout;
-    protected Dialog dialog;
-    protected EditText etNewTitle;
-    protected RelativeLayout emptyList;
+    private Dialog dialog;
+    private EditText etNewTitle;
+    private RelativeLayout emptyList;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";

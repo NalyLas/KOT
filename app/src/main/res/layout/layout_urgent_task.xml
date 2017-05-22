@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
             android:layout_weight="1"
             app:srcCompat="@mipmap/ic_logo" />
 
@@ -23,19 +23,22 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingTop="6dp"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/task_end_adapter" />
+            android:paddingTop="6dp"
+            android:text="@string/task_urgent_end" />
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingTop="6dp"
             android:text="TextView" />
     </LinearLayout>
 </LinearLayout>

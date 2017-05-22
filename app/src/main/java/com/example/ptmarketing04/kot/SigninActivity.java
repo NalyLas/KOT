@@ -27,7 +27,7 @@ public class SigninActivity extends AppCompatActivity {
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
-    protected JSONObject jsonObject;
+    private JSONObject jsonObject;
     private Connection conn;
     private User user;
     private ArrayList<User> arrayUsers;

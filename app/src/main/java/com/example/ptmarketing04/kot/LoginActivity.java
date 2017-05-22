@@ -32,11 +32,13 @@ public class LoginActivity extends AppCompatActivity {
     private User user;
     private ArrayList<User> arrayUsers;
     private ArrayList<HashMap<String, String>> userList;
-    protected String theme;
-    protected int cod;
+    private String theme;
+    private int cod;
 
     public SharedPreferences pref;
     public SharedPreferences.Editor editor;
+
+    //No funciona bien el logueo automatico
 
 
     @Override

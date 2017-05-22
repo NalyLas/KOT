@@ -38,16 +38,16 @@ import java.util.List;
  */
 
 public class AddTask extends Fragment {
-    protected Spinner spinner;
-    protected EditText etTitle, etDetail, etDate;
-    protected Button addTask;
-    protected  ImageButton addCheck, addImg, addPdf, addDate;
-    protected CheckBox cbUrgent;
+    private Spinner spinner;
+    private EditText etTitle, etDetail, etDate;
+    private Button addTask;
+    private  ImageButton addCheck, addImg, addPdf, addDate;
+    private CheckBox cbUrgent;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
-    protected JSONObject jsonObject;
+    private JSONObject jsonObject;
     private Connection conn;
     private GeneralList list;
     private GeneralTask task;

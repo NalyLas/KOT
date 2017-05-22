@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.ptmarketing04.kot.Adapters.GeneralTaskAdapter;
@@ -34,23 +36,25 @@ public class MainListActivity extends AppCompatActivity {
 
     private RecyclerView recView;
     private CollapsingToolbarLayout ctlLayout;
-    protected Dialog dialog;
-    protected EditText etNewTitle;
-    protected RelativeLayout emptyList;
+    private Dialog dialog;
+    private EditText etNewTitle;
+    private RelativeLayout emptyList;
+    private ImageView imgToolbar;
 
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
-    protected JSONObject jsonObject;
+    private JSONObject jsonObject;
     private Connection conn;
     private GeneralList list;
     private GeneralTask task;
     private ArrayList<GeneralTask> datos;
     private int id,cod;
     private String title,new_title;
+    private Drawable nav_bckg;
 
     static public SharedPreferences pref;
-    protected String theme;
+    private String theme;
 
 
     @Override
@@ -63,15 +67,19 @@ public class MainListActivity extends AppCompatActivity {
         switch (theme){
             case "OR":
                 setTheme(R.style.OrangeTheme);
+                nav_bckg = getResources().getDrawable(R.drawable.deep_orange_bck);
                 break;
             case "GR":
                 setTheme(R.style.GrayTheme);
+                nav_bckg = getResources().getDrawable(R.drawable.blue_gray_bck);
                 break;
             case "TL":
                 setTheme(R.style.TealTheme);
+                nav_bckg = getResources().getDrawable(R.drawable.teal_bck);
                 break;
             case "PR":
                 setTheme(R.style.DeepPurpleTheme);
+                nav_bckg = getResources().getDrawable(R.drawable.deep_purple_bck);
                 break;
         }
 
@@ -81,12 +89,15 @@ public class MainListActivity extends AppCompatActivity {
         //RecyclerView
         recView = (RecyclerView)findViewById(R.id.recView);
         emptyList = (RelativeLayout) findViewById(R.id.emptyList);
+        imgToolbar = (ImageView) findViewById(R.id.imgToolbar);
         //Dialog
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.layout_dialog);
         dialog.setTitle(getResources().getString(R.string.update_title));
 
         etNewTitle = (EditText)dialog.findViewById(R.id.etNewTitle);
+
+        imgToolbar.setImageDrawable(nav_bckg);
 
 
         //Accion de boton guardar filtrado

@@ -48,19 +48,19 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected TextView tv,tvUrgent;
-    protected Toolbar tb;
-    protected String theme;
-    protected RecyclerView rvTask,rvList,rvUrgent;
+    private TextView tv,tvUrgent;
+    private Toolbar tb;
+    private String theme;
+    private RecyclerView rvTask,rvList,rvUrgent;
     private BarChart barChart;
 
 
-    protected DrawerLayout dl;
-    protected ImageView imagec;
-    protected ListView lv;
-    protected ActionBarDrawerToggle action;
-    protected ArrayList<NavItem> items = new ArrayList<>();
-    protected NavAdapter nav;
+    private DrawerLayout dl;
+    private ImageView imagec;
+    private ListView lv;
+    private ActionBarDrawerToggle action;
+    private ArrayList<NavItem> items = new ArrayList<>();
+    private NavAdapter nav;
 
    // protected ListView lvTask;
 

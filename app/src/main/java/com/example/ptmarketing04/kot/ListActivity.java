@@ -14,12 +14,12 @@ import com.example.ptmarketing04.kot.Adapters.ViewPagerAdapter;
 
 public class ListActivity extends AppCompatActivity {
 
-    protected Toolbar tb;
-    protected ViewPager vp;
-    protected TabLayout tabs;
-    protected int tab_activa,cod,id;
-    Bundle bundle;
-    protected String theme;
+    private Toolbar tb;
+    private ViewPager vp;
+    private TabLayout tabs;
+    private int tab_activa,cod,id;
+    private Bundle bundle;
+    private String theme;
     static public SharedPreferences pref;
 
     @Override

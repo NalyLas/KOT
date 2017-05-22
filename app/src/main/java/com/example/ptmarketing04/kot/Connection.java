@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class Connection {
     private HttpURLConnection conn;
-    public static final int CONNECTION_TIMEOUT = 15 * 1000;
+    public static final int CONNECTION_TIMEOUT = 15 * 10000;
 
     public JSONArray sendRequest(String link, HashMap<String, String>
             values)
