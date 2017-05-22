@@ -102,21 +102,21 @@ public class MainActivity extends AppCompatActivity {
                 setTheme(R.style.GrayTheme);
                 colors.add(getResources().getColor(R.color.blueGrayPrimary));
                 colors.add(getResources().getColor(R.color.blueGrayAccent));
-           //     nav_bckg = getDrawable(R.drawable.deep_orange_bck);
+                nav_bckg = getDrawable(R.drawable.blue_gray_bck);
 
                 break;
             case "TL":
                 setTheme(R.style.TealTheme);
                 colors.add(getResources().getColor(R.color.tealPrimary));
                 colors.add(getResources().getColor(R.color.tealAccent));
-           //     nav_bckg = getDrawable(R.drawable.deep_orange_bck);
+                nav_bckg = getDrawable(R.drawable.teal_bck);
 
                 break;
             case "PR":
                 setTheme(R.style.DeepPurpleTheme);
                 colors.add(getResources().getColor(R.color.deepPurplePrimary));
                 colors.add(getResources().getColor(R.color.deepPurpleAccent));
-             //   nav_bckg = getDrawable(R.drawable.deep_orange_bck);
+                nav_bckg = getDrawable(R.drawable.deep_purple_bck);
 
                 break;
         }

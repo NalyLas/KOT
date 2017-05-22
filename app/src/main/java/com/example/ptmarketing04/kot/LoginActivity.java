@@ -74,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
             new LoginTask().execute();
         }
 
-
     }
 
     public void logUser(View view){
@@ -168,7 +167,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         }
-
 
     }
 
