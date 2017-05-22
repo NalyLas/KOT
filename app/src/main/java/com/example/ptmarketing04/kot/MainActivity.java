@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<NavItem> items = new ArrayList<>();
     private NavAdapter nav;
 
-   // protected ListView lvTask;
-
     private String url = "http://iesayala.ddns.net/natalia/php.php";
     private JSONArray jSONArray;
     private Connection conn;
@@ -162,13 +160,6 @@ public class MainActivity extends AppCompatActivity {
         if(extras!=null){
             cod = extras.getInt("user");
         }
-
-
-      /*  aux = 0;
-        datos = new ArrayList<GeneralTask>();
-        arrayTask = new ArrayList<GeneralTask>();
-        new GetTotalTask().execute();
-        new ListTask().execute();*/
 
     }
 
@@ -627,5 +618,10 @@ public class MainActivity extends AppCompatActivity {
         arrayTask = new ArrayList<GeneralTask>();
         new GetTotalTask().execute();
         new ListTask().execute();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

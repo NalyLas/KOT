@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("user",pref.getInt("cod",0));
             startActivity(intent);
+            finish();
         }else{
             new LoginTask().execute();
         }
@@ -97,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("user",cod);
                 startActivity(intent);
+                finish();
 
                 break;
             }else{
@@ -162,6 +165,8 @@ public class LoginActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    Log.e("ARRAY-USER",arrayUsers.size()+"");
                 }
 
             } else {
@@ -172,4 +177,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
