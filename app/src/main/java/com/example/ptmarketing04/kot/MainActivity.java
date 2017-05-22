@@ -620,8 +620,4 @@ public class MainActivity extends AppCompatActivity {
         new ListTask().execute();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 }
