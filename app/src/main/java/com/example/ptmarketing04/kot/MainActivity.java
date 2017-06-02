@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout dl;
     private ImageView imagec;
+    private LinearLayout llUrgent;
     private ListView lv;
     private ActionBarDrawerToggle action;
     private ArrayList<NavItem> items = new ArrayList<>();
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<GeneralTask> datos,arrayTask;
     private int cod,idt,aux;
     private String date;
-    private Drawable nav_bckg;
+    private Drawable nav_bckg,urgent_bckg;
     private ArrayList<Integer> colors = new ArrayList<Integer>();
 
     static public SharedPreferences pref;
@@ -92,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
         switch (theme){
             case "OR":
                 setTheme(R.style.OrangeTheme);
-                nav_bckg = getDrawable(R.drawable.deep_orange_bck);
+                nav_bckg = getDrawable(R.drawable.nav_header_orange);
+                urgent_bckg = getDrawable(R.drawable.bg_urgent_orange);
                 colors.add(getResources().getColor(R.color.deepOrangePrimary));
                 colors.add(getResources().getColor(R.color.deepOrangeAccent));
                 break;
@@ -101,21 +104,21 @@ public class MainActivity extends AppCompatActivity {
                 colors.add(getResources().getColor(R.color.blueGrayPrimary));
                 colors.add(getResources().getColor(R.color.blueGrayAccent));
                 nav_bckg = getDrawable(R.drawable.blue_gray_bck);
-
+                urgent_bckg = getDrawable(R.drawable.bg_urgent_gray);
                 break;
             case "TL":
                 setTheme(R.style.TealTheme);
                 colors.add(getResources().getColor(R.color.tealPrimary));
                 colors.add(getResources().getColor(R.color.tealAccent));
                 nav_bckg = getDrawable(R.drawable.teal_bck);
-
+                urgent_bckg = getDrawable(R.drawable.bg_urgent_teal);
                 break;
             case "PR":
                 setTheme(R.style.DeepPurpleTheme);
                 colors.add(getResources().getColor(R.color.deepPurplePrimary));
                 colors.add(getResources().getColor(R.color.deepPurpleAccent));
                 nav_bckg = getDrawable(R.drawable.deep_purple_bck);
-
+                urgent_bckg = getDrawable(R.drawable.bg_urgent_purple);
                 break;
         }
 
@@ -124,9 +127,13 @@ public class MainActivity extends AppCompatActivity {
         tb = (Toolbar) findViewById(R.id.toolbar);
         dl = (DrawerLayout) findViewById(R.id.drawer);
         lv = (ListView) findViewById(R.id.lv);
+
         View header = getLayoutInflater().inflate(R.layout.nav_header, lv, false);
         imagec = (ImageView) header.findViewById(R.id.ivNavHeader);
         imagec.setImageDrawable(nav_bckg);
+
+        llUrgent = (LinearLayout)findViewById(R.id.llUrgent);
+        llUrgent.setBackground(urgent_bckg);
 
         rvList = (RecyclerView)findViewById(R.id.rvList);
         rvTask = (RecyclerView)findViewById(R.id.rvTask);
