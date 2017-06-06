@@ -94,6 +94,7 @@ public class AddTask extends Fragment {
             public void onClick(View v) {
                 //alert
                 final Calendar c = Calendar.getInstance();
+                final SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                 int mYear = c.get(Calendar.YEAR);
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -104,6 +105,7 @@ public class AddTask extends Fragment {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 etDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                etDate.setText(df.format(etDate.getText()));
 
                             }
                         }, mYear, mMonth, mDay);
@@ -409,7 +411,7 @@ public class AddTask extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into Tareas (`ID_tarea`, `Titulo`, `Fech_inicio`, `Fecha_fin`, `Finalizada`, `Urgente`, `Lista`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,"+ urgent +","+ idl +")");
+                parametrosPost.put("ins_sql", "Insert into Tareas (`ID_tarea`, `Titulo`, `Fech_inicio`, `Fecha_fin`, `Finalizada`, `Urgente`, `Lista`, `User`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,"+ urgent +","+ idl +","+ cod + ")");
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 

@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
     //De esta forma por ahora es la unica que funciona
     //Pero carga todas las tareas de la tabla y luego comprueba una a una
     // Cuano existan muchas tareas irá muy lento
-    //Intenta crear un nuevo array cada vez que lances la task y averigua como pararle todos los ids
+    //Intenta crear un nuevo array cada vez que lances la task y averigua como pasarle todos los ids
     //Sienpre se saltaba el primero
 
     //Obtenemos las tareas de cada lista
@@ -438,8 +438,12 @@ public class MainActivity extends AppCompatActivity {
 
         String p = String.valueOf(c.get(Calendar.DAY_OF_WEEK));
 
-        Log.d("dia de la semana", p+"");
+        Log.e("dia de la semana", p+"");
+        Log.e("fecha actual","----->"+date);
+        int n = 0;
+        if(Integer.parseInt(p)==0){
 
+        }
 
         //Aqui el problema es que el primer dia de la semana es domingo
         //Como controlar esto ??
