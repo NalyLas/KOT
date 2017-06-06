@@ -44,6 +44,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> datos,arrayTask;
     private int cod,idt,aux;
-    private String date;
+    private String date, monday, sunday;
     private Drawable nav_bckg,urgent_bckg;
     private ArrayList<Integer> colors = new ArrayList<Integer>();
 
@@ -431,25 +432,55 @@ public class MainActivity extends AppCompatActivity {
         return days;
     }
 
+    public Date getWeek(Date fecha, int dias){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha); // Configuramos la fecha que se recibe
+        calendar.add(Calendar.DAY_OF_YEAR, dias);  // numero de días a añadir, o restar en caso de días<0
+
+        return calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
+    }
+
     private void getNumberTask(){
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         date = df.format(c.getTime());
-
         String p = String.valueOf(c.get(Calendar.DAY_OF_WEEK));
 
-        Log.e("dia de la semana", p+"");
-        Log.e("fecha actual","----->"+date);
-        int n = 0;
-        if(Integer.parseInt(p)==0){
-
+        int m = 0;
+        int s = 0;
+        switch (Integer.parseInt(p)){
+            case 1:
+                m = -6;
+                s = 0;
+                break;
+            case 2:
+                m = 0;
+                s = 6;
+                break;
+            case 3:
+                m = -1;
+                s = 5;
+                break;
+            case 4:
+                m = -2;
+                s = 4;
+                break;
+            case 5:
+                m = -3;
+                s = 3;
+                break;
+            case 6:
+                m = -4;
+                s = 2;
+                break;
+            case 7:
+                m = -5;
+                s = 1;
+                break;
         }
 
-        //Aqui el problema es que el primer dia de la semana es domingo
-        //Como controlar esto ??
-        //Puedes hacer un switch y asignar string a los dias
-        // el problema es que cogera el domingo anterior
-
+        monday = df.format(getWeek(c.getTime(),m));
+        sunday = df.format(getWeek(c.getTime(),s));
     }
 
     //     Task para cargar las listas del usuario
@@ -619,6 +650,73 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    //     Task para cargar el grafico de tareas de la semana del usuario
+    class GetChartTask extends AsyncTask<String, String, JSONArray> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog.setMessage(getResources().getString(R.string.loading));
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... args) {
+
+            try {
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `Fecha_fin` AS fecha FROM `Tareas` WHERE `User`= "+cod+" AND `Fecha_fin` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `Fecha_fin`");
+
+                jSONArray = conn.sendRequest(url, parametrosPost);
+
+                if (jSONArray != null) {
+                    return jSONArray;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(JSONArray json) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (json != null) {
+
+                for (int i = 0; i < json.length(); i++) {
+                    try {
+
+                        JSONObject jsonObject = json.getJSONObject(i);
+                        task = new GeneralTask();
+                        task.setId_task(jsonObject.getInt("ID_tarea"));
+                        task.setTitle(jsonObject.getString("Titulo"));
+                        task.setStart_date(jsonObject.getString("Fech_inicio"));
+                        task.setEnd_date(jsonObject.getString("Fecha_fin"));
+                        task.setFinished(jsonObject.getInt("Finalizada"));
+                        task.setUrgent(jsonObject.getInt("Urgente"));
+                        task.setId_list(jsonObject.getInt("Lista"));
+
+                        datos.add(task);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
 
     @Override
     protected void onResume() {
