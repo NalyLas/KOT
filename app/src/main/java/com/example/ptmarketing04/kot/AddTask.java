@@ -27,9 +27,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -99,14 +101,23 @@ public class AddTask extends Fragment {
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
 
+                /*
+                *     Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        date = df.format(c.getTime());*/
+
                 DatePickerDialog dpd = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
 
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                etDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                                etDate.setText(df.format(etDate.getText()));
-
+                                date =dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                                try {
+                                    Date d = df.parse(date);
+                                    etDate.setText(df.format(d));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }, mYear, mMonth, mDay);
                 dpd.show();
