@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.example.ptmarketing04.kot.Adapters.ListCardAdapter;
 import com.example.ptmarketing04.kot.Adapters.NavAdapter;
 import com.example.ptmarketing04.kot.Adapters.UrgentTaskAdapter;
+import com.example.ptmarketing04.kot.Objects.ChartTask;
 import com.example.ptmarketing04.kot.Objects.GeneralList;
 import com.example.ptmarketing04.kot.Objects.GeneralTask;
 import com.example.ptmarketing04.kot.Objects.NavItem;
@@ -70,8 +71,10 @@ public class MainActivity extends AppCompatActivity {
     private Connection conn;
     private GeneralList list;
     private GeneralTask task;
+    private ChartTask chartTask,chartTask2;
     private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> datos,arrayTask;
+    private ArrayList<ChartTask> chartList,chartList2;
     private int cod,idt,aux;
     private String date, monday, sunday;
     private Drawable nav_bckg,urgent_bckg;
@@ -362,51 +365,71 @@ public class MainActivity extends AppCompatActivity {
    }
 
    public void createChart(){
+       getNumberTask();
+
        BarData data = new BarData(getDaysValues(), getDataSet());
        barChart.setData(data);
        barChart.setDescription("");
        barChart.animateXY(3000, 3000);
        barChart.invalidate();
 
-       getNumberTask();
-
    }
 
     private ArrayList<BarDataSet> getDataSet() {
         ArrayList<BarDataSet> dataSets = null;
 
+        //Tareas NO urgentes
         ArrayList<BarEntry> valueSet1 = new ArrayList<>();
 
-        BarEntry v1e1 = new BarEntry(110.000f, 0); // l
-        valueSet1.add(v1e1);
-        BarEntry v1e2 = new BarEntry(40.000f, 1); // m
-        valueSet1.add(v1e2);
-        BarEntry v1e3 = new BarEntry(60.000f, 2); // x
-        valueSet1.add(v1e3);
-        BarEntry v1e4 = new BarEntry(30.000f, 3); // j
-        valueSet1.add(v1e4);
-        BarEntry v1e5 = new BarEntry(90.000f, 4); // v
-        valueSet1.add(v1e5);
-        BarEntry v1e6 = new BarEntry(100.000f, 5); // s
-        valueSet1.add(v1e6);
-        BarEntry v1e7 = new BarEntry(100.000f, 6); // d
-        valueSet1.add(v1e7);
+        //Si el array de datos contiene 7 elementos todos los dias de la semana tienen tarea
+        if(chartList2.size()==7){
+            for(int i=0;i<7;i++){
+                valueSet1.add(new BarEntry(chartList2.get(i).getNumber(),i));
+            }
+        }
+        //Piensa un metodo para controlar que no tenga todos los dias, comparando Los dias del año
+        // con los dias de la semana o algo asi
 
+        /*
+        *  BarEntry v1e1 = new BarEntry(110.000f, 0); // l
+            valueSet1.add(v1e1);
+            BarEntry v1e2 = new BarEntry(40.000f, 1); // m
+            valueSet1.add(v1e2);
+            BarEntry v1e3 = new BarEntry(60.000f, 2); // x
+            valueSet1.add(v1e3);
+            BarEntry v1e4 = new BarEntry(30.000f, 3); // j
+            valueSet1.add(v1e4);
+            BarEntry v1e5 = new BarEntry(90.000f, 4); // v
+            valueSet1.add(v1e5);
+            BarEntry v1e6 = new BarEntry(100.000f, 5); // s
+            valueSet1.add(v1e6);
+            BarEntry v1e7 = new BarEntry(100.000f, 6); // d
+            valueSet1.add(v1e7);
+        * */
+
+
+        //Tareas URGENTES
         ArrayList<BarEntry> valueSet2 = new ArrayList<>();
 
-        BarEntry v2e1 = new BarEntry(150.000f, 0); // Jan
+        if(chartList.size()==7){
+            for(int i=0;i<7;i++){
+                valueSet2.add(new BarEntry(chartList.get(i).getNumber(),i));
+            }
+        }
+
+        BarEntry v2e1 = new BarEntry(150.000f, 0); // l
         valueSet2.add(v2e1);
-        BarEntry v2e2 = new BarEntry(90.000f, 1); // Feb
+        BarEntry v2e2 = new BarEntry(90.000f, 1); // m
         valueSet2.add(v2e2);
-        BarEntry v2e3 = new BarEntry(120.000f, 2); // Mar
+        BarEntry v2e3 = new BarEntry(120.000f, 2); // x
         valueSet2.add(v2e3);
-        BarEntry v2e4 = new BarEntry(60.000f, 3); // Apr
+        BarEntry v2e4 = new BarEntry(60.000f, 3); // j
         valueSet2.add(v2e4);
-        BarEntry v2e5 = new BarEntry(20.000f, 4); // May
+        BarEntry v2e5 = new BarEntry(20.000f, 4); // v
         valueSet2.add(v2e5);
-        BarEntry v2e6 = new BarEntry(80.000f, 5); // Jun
+        BarEntry v2e6 = new BarEntry(80.000f, 5); // s
         valueSet2.add(v2e6);
-        BarEntry v2e7 = new BarEntry(80.000f, 6); // Jun
+        BarEntry v2e7 = new BarEntry(80.000f, 6); // d
         valueSet2.add(v2e7);
 
         BarDataSet barDataSet1 = new BarDataSet(valueSet1, getResources().getString(R.string.val_no_urgent));
@@ -481,6 +504,10 @@ public class MainActivity extends AppCompatActivity {
 
         monday = df.format(getWeek(c.getTime(),m));
         sunday = df.format(getWeek(c.getTime(),s));
+
+
+        new GetChartUrgentTask().execute();
+        new GetChartNormalTask().execute();
     }
 
     //     Task para cargar las listas del usuario
@@ -651,8 +678,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //     Task para cargar el grafico de tareas de la semana del usuario
-    class GetChartTask extends AsyncTask<String, String, JSONArray> {
+    //     Task para cargar el grafico de tareas de la semana del usuario (URGENTES)
+    class GetChartUrgentTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
 
         @Override
@@ -669,7 +696,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `Fecha_fin` AS fecha FROM `Tareas` WHERE `User`= "+cod+" AND `Fecha_fin` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `Fecha_fin`");
+                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `Fecha_fin` AS fecha FROM `Tareas` WHERE `User`= "+cod+" AND  `Urgente`= 1 `Fecha_fin` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `Fecha_fin`");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -692,16 +719,11 @@ public class MainActivity extends AppCompatActivity {
                     try {
 
                         JSONObject jsonObject = json.getJSONObject(i);
-                        task = new GeneralTask();
-                        task.setId_task(jsonObject.getInt("ID_tarea"));
-                        task.setTitle(jsonObject.getString("Titulo"));
-                        task.setStart_date(jsonObject.getString("Fech_inicio"));
-                        task.setEnd_date(jsonObject.getString("Fecha_fin"));
-                        task.setFinished(jsonObject.getInt("Finalizada"));
-                        task.setUrgent(jsonObject.getInt("Urgente"));
-                        task.setId_list(jsonObject.getInt("Lista"));
+                        chartTask = new ChartTask();
+                        chartTask.setNumber(jsonObject.getInt("total_number"));
+                        chartTask.setEndDate(jsonObject.getString("fecha"));
 
-                        datos.add(task);
+                        chartList.add(chartTask);
 
 
                     } catch (JSONException e) {
@@ -716,6 +738,68 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    //     Task para cargar el grafico de tareas de la semana del usuario (NO URGENTES)
+    class GetChartNormalTask extends AsyncTask<String, String, JSONArray> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog.setMessage(getResources().getString(R.string.loading));
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... args) {
+
+            try {
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `Fecha_fin` AS fecha FROM `Tareas` WHERE `User`= "+cod+" AND  `Urgente`= 0 `Fecha_fin` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `Fecha_fin`");
+
+                jSONArray = conn.sendRequest(url, parametrosPost);
+
+                if (jSONArray != null) {
+                    return jSONArray;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(JSONArray json) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (json != null) {
+
+                for (int i = 0; i < json.length(); i++) {
+                    try {
+
+                        JSONObject jsonObject = json.getJSONObject(i);
+                        chartTask2 = new ChartTask();
+                        chartTask2.setNumber(jsonObject.getInt("total_number"));
+                        chartTask2.setEndDate(jsonObject.getString("fecha"));
+
+                        chartList2.add(chartTask2);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
 
 
     @Override
