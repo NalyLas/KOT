@@ -34,6 +34,7 @@ import com.example.ptmarketing04.kot.Objects.GeneralList;
 import com.example.ptmarketing04.kot.Objects.GeneralTask;
 import com.example.ptmarketing04.kot.Objects.NavItem;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -42,6 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private ChartTask chartTask,chartTask2;
     private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> datos,arrayTask;
-    private ArrayList<ChartTask> chartList,chartList2;
+    private ArrayList<ChartTask> chartList,chartList2,chartWeek;
     private int cod,idt,aux;
     private String date, monday, sunday;
     private Drawable nav_bckg,urgent_bckg;
@@ -156,6 +158,8 @@ public class MainActivity extends AppCompatActivity {
         lv.addHeaderView(header, null, false);
         lv.setAdapter(nav);
 
+        getNumberTask();
+
         if(tb != null){
             tb.setTitle("ninini");
             setSupportActionBar(tb);
@@ -171,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
         if(extras!=null){
             cod = extras.getInt("user");
         }
-
     }
 
     public void createNav(){
@@ -365,7 +368,6 @@ public class MainActivity extends AppCompatActivity {
    }
 
    public void createChart(){
-       getNumberTask();
 
        BarData data = new BarData(getDaysValues(), getDataSet());
        barChart.setData(data);
@@ -375,62 +377,34 @@ public class MainActivity extends AppCompatActivity {
 
    }
 
+    public void fillArray(ArrayList<ChartTask> array){
+        for(int i=0;i<array.size();i++){
+            for(int j=0;j<chartWeek.size();j++){
+                if(array.get(i).getEndDate().equals(chartWeek.get(j).getEndDate())){
+                    chartWeek.get(j).setNumber(array.get(i).getNumber());
+                }
+            }
+        }
+    }
+
     private ArrayList<BarDataSet> getDataSet() {
         ArrayList<BarDataSet> dataSets = null;
 
         //Tareas NO urgentes
         ArrayList<BarEntry> valueSet1 = new ArrayList<>();
-
-        //Si el array de datos contiene 7 elementos todos los dias de la semana tienen tarea
-        if(chartList2.size()==7){
-            for(int i=0;i<7;i++){
-                valueSet1.add(new BarEntry(chartList2.get(i).getNumber(),i));
-            }
+        //Rellenamos los datos
+        for(int i=0;i<7;i++){
+            valueSet1.add(new BarEntry(chartList2.get(i).getNumber(),i));
         }
-        //Piensa un metodo para controlar que no tenga todos los dias, comparando Los dias del año
-        // con los dias de la semana o algo asi
-
-        /*
-        *  BarEntry v1e1 = new BarEntry(110.000f, 0); // l
-            valueSet1.add(v1e1);
-            BarEntry v1e2 = new BarEntry(40.000f, 1); // m
-            valueSet1.add(v1e2);
-            BarEntry v1e3 = new BarEntry(60.000f, 2); // x
-            valueSet1.add(v1e3);
-            BarEntry v1e4 = new BarEntry(30.000f, 3); // j
-            valueSet1.add(v1e4);
-            BarEntry v1e5 = new BarEntry(90.000f, 4); // v
-            valueSet1.add(v1e5);
-            BarEntry v1e6 = new BarEntry(100.000f, 5); // s
-            valueSet1.add(v1e6);
-            BarEntry v1e7 = new BarEntry(100.000f, 6); // d
-            valueSet1.add(v1e7);
-        * */
 
 
         //Tareas URGENTES
         ArrayList<BarEntry> valueSet2 = new ArrayList<>();
-
-        if(chartList.size()==7){
-            for(int i=0;i<7;i++){
-                valueSet2.add(new BarEntry(chartList.get(i).getNumber(),i));
-            }
+        //Rellenamos los datos
+        for(int i=0;i<7;i++){
+            valueSet2.add(new BarEntry(chartList.get(i).getNumber(),i));
         }
 
-        BarEntry v2e1 = new BarEntry(150.000f, 0); // l
-        valueSet2.add(v2e1);
-        BarEntry v2e2 = new BarEntry(90.000f, 1); // m
-        valueSet2.add(v2e2);
-        BarEntry v2e3 = new BarEntry(120.000f, 2); // x
-        valueSet2.add(v2e3);
-        BarEntry v2e4 = new BarEntry(60.000f, 3); // j
-        valueSet2.add(v2e4);
-        BarEntry v2e5 = new BarEntry(20.000f, 4); // v
-        valueSet2.add(v2e5);
-        BarEntry v2e6 = new BarEntry(80.000f, 5); // s
-        valueSet2.add(v2e6);
-        BarEntry v2e7 = new BarEntry(80.000f, 6); // d
-        valueSet2.add(v2e7);
 
         BarDataSet barDataSet1 = new BarDataSet(valueSet1, getResources().getString(R.string.val_no_urgent));
         barDataSet1.setColor(colors.get(0));
@@ -504,11 +478,23 @@ public class MainActivity extends AppCompatActivity {
 
         monday = df.format(getWeek(c.getTime(),m));
         sunday = df.format(getWeek(c.getTime(),s));
-
+        chartWeek = new ArrayList<ChartTask>();
+        chartWeek.add(new ChartTask(0,monday));
+        try {
+            chartWeek.add(new ChartTask(0,df.format(getWeek(df.parse(monday),1))));
+            chartWeek.add(new ChartTask(0,df.format(getWeek(df.parse(monday),2))));
+            chartWeek.add(new ChartTask(0,df.format(getWeek(df.parse(monday),3))));
+            chartWeek.add(new ChartTask(0,df.format(getWeek(df.parse(monday),4))));
+            chartWeek.add(new ChartTask(0,df.format(getWeek(df.parse(monday),5))));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        chartWeek.add(new ChartTask(0,sunday));
 
         new GetChartUrgentTask().execute();
         new GetChartNormalTask().execute();
     }
+
 
     //     Task para cargar las listas del usuario
     class ListTask extends AsyncTask<String, String, JSONArray> {
@@ -696,7 +682,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `Fecha_fin` AS fecha FROM `Tareas` WHERE `User`= "+cod+" AND  `Urgente`= 1 `Fecha_fin` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `Fecha_fin`");
+                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `Fecha_fin` AS fecha FROM `Tareas` WHERE `User`= "+pref.getInt("cod",0)+" AND  `Urgente`= 1 AND `Fecha_fin` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `Fecha_fin`");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -725,11 +711,13 @@ public class MainActivity extends AppCompatActivity {
 
                         chartList.add(chartTask);
 
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
+
+                fillArray(chartList);
+                chartList = chartWeek;
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -757,7 +745,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `Fecha_fin` AS fecha FROM `Tareas` WHERE `User`= "+cod+" AND  `Urgente`= 0 `Fecha_fin` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `Fecha_fin`");
+                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `Fecha_fin` AS fecha FROM `Tareas` WHERE `User`= "+pref.getInt("cod",0)+" AND  `Urgente`= 0 AND `Fecha_fin` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `Fecha_fin`");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -786,11 +774,13 @@ public class MainActivity extends AppCompatActivity {
 
                         chartList2.add(chartTask2);
 
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
+
+                fillArray(chartList2);
+                chartList2 = chartWeek;
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -809,6 +799,8 @@ public class MainActivity extends AppCompatActivity {
         aux = 0;
         datos = new ArrayList<GeneralTask>();
         arrayTask = new ArrayList<GeneralTask>();
+        chartList = new ArrayList<ChartTask>();
+        chartList2 = new ArrayList<ChartTask>();
         new GetTotalTask().execute();
         new ListTask().execute();
     }

@@ -165,8 +165,6 @@ public class LoginActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-                    Log.e("ARRAY-USER",arrayUsers.size()+"");
                 }
 
             } else {
