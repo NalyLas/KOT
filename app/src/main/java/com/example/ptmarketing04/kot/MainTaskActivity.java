@@ -83,7 +83,7 @@ public class MainTaskActivity extends AppCompatActivity {
             title = extras.getString("title");
             cod = extras.getInt("user");
 
-            tv.setText("id: "+ id + " titulo de tara: " + title);
+            tv.setText("id: "+ id + " titulo de tarea: " + title);
         }
 
 
