@@ -83,7 +83,7 @@ public class AllListsActivity extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Listas where user="+cod);
+                parametrosPost.put("ins_sql", "Select * from List where User="+cod);
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -106,10 +106,10 @@ public class AllListsActivity extends Fragment {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
                         list = new GeneralList();
-                        list.setId(jsonObject.getInt("ID_lista"));
-                        list.setId_user(jsonObject.getInt("user"));
-                        list.setTitle(jsonObject.getString("Titulo_lista"));
-                        list.setDate(jsonObject.getString("Fecha"));
+                        list.setId(jsonObject.getInt("ID_list"));
+                        list.setId_user(jsonObject.getInt("User"));
+                        list.setTitle(jsonObject.getString("Title"));
+                        list.setDate(jsonObject.getString("Date"));
                         arrayList.add(list);
 
 

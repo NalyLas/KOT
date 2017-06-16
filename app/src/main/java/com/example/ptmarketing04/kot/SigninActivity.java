@@ -115,7 +115,7 @@ public class SigninActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Usuarios");
+                parametrosPost.put("ins_sql", "Select * from usuario");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -142,7 +142,6 @@ public class SigninActivity extends AppCompatActivity {
                         user.setName(jsonObject.getString("Name"));
                         user.setEmail(jsonObject.getString("Email"));
                         user.setPass(jsonObject.getString("Password"));
-                        user.setTheme(jsonObject.getInt("Tema"));
                         arrayUsers.add(user);
 
                     } catch (JSONException e) {
@@ -175,7 +174,7 @@ public class SigninActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql",  "INSERT INTO `Usuarios`(`ID_user`, `Name`, `Email`, `Password`, `Tema`) VALUES ("+id+",'" + name + "','" + mail + "','" + pass + "', 1)");
+                parametrosPost.put("ins_sql",  "INSERT INTO `usuario`(`ID_user`, `Name`, `Email`, `Password`) VALUES ("+id+",'" + name + "','" + mail + "','" + pass + "')");
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 

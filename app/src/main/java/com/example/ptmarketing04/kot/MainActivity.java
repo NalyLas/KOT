@@ -148,7 +148,8 @@ public class MainActivity extends AppCompatActivity {
         tvUrgent = (TextView)findViewById(R.id.tvEmptyUrgent);
         barChart = (BarChart)findViewById(R.id.barChart);
 
-        url = "http://iesayala.ddns.net/natalia/php.php";
+      //  url = "http://iesayala.ddns.net/natalia/php.php";
+        url = "http://192.168.2.240:8080/proyecto/php.php";
         conn = new Connection();
 
         createNav();
@@ -514,7 +515,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Listas where user="+cod);
+                parametrosPost.put("ins_sql", "Select * from list where User="+cod);
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -537,9 +538,9 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
                         list = new GeneralList();
-                        list.setId(jsonObject.getInt("ID_lista"));
-                        list.setId_user(jsonObject.getInt("user"));
-                        list.setTitle(jsonObject.getString("Titulo_lista"));
+                        list.setId(jsonObject.getInt("ID_list"));
+                        list.setId_user(jsonObject.getInt("User"));
+                        list.setTitle(jsonObject.getString("Title"));
 
 
                         arrayList.add(list);
@@ -616,7 +617,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Tareas");
+                parametrosPost.put("ins_sql", "Select * from task");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -640,13 +641,13 @@ public class MainActivity extends AppCompatActivity {
 
                         JSONObject jsonObject = json.getJSONObject(i);
                         task = new GeneralTask();
-                        task.setId_task(jsonObject.getInt("ID_tarea"));
-                        task.setTitle(jsonObject.getString("Titulo"));
-                        task.setStart_date(jsonObject.getString("Fech_inicio"));
-                        task.setEnd_date(jsonObject.getString("Fecha_fin"));
-                        task.setFinished(jsonObject.getInt("Finalizada"));
-                        task.setUrgent(jsonObject.getInt("Urgente"));
-                        task.setId_list(jsonObject.getInt("Lista"));
+                        task.setId_task(jsonObject.getInt("ID_task"));
+                        task.setTitle(jsonObject.getString("Title"));
+                        task.setStart_date(jsonObject.getString("Start_date"));
+                        task.setEnd_date(jsonObject.getString("End_date"));
+                        task.setFinished(jsonObject.getInt("Finished"));
+                        task.setUrgent(jsonObject.getInt("Urgent"));
+                        task.setId_list(jsonObject.getInt("List"));
 
                         datos.add(task);
 
@@ -682,7 +683,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `Fecha_fin` AS fecha FROM `Tareas` WHERE `User`= "+pref.getInt("cod",0)+" AND  `Urgente`= 1 AND `Fecha_fin` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `Fecha_fin`");
+                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `End_date` AS fecha FROM `Task` WHERE `User`= "+pref.getInt("cod",0)+" AND  `Urgent`= 1 AND `End_date` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `End_date`");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -745,7 +746,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `Fecha_fin` AS fecha FROM `Tareas` WHERE `User`= "+pref.getInt("cod",0)+" AND  `Urgente`= 0 AND `Fecha_fin` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `Fecha_fin`");
+                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `End_date` AS fecha FROM `Task` WHERE `User`= "+pref.getInt("cod",0)+" AND  `Urgent`= 0 AND `End_date` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `End_date`");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 

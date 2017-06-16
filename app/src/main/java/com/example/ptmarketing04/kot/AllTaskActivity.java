@@ -87,7 +87,7 @@ public class AllTaskActivity extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Listas where user="+cod);
+                parametrosPost.put("ins_sql", "Select * from List where User="+cod);
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -110,10 +110,10 @@ public class AllTaskActivity extends Fragment {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
                         list = new GeneralList();
-                        list.setId(jsonObject.getInt("ID_lista"));
-                        list.setId_user(jsonObject.getInt("user"));
-                        list.setTitle(jsonObject.getString("Titulo_lista"));
-                        list.setDate(jsonObject.getString("Fecha"));
+                        list.setId(jsonObject.getInt("ID_list"));
+                        list.setId_user(jsonObject.getInt("User"));
+                        list.setTitle(jsonObject.getString("Title"));
+                        list.setDate(jsonObject.getString("Date"));
                         arrayList.add(list);
 
 
@@ -150,7 +150,7 @@ public class AllTaskActivity extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select DISTINCT * from Tareas, Listas where user = "+ cod +" and ID_lista = Lista");
+                parametrosPost.put("ins_sql", "Select DISTINCT * from Task, List where List.User = "+ cod +" and ID_list = List");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -177,13 +177,13 @@ public class AllTaskActivity extends Fragment {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
                         task = new GeneralTask();
-                        task.setId_task(jsonObject.getInt("ID_tarea"));
-                        task.setTitle(jsonObject.getString("Titulo"));
-                        task.setStart_date(jsonObject.getString("Fech_inicio"));
-                        task.setEnd_date(jsonObject.getString("Fecha_fin"));
-                        task.setFinished(jsonObject.getInt("Finalizada"));
-                        task.setUrgent(jsonObject.getInt("Urgente"));
-                        task.setId_list(jsonObject.getInt("Lista"));
+                        task.setId_task(jsonObject.getInt("ID_task"));
+                        task.setTitle(jsonObject.getString("Title"));
+                        task.setStart_date(jsonObject.getString("Start_date"));
+                        task.setEnd_date(jsonObject.getString("End_date"));
+                        task.setFinished(jsonObject.getInt("Finished"));
+                        task.setUrgent(jsonObject.getInt("Urgent"));
+                        task.setId_list(jsonObject.getInt("List"));
 
                         datos.add(task);
 

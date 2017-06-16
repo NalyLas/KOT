@@ -221,7 +221,7 @@ public class AddTask extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Listas where user ="+cod);
+                parametrosPost.put("ins_sql", "Select * from List where User ="+cod);
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -246,9 +246,9 @@ public class AddTask extends Fragment {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
                         list = new GeneralList();
-                        list.setId(jsonObject.getInt("ID_lista"));
+                        list.setId(jsonObject.getInt("ID_list"));
                         list.setId_user(jsonObject.getInt("user"));
-                        list.setTitle(jsonObject.getString("Titulo_lista"));
+                        list.setTitle(jsonObject.getString("Title"));
                         arrayList.add(list);
 
                     } catch (JSONException e) {
@@ -289,7 +289,7 @@ public class AddTask extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Tareas");
+                parametrosPost.put("ins_sql", "Select * from Task");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -313,13 +313,13 @@ public class AddTask extends Fragment {
 
                         JSONObject jsonObject = json.getJSONObject(i);
                         task = new GeneralTask();
-                        task.setId_task(jsonObject.getInt("ID_tarea"));
-                        task.setTitle(jsonObject.getString("Titulo"));
-                        task.setStart_date(jsonObject.getString("Fech_inicio"));
-                        task.setEnd_date(jsonObject.getString("Fecha_fin"));
-                        task.setFinished(jsonObject.getInt("Finalizada"));
-                        task.setUrgent(jsonObject.getInt("Urgente"));
-                        task.setId_list(jsonObject.getInt("Lista"));
+                        task.setId_task(jsonObject.getInt("ID_task"));
+                        task.setTitle(jsonObject.getString("Title"));
+                        task.setStart_date(jsonObject.getString("Start_date"));
+                        task.setEnd_date(jsonObject.getString("End_date"));
+                        task.setFinished(jsonObject.getInt("Finished"));
+                        task.setUrgent(jsonObject.getInt("Urgent"));
+                        task.setId_list(jsonObject.getInt("List"));
 
                         arrayTask.add(task);
 
@@ -354,7 +354,7 @@ public class AddTask extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Contenido");
+                parametrosPost.put("ins_sql", "Select * from Content");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -378,10 +378,10 @@ public class AddTask extends Fragment {
 
                         JSONObject jsonObject = json.getJSONObject(i);
                         content = new GeneralContent();
-                        content.setId(jsonObject.getInt("ID_contenido"));
-                        content.setTask(jsonObject.getInt("Tarea"));
-                        content.setTipe(jsonObject.getInt("Tipo"));
-                        content.setDetail(jsonObject.getString("Info"));
+                        content.setId(jsonObject.getInt("ID_content"));
+                        content.setTask(jsonObject.getInt("Task"));
+                        content.setTipe(jsonObject.getInt("Type"));
+                        content.setDetail(jsonObject.getString("Text"));
 
                         arrayContent.add(content);
 
@@ -417,7 +417,7 @@ public class AddTask extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into Tareas (`ID_tarea`, `Titulo`, `Fech_inicio`, `Fecha_fin`, `Finalizada`, `Urgente`, `Lista`, `User`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,"+ urgent +","+ idl +","+ cod + ")");
+                parametrosPost.put("ins_sql", "Insert into Task (`ID_task`, `Title`, `Start_date`, `End_date`, `Finished`, `Urgent`, `List`, `User`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,"+ urgent +","+ idl +","+ cod + ")");
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 
@@ -476,7 +476,7 @@ public class AddTask extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "INSERT INTO `Contenido`(`ID_contenido`, `Tarea`, `Tipo`, `Info`) VALUES ("+ idc +","+ idt +","+ tipe +",'"+ details +"')");
+                parametrosPost.put("ins_sql", "INSERT INTO `Content`(`ID_content`, `Type`, `Text`, `Task`) VALUES ("+ idc +","+ tipe +","+ details +",'"+ idt +"')");
                 //
                 //  Formato para añadir más de un item a la vez
                 //  INSERT INTO `Listas` (`ID_lista`, `Titulo`, `user`, `Fecha`) VALUES ('2', 'Lista numero 2', '1', '02/05/2017'), ('6', 'Lista numero 2', '1', '02/05/2017');

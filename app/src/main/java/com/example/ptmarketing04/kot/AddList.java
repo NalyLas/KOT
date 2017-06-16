@@ -135,7 +135,7 @@ public class AddList extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Listas");
+                parametrosPost.put("ins_sql", "Select * from List");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -160,9 +160,9 @@ public class AddList extends Fragment {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
                         list = new GeneralList();
-                        list.setId(jsonObject.getInt("ID_lista"));
-                        list.setId_user(jsonObject.getInt("user"));
-                        list.setTitle(jsonObject.getString("Titulo_lista"));
+                        list.setId(jsonObject.getInt("ID_list"));
+                        list.setId_user(jsonObject.getInt("User"));
+                        list.setTitle(jsonObject.getString("Title"));
                         arrayList.add(list);
 
                     } catch (JSONException e) {
@@ -198,7 +198,7 @@ public class AddList extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into Listas (`ID_lista`, `Titulo_lista`, `user`, `Fecha`) VALUES ("+ id +",'"+ title +"',"+ cod +",'"+ date +"')");
+                parametrosPost.put("ins_sql", "Insert into List (`ID_list`, `Title`, `User`, `Date`) VALUES ("+ id +",'"+ title +"',"+ cod +",'"+ date +"')");
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 

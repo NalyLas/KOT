@@ -125,7 +125,10 @@ public class MainListActivity extends AppCompatActivity {
             }
         });
 
-        url = "http://iesayala.ddns.net/natalia/php.php";
+       // url = "http://iesayala.ddns.net/natalia/php.php";
+       // url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
+        url = "http://192.168.2.240/proyecto/php.php";
+        url_dml = "http://192.168.2.240/proyecto/prueba.php";
         conn = new Connection();
 
 
@@ -203,7 +206,7 @@ public class MainListActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Tareas where Lista = "+id);
+                parametrosPost.put("ins_sql", "Select * from Task where List = "+id);
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -230,13 +233,13 @@ public class MainListActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
                         task = new GeneralTask();
-                        task.setId_task(jsonObject.getInt("ID_tarea"));
-                        task.setTitle(jsonObject.getString("Titulo"));
-                        task.setStart_date(jsonObject.getString("Fech_inicio"));
-                        task.setEnd_date(jsonObject.getString("Fecha_fin"));
-                        task.setFinished(jsonObject.getInt("Finalizada"));
-                        task.setUrgent(jsonObject.getInt("Urgente"));
-                        task.setId_list(jsonObject.getInt("Lista"));
+                        task.setId_task(jsonObject.getInt("ID_task"));
+                        task.setTitle(jsonObject.getString("Title"));
+                        task.setStart_date(jsonObject.getString("Start_date"));
+                        task.setEnd_date(jsonObject.getString("End_date"));
+                        task.setFinished(jsonObject.getInt("Finished"));
+                        task.setUrgent(jsonObject.getInt("Urgent"));
+                        task.setId_list(jsonObject.getInt("List"));
 
                         datos.add(task);
 
@@ -299,7 +302,7 @@ public class MainListActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Update Listas SET `Titulo_lista` = '"+ new_title +"' where `ID_lista`="+ id);
+                parametrosPost.put("ins_sql", "Update List SET `Title` = '"+ new_title +"' where `ID_list`="+ id);
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 
@@ -359,7 +362,7 @@ public class MainListActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Delete from Tareas where Lista="+ id);
+                parametrosPost.put("ins_sql", "Delete from Task where List="+ id);
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 
@@ -418,7 +421,7 @@ public class MainListActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Delete from Listas where ID_lista="+ id);
+                parametrosPost.put("ins_sql", "Delete from List where ID_list="+ id);
 
                 jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
 

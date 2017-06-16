@@ -56,7 +56,8 @@ public class LoginActivity extends AppCompatActivity {
        // etMail.setText("natalia@gmail.com");
       //  etPass.setText("123456");
 
-        url = "http://iesayala.ddns.net/natalia/php.php";
+     //   url = "http://iesayala.ddns.net/natalia/php.php";
+        url = "http://192.168.2.240:8080/proyecto/php.php";
         conn = new Connection();
 
         Bundle extras = getIntent().getExtras();
@@ -132,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Usuarios");
+                parametrosPost.put("ins_sql", "Select * from usuario");
 
                 jSONArray = conn.sendRequest(url, parametrosPost);
 
@@ -159,7 +160,6 @@ public class LoginActivity extends AppCompatActivity {
                         user.setName(jsonObject.getString("Name"));
                         user.setEmail(jsonObject.getString("Email"));
                         user.setPass(jsonObject.getString("Password"));
-                        user.setTheme(jsonObject.getInt("Tema"));
                         arrayUsers.add(user);
 
                     } catch (JSONException e) {
