@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private User user;
     private ArrayList<User> arrayUsers;
     private ArrayList<HashMap<String, String>> userList;
-    private String theme;
+    private String name;
     private int cod;
 
     public SharedPreferences pref;
@@ -53,9 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         bt1 = (Button)findViewById(R.id.btLogin);
         bt2 = (Button)findViewById(R.id.btSignin);
 
-       // etMail.setText("natalia@gmail.com");
-      //  etPass.setText("123456");
-
      //   url = "http://iesayala.ddns.net/natalia/php.php";
         url = "http://192.168.2.240:8080/proyecto/php.php";
         conn = new Connection();
@@ -73,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
             etPass.setText(pref.getString("pass",""));
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("user",pref.getInt("cod",0));
+            intent.putExtra("name",pref.getString("name",""));
             startActivity(intent);
             finish();
         }else{
@@ -87,11 +85,13 @@ public class LoginActivity extends AppCompatActivity {
         for(int i=0;i<arrayUsers.size();i++){
             if(email.equals(arrayUsers.get(i).getEmail()) && pass.equals(arrayUsers.get(i).getPass())){
                 cod = arrayUsers.get(i).getId();
+                name = arrayUsers.get(i).getName();
 
                 //guardamos preferencias para futuros logueos
                 editor = pref.edit();
                 editor.putBoolean("pre_login",true);
                 editor.putString("user",email);
+                editor.putString("name",name);
                 editor.putString("pass",pass);
                 editor.putInt("cod",cod);
                 editor.commit();
@@ -99,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                 //abrimos MainActivity
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("user",cod);
+                intent.putExtra("name",name);
                 startActivity(intent);
                 finish();
 

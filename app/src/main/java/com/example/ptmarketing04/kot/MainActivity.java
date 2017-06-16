@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout dl;
     private ImageView imagec;
+    private TextView header_name;
     private LinearLayout llUrgent;
     private ListView lv;
     private ActionBarDrawerToggle action;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<GeneralTask> datos,arrayTask;
     private ArrayList<ChartTask> chartList,chartList2,chartWeek;
     private int cod,idt,aux;
-    private String date, monday, sunday;
+    private String date, monday, sunday,name;
     private Drawable nav_bckg,urgent_bckg;
     private ArrayList<Integer> colors = new ArrayList<Integer>();
 
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
         View header = getLayoutInflater().inflate(R.layout.nav_header, lv, false);
         imagec = (ImageView) header.findViewById(R.id.ivNavHeader);
-        imagec.setImageDrawable(nav_bckg);
+        header_name = (TextView)header.findViewById(R.id.tvName);
 
         llUrgent = (LinearLayout)findViewById(R.id.llUrgent);
         llUrgent.setBackground(urgent_bckg);
@@ -175,7 +176,11 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
             cod = extras.getInt("user");
+            name = extras.getString("name");
         }
+
+        header.setBackgroundColor(colors.get(0));
+        header_name.setText(name);
     }
 
     public void createNav(){
