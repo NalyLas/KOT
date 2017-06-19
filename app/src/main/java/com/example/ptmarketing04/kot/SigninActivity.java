@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -90,8 +91,6 @@ public class SigninActivity extends AppCompatActivity {
         id = id+1;
     }
 
-
-
     //  Task para comprobar conexcion de usuario
     class LoginTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
@@ -169,8 +168,9 @@ public class SigninActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql",  "INSERT INTO `USER`(`ID_user`, `Name`, `Email`, `Password`) VALUES ("+id+",'" + name + "','" + mail + "','" + pass + "')");
+                parametrosPost.put("ins_sql",  "INSERT INTO USER (`ID_user`, `Name`, `Email`, `Password`) VALUES ("+id+",'" + name + "','" + mail + "','" + pass + "')");
 
+                Log.e("WTF2",parametrosPost.toString());
                 jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {
