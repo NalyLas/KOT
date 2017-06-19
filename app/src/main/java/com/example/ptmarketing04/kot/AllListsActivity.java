@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ptmarketing04.kot.Adapters.GeneralListAdapter;
+import com.example.ptmarketing04.kot.Adapters.GeneralTaskAdapter;
 import com.example.ptmarketing04.kot.Objects.GeneralList;
 
 import org.json.JSONArray;
@@ -38,6 +39,7 @@ public class AllListsActivity extends Fragment {
     private GeneralList list;
     private ArrayList<GeneralList> arrayList;
     private int cod;
+    GeneralListAdapter adaptador;
 
     public AllListsActivity() { }
 
@@ -119,10 +121,10 @@ public class AllListsActivity extends Fragment {
                 }
                 if (arrayList.size()!=0){
                     //Esto no es obligatorio pero si recomendable si siempre va a tener un nº de elementos fijo
-                    //   recView.setHasFixedSize(true);
+                    recViewList.setHasFixedSize(true);
 
-                    GeneralListAdapter adaptador = new GeneralListAdapter(arrayList);
-                    adaptador.setOnClickListener(new View.OnClickListener() {
+                    final GeneralListAdapter adaptadorl = new GeneralListAdapter(arrayList);
+                    adaptadorl.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent i = new Intent(getContext(), MainListActivity.class);
@@ -133,10 +135,14 @@ public class AllListsActivity extends Fragment {
                         }
                     });
 
+                    recViewList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                    recViewList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
+                    recViewList.setItemAnimator(new DefaultItemAnimator());
 
-                    recViewList.setAdapter(adaptador);
+                    recViewList.setAdapter(adaptadorl);
 
-                    recViewList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
+                  /*  recViewList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
                     //recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
                     // recView.setLayoutManager(new GridLayoutManager(this,3));
 
@@ -146,7 +152,7 @@ public class AllListsActivity extends Fragment {
                     //   recView.addItemDecoration(
                     //           new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL_LIST));
 
-                    recViewList.setItemAnimator(new DefaultItemAnimator());
+                    recViewList.setItemAnimator(new DefaultItemAnimator());*/
 
                 }else{
                     Snackbar.make(getView(), "ARRAY VACIO", Snackbar.LENGTH_LONG).show();

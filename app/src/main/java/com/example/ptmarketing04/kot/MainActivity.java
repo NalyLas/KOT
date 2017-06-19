@@ -156,8 +156,6 @@ public class MainActivity extends AppCompatActivity {
         lv.addHeaderView(header, null, false);
         lv.setAdapter(nav);
 
-        getNumberTask();
-
         if(tb != null){
             tb.setTitle("ninini");
             setSupportActionBar(tb);
@@ -802,6 +800,7 @@ public class MainActivity extends AppCompatActivity {
         arrayTask = new ArrayList<GeneralTask>();
         chartList = new ArrayList<ChartTask>();
         chartList2 = new ArrayList<ChartTask>();
+        getNumberTask();
         new GetTotalTask().execute();
         new ListTask().execute();
     }
