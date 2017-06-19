@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
-        menu.findItem(R.id.task).setVisible(false);
+        menu.findItem(R.id.list).setVisible(false);
         menu.findItem(R.id.add).setVisible(false);
         menu.findItem(R.id.important).setVisible(false);
         menu.findItem(R.id.chart).setVisible(false);
@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
                 return true;
-            case R.id.task:
+            case R.id.list:
                 i = new Intent(this,ListActivity.class);
                 i.putExtra("user",cod);
                 startActivity(i);
@@ -542,7 +542,7 @@ public class MainActivity extends AppCompatActivity {
                         list = new GeneralList();
                         list.setId(jsonObject.getInt("ID_list"));
                         list.setId_user(jsonObject.getInt("User"));
-                        list.setTitle(jsonObject.getString("Title"));
+                        list.setTitle(jsonObject.getString("Title_list"));
 
 
                         arrayList.add(list);
@@ -644,7 +644,7 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject jsonObject = json.getJSONObject(i);
                         task = new GeneralTask();
                         task.setId_task(jsonObject.getInt("ID_task"));
-                        task.setTitle(jsonObject.getString("Title"));
+                        task.setTitle(jsonObject.getString("Title_task"));
                         task.setStart_date(jsonObject.getString("Start_date"));
                         task.setEnd_date(jsonObject.getString("End_date"));
                         task.setFinished(jsonObject.getInt("Finished"));

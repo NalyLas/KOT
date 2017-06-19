@@ -194,7 +194,7 @@ public class AddList extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into LIST (`ID_list`, `Title`, `User`, `Date`) VALUES ("+ id +",'"+ title +"',"+ cod +",'"+ date +"')");
+                parametrosPost.put("ins_sql", "Insert into LIST (`ID_list`, `Title_list`, `User`, `Date`) VALUES ("+ id +",'"+ title +"',"+ cod +",'"+ date +"')");
 
                 jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 

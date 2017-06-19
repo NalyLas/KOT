@@ -99,8 +99,15 @@ public class AddActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent i;
         switch (item.getItemId()){
-            case R.id.task:
+            case R.id.list:
                 i = new Intent(this,ListActivity.class);
+                i.putExtra("user",cod);
+                i.putExtra("tab_activa",0);
+                startActivity(i);
+                finish();
+                return true;
+            case R.id.important:
+                i = new Intent(this,UrgentListActivity.class);
                 i.putExtra("user",cod);
                 startActivity(i);
                 finish();

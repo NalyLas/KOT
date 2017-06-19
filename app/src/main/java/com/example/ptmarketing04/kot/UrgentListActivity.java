@@ -161,7 +161,7 @@ public class UrgentListActivity extends AppCompatActivity {
                         JSONObject jsonObject = json.getJSONObject(i);
                         task = new GeneralTask();
                         task.setId_task(jsonObject.getInt("ID_task"));
-                        task.setTitle(jsonObject.getString("Title"));
+                        task.setTitle(jsonObject.getString("Title_task"));
                         task.setStart_date(jsonObject.getString("Start_date"));
                         task.setEnd_date(jsonObject.getString("End_date"));
                         task.setFinished(jsonObject.getInt("Finished"));

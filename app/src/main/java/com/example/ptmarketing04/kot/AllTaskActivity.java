@@ -60,14 +60,13 @@ public class AllTaskActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         cod = getArguments().getInt("user");
-        new ListTask().execute();
-        new GetTotalTask().execute();
+        new AllListTask().execute();
 
         return inflater.inflate(R.layout.layout_all_lists, container, false);
     }
 
     //     Task para cargar las listas del usuario
-    class ListTask extends AsyncTask<String, String, JSONArray> {
+    class AllListTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
         private int count=0;
 
@@ -110,7 +109,7 @@ public class AllTaskActivity extends Fragment {
                         list = new GeneralList();
                         list.setId(jsonObject.getInt("ID_list"));
                         list.setId_user(jsonObject.getInt("User"));
-                        list.setTitle(jsonObject.getString("Title"));
+                        list.setTitle(jsonObject.getString("Title_list"));
                         list.setDate(jsonObject.getString("Date"));
                         arrayList.add(list);
 
@@ -120,6 +119,8 @@ public class AllTaskActivity extends Fragment {
                     }
 
                 }
+
+                new GetTotalTask().execute();
 
 
             } else {
@@ -148,7 +149,7 @@ public class AllTaskActivity extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select DISTINCT * from TASK, LIST where List.User = "+ cod +" and ID_list = List");
+                parametrosPost.put("ins_sql", "Select DISTINCT * from TASK, LIST where LIST.User = "+ cod +" and ID_list = List");
 
                 jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
@@ -176,7 +177,7 @@ public class AllTaskActivity extends Fragment {
                         JSONObject jsonObject = json.getJSONObject(i);
                         task = new GeneralTask();
                         task.setId_task(jsonObject.getInt("ID_task"));
-                        task.setTitle(jsonObject.getString("Title"));
+                        task.setTitle(jsonObject.getString("Title_task"));
                         task.setStart_date(jsonObject.getString("Start_date"));
                         task.setEnd_date(jsonObject.getString("End_date"));
                         task.setFinished(jsonObject.getInt("Finished"));

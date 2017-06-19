@@ -244,7 +244,7 @@ public class AddTask extends Fragment {
                         list = new GeneralList();
                         list.setId(jsonObject.getInt("ID_list"));
                         list.setId_user(jsonObject.getInt("user"));
-                        list.setTitle(jsonObject.getString("Title"));
+                        list.setTitle(jsonObject.getString("Title_list"));
                         arrayList.add(list);
 
                     } catch (JSONException e) {
@@ -310,7 +310,7 @@ public class AddTask extends Fragment {
                         JSONObject jsonObject = json.getJSONObject(i);
                         task = new GeneralTask();
                         task.setId_task(jsonObject.getInt("ID_task"));
-                        task.setTitle(jsonObject.getString("Title"));
+                        task.setTitle(jsonObject.getString("Title_task"));
                         task.setStart_date(jsonObject.getString("Start_date"));
                         task.setEnd_date(jsonObject.getString("End_date"));
                         task.setFinished(jsonObject.getInt("Finished"));
@@ -413,7 +413,7 @@ public class AddTask extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into TASK (`ID_task`, `Title`, `Start_date`, `End_date`, `Finished`, `Urgent`, `List`, `User`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,"+ urgent +","+ idl +","+ cod + ")");
+                parametrosPost.put("ins_sql", "Insert into TASK (`ID_task`, `Title_task`, `Start_date`, `End_date`, `Finished`, `Urgent`, `List`, `User`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,"+ urgent +","+ idl +","+ cod + ")");
 
                 jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 

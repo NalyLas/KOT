@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,13 +101,14 @@ public class AllListsActivity extends Fragment {
             }
             if (json != null) {
                 arrayList =new ArrayList<GeneralList>();
+
                 for (int i = 0; i < json.length(); i++) {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
                         list = new GeneralList();
                         list.setId(jsonObject.getInt("ID_list"));
                         list.setId_user(jsonObject.getInt("User"));
-                        list.setTitle(jsonObject.getString("Title"));
+                        list.setTitle(jsonObject.getString("Title_list"));
                         list.setDate(jsonObject.getString("Date"));
                         arrayList.add(list);
 
@@ -117,35 +119,41 @@ public class AllListsActivity extends Fragment {
 
                 }
 
-                //Esto no es obligatorio pero si recomendable si siempre va a tener un nº de elementos fijo
-                recView.setHasFixedSize(true);
+                if (arrayList.size()!=0){
+                    //Esto no es obligatorio pero si recomendable si siempre va a tener un nº de elementos fijo
+                    recView.setHasFixedSize(true);
 
-                final GeneralListAdapter adaptador = new GeneralListAdapter(arrayList);
-                adaptador.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(getContext(), MainListActivity.class);
-                        i.putExtra("lista",arrayList.get(recView.getChildPosition(v)).getId());
-                        i.putExtra("title",arrayList.get(recView.getChildPosition(v)).getTitle());
-                        i.putExtra("user",cod);
-                        startActivity(i);
-                    }
-                });
+                    final GeneralListAdapter adaptador = new GeneralListAdapter(arrayList);
+                    adaptador.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(getContext(), MainListActivity.class);
+                            i.putExtra("lista",arrayList.get(recView.getChildPosition(v)).getId());
+                            i.putExtra("title",arrayList.get(recView.getChildPosition(v)).getTitle());
+                            i.putExtra("user",cod);
+                            startActivity(i);
+                        }
+                    });
 
 
-                recView.setAdapter(adaptador);
+                    recView.setAdapter(adaptador);
 
-                recView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-                //recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-                // recView.setLayoutManager(new GridLayoutManager(this,3));
+                    recView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+                    //recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+                    // recView.setLayoutManager(new GridLayoutManager(this,3));
 
-                recView.addItemDecoration(
-                        new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
+                    recView.addItemDecoration(
+                            new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
 
-                //   recView.addItemDecoration(
-                //           new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL_LIST));
+                    //   recView.addItemDecoration(
+                    //           new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL_LIST));
 
-                recView.setItemAnimator(new DefaultItemAnimator());
+                    recView.setItemAnimator(new DefaultItemAnimator());
+
+                }else{
+                    Snackbar.make(getView(), "ARRAY VACIO", Snackbar.LENGTH_LONG).show();
+                }
+
 
             } else {
                 Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
