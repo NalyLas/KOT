@@ -41,8 +41,6 @@ public class MainListActivity extends AppCompatActivity {
     private RelativeLayout emptyList;
     private ImageView imgToolbar;
 
-    private String url = "http://iesayala.ddns.net/natalia/php.php";
-    private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
     private JSONObject jsonObject;
     private Connection conn;
@@ -125,10 +123,6 @@ public class MainListActivity extends AppCompatActivity {
             }
         });
 
-       // url = "http://iesayala.ddns.net/natalia/php.php";
-       // url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
-        url = "http://192.168.2.240/proyecto/php.php";
-        url_dml = "http://192.168.2.240/proyecto/prueba.php";
         conn = new Connection();
 
 
@@ -206,9 +200,9 @@ public class MainListActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Task where List = "+id);
+                parametrosPost.put("ins_sql", "Select * from TASK where List = "+id);
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
 
 
@@ -302,9 +296,9 @@ public class MainListActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Update List SET `Title` = '"+ new_title +"' where `ID_list`="+ id);
+                parametrosPost.put("ins_sql", "Update LIST SET `Title` = '"+ new_title +"' where `ID_list`="+ id);
 
-                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
+                jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {
                     return jsonObject;
@@ -362,9 +356,9 @@ public class MainListActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Delete from Task where List="+ id);
+                parametrosPost.put("ins_sql", "Delete from TASK where List="+ id);
 
-                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
+                jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {
                     return jsonObject;
@@ -421,9 +415,9 @@ public class MainListActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Delete from List where ID_list="+ id);
+                parametrosPost.put("ins_sql", "Delete from LIST where ID_list="+ id);
 
-                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
+                jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {
                     return jsonObject;

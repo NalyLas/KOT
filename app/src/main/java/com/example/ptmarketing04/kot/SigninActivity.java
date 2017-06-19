@@ -24,8 +24,6 @@ public class SigninActivity extends AppCompatActivity {
 
     private EditText etName,etEmail,etPass,etPass2;
     private ArrayList<String> users;
-    private String url = "http://iesayala.ddns.net/natalia/php.php";
-    private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
     private JSONObject jsonObject;
     private Connection conn;
@@ -44,9 +42,6 @@ public class SigninActivity extends AppCompatActivity {
         etEmail = (EditText)findViewById(R.id.etMail);
         etPass = (EditText)findViewById(R.id.etPass);
         etPass2 = (EditText)findViewById(R.id.etPass2);
-
-        url = "http://iesayala.ddns.net/natalia/php.php";
-        url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
 
         conn = new Connection();
         new LoginTask().execute();
@@ -115,9 +110,9 @@ public class SigninActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from usuario");
+                parametrosPost.put("ins_sql", "Select * from USER");
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
                 if (jSONArray != null) {
                     return jSONArray;
@@ -174,9 +169,9 @@ public class SigninActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql",  "INSERT INTO `usuario`(`ID_user`, `Name`, `Email`, `Password`) VALUES ("+id+",'" + name + "','" + mail + "','" + pass + "')");
+                parametrosPost.put("ins_sql",  "INSERT INTO `USER`(`ID_user`, `Name`, `Email`, `Password`) VALUES ("+id+",'" + name + "','" + mail + "','" + pass + "')");
 
-                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
+                jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {
                     return jsonObject;

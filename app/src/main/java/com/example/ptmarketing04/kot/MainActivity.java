@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<NavItem> items = new ArrayList<>();
     private NavAdapter nav;
 
-    private String url = "http://iesayala.ddns.net/natalia/php.php";
     private JSONArray jSONArray;
     private Connection conn;
     private GeneralList list;
@@ -150,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         barChart = (BarChart)findViewById(R.id.barChart);
 
       //  url = "http://iesayala.ddns.net/natalia/php.php";
-        url = "http://192.168.2.240:8080/proyecto/php.php";
         conn = new Connection();
 
         createNav();
@@ -519,9 +517,9 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from list where User="+cod);
+                parametrosPost.put("ins_sql", "Select * from LIST where User="+cod);
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
                 if (jSONArray != null) {
                     return jSONArray;
@@ -621,9 +619,9 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from task");
+                parametrosPost.put("ins_sql", "Select * from TASK");
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
                 if (jSONArray != null) {
                     return jSONArray;
@@ -687,9 +685,9 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `End_date` AS fecha FROM `Task` WHERE `User`= "+pref.getInt("cod",0)+" AND  `Urgent`= 1 AND `End_date` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `End_date`");
+                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `End_date` AS fecha FROM `TASK` WHERE `User`= "+pref.getInt("cod",0)+" AND  `Urgent`= 1 AND `End_date` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `End_date`");
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
                 if (jSONArray != null) {
                     return jSONArray;
@@ -750,9 +748,9 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `End_date` AS fecha FROM `Task` WHERE `User`= "+pref.getInt("cod",0)+" AND  `Urgent`= 0 AND `End_date` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `End_date`");
+                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `End_date` AS fecha FROM `TASK` WHERE `User`= "+pref.getInt("cod",0)+" AND  `Urgent`= 0 AND `End_date` BETWEEN '"+ monday +"' AND '"+ sunday +"' GROUP BY `End_date`");
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
                 if (jSONArray != null) {
                     return jSONArray;

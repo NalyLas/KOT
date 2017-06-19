@@ -32,7 +32,6 @@ import java.util.HashMap;
 public class AllTaskActivity extends Fragment {
 
     private RecyclerView recView;
-    private String url = "http://iesayala.ddns.net/natalia/php.php";
     private JSONArray jSONArray;
     private Connection conn;
     private GeneralList list;
@@ -46,7 +45,6 @@ public class AllTaskActivity extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
 
     }
@@ -87,9 +85,9 @@ public class AllTaskActivity extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from List where User="+cod);
+                parametrosPost.put("ins_sql", "Select * from LIST where User="+cod);
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
                 if (jSONArray != null) {
                     return jSONArray;
@@ -150,9 +148,9 @@ public class AllTaskActivity extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select DISTINCT * from Task, List where List.User = "+ cod +" and ID_list = List");
+                parametrosPost.put("ins_sql", "Select DISTINCT * from TASK, LIST where List.User = "+ cod +" and ID_list = List");
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
 
 

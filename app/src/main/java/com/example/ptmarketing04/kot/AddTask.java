@@ -46,8 +46,6 @@ public class AddTask extends Fragment {
     private  ImageButton addCheck, addImg, addPdf, addDate;
     private CheckBox cbUrgent;
 
-    private String url = "http://iesayala.ddns.net/natalia/php.php";
-    private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
     private JSONObject jsonObject;
     private Connection conn;
@@ -67,8 +65,6 @@ public class AddTask extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        url = "http://iesayala.ddns.net/natalia/php.php";
-        url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
         conn = new Connection();
 
 
@@ -221,9 +217,9 @@ public class AddTask extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from List where User ="+cod);
+                parametrosPost.put("ins_sql", "Select * from LIST where User ="+cod);
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
 
                 if (jSONArray != null) {
@@ -289,9 +285,9 @@ public class AddTask extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Task");
+                parametrosPost.put("ins_sql", "Select * from TASK");
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
                 if (jSONArray != null) {
                     return jSONArray;
@@ -354,9 +350,9 @@ public class AddTask extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from Content");
+                parametrosPost.put("ins_sql", "Select * from CONTENT");
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
                 if (jSONArray != null) {
                     return jSONArray;
@@ -381,7 +377,7 @@ public class AddTask extends Fragment {
                         content.setId(jsonObject.getInt("ID_content"));
                         content.setTask(jsonObject.getInt("Task"));
                         content.setTipe(jsonObject.getInt("Type"));
-                        content.setDetail(jsonObject.getString("Text"));
+                        content.setDetail(jsonObject.getString("Info"));
 
                         arrayContent.add(content);
 
@@ -417,9 +413,9 @@ public class AddTask extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into Task (`ID_task`, `Title`, `Start_date`, `End_date`, `Finished`, `Urgent`, `List`, `User`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,"+ urgent +","+ idl +","+ cod + ")");
+                parametrosPost.put("ins_sql", "Insert into TASK (`ID_task`, `Title`, `Start_date`, `End_date`, `Finished`, `Urgent`, `List`, `User`) VALUES ("+ idt +",'"+ title +"','"+ date+"','"+ dateEnd +"',0,"+ urgent +","+ idl +","+ cod + ")");
 
-                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
+                jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {
                     return jsonObject;
@@ -476,13 +472,13 @@ public class AddTask extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "INSERT INTO `Content`(`ID_content`, `Type`, `Text`, `Task`) VALUES ("+ idc +","+ tipe +","+ details +",'"+ idt +"')");
+                parametrosPost.put("ins_sql", "INSERT INTO `CONTENT`(`ID_content`, `Type`, `Info`, `Task`) VALUES ("+ idc +","+ tipe +","+ details +",'"+ idt +"')");
                 //
                 //  Formato para añadir más de un item a la vez
                 //  INSERT INTO `Listas` (`ID_lista`, `Titulo`, `user`, `Fecha`) VALUES ('2', 'Lista numero 2', '1', '02/05/2017'), ('6', 'Lista numero 2', '1', '02/05/2017');
                 //
 
-                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
+                jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {
                     return jsonObject;

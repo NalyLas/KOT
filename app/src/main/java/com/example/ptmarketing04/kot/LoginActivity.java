@@ -27,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button bt1,bt2;
 
 
-    private String url = "http://iesayala.ddns.net/natalia/php.php";
     private JSONArray jSONArray;
     private Connection conn;
     private User user;
@@ -54,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         bt2 = (Button)findViewById(R.id.btSignin);
 
      //   url = "http://iesayala.ddns.net/natalia/php.php";
-        url = "http://192.168.2.240:8080/proyecto/php.php";
         conn = new Connection();
 
         Bundle extras = getIntent().getExtras();
@@ -134,9 +132,9 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from usuario");
+                parametrosPost.put("ins_sql", "Select * from USER");
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
                 if (jSONArray != null) {
                     return jSONArray;

@@ -32,8 +32,6 @@ public class AddList extends Fragment {
     private EditText etName;
     private Button addlist;
 
-    private String url = "http://iesayala.ddns.net/natalia/php.php";
-    private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
     private JSONObject jsonObject;
     private Connection conn;
@@ -48,8 +46,6 @@ public class AddList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        url = "http://iesayala.ddns.net/natalia/php.php";
-        url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
         conn = new Connection();
 
     }
@@ -135,9 +131,9 @@ public class AddList extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Select * from List");
+                parametrosPost.put("ins_sql", "Select * from LIST");
 
-                jSONArray = conn.sendRequest(url, parametrosPost);
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
 
                 if (jSONArray != null) {
@@ -198,9 +194,9 @@ public class AddList extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "Insert into List (`ID_list`, `Title`, `User`, `Date`) VALUES ("+ id +",'"+ title +"',"+ cod +",'"+ date +"')");
+                parametrosPost.put("ins_sql", "Insert into LIST (`ID_list`, `Title`, `User`, `Date`) VALUES ("+ id +",'"+ title +"',"+ cod +",'"+ date +"')");
 
-                jsonObject = conn.sendDMLRequest(url_dml, parametrosPost);
+                jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {
                     return jsonObject;

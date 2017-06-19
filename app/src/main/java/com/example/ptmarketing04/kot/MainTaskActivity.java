@@ -32,8 +32,6 @@ public class MainTaskActivity extends AppCompatActivity {
     private EditText etNewTitle;
     private RelativeLayout emptyList;
 
-    private String url = "http://iesayala.ddns.net/natalia/php.php";
-    private String url_dml = "http://iesayala.ddns.net/natalia/prueba.php";
     private JSONArray jSONArray;
     protected JSONObject jsonObject;
     private Connection conn;
@@ -85,11 +83,6 @@ public class MainTaskActivity extends AppCompatActivity {
 
             tv.setText("id: "+ id + " titulo de tarea: " + title);
         }
-
-
-
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -104,7 +104,12 @@ public class ListActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
                 return true;
-
+            case R.id.important:
+                i = new Intent(this,UrgentListActivity.class);
+                i.putExtra("user",cod);
+                startActivity(i);
+                finish();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

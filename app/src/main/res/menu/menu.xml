@@ -10,10 +10,10 @@
         android:icon="@mipmap/ic_add_task"
         app:showAsAction="always" />
     <item
-        android:id="@+id/task"
-        android:title="Ver tareas"
-        android:orderInCategory="100"
+        android:id="@+id/list"
         android:icon="@mipmap/ic_task"
+        android:orderInCategory="100"
+        android:title="Ver tareas"
         app:showAsAction="always" />
     <item
         android:id="@+id/important"
