@@ -31,7 +31,7 @@ import java.util.HashMap;
 
 public class AllListsActivity extends Fragment {
 
-    private RecyclerView recView;
+    private RecyclerView recViewList;
 
     private JSONArray jSONArray;
     private Connection conn;
@@ -52,7 +52,7 @@ public class AllListsActivity extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recView = (RecyclerView) view.findViewById(R.id.recView);
+        recViewList = (RecyclerView) view.findViewById(R.id.recViewList);
     }
 
     @Override
@@ -121,32 +121,32 @@ public class AllListsActivity extends Fragment {
                     //Esto no es obligatorio pero si recomendable si siempre va a tener un nº de elementos fijo
                     //   recView.setHasFixedSize(true);
 
-                    final GeneralListAdapter adaptador = new GeneralListAdapter(arrayList);
+                    GeneralListAdapter adaptador = new GeneralListAdapter(arrayList);
                     adaptador.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent i = new Intent(getContext(), MainListActivity.class);
-                            i.putExtra("lista",arrayList.get(recView.getChildPosition(v)).getId());
-                            i.putExtra("title",arrayList.get(recView.getChildPosition(v)).getTitle());
+                            i.putExtra("lista",arrayList.get(recViewList.getChildPosition(v)).getId());
+                            i.putExtra("title",arrayList.get(recViewList.getChildPosition(v)).getTitle());
                             i.putExtra("user",cod);
                             startActivity(i);
                         }
                     });
 
 
-                    recView.setAdapter(adaptador);
+                    recViewList.setAdapter(adaptador);
 
-                    recView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+                    recViewList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
                     //recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
                     // recView.setLayoutManager(new GridLayoutManager(this,3));
 
-                    recView.addItemDecoration(
+                    recViewList.addItemDecoration(
                             new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
 
                     //   recView.addItemDecoration(
                     //           new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL_LIST));
 
-                    recView.setItemAnimator(new DefaultItemAnimator());
+                    recViewList.setItemAnimator(new DefaultItemAnimator());
 
                 }else{
                     Snackbar.make(getView(), "ARRAY VACIO", Snackbar.LENGTH_LONG).show();

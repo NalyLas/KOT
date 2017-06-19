@@ -34,7 +34,7 @@ public class AllTaskActivity extends Fragment {
     private RecyclerView recView;
     private JSONArray jSONArray;
     private Connection conn;
-    private GeneralList newList;
+    private GeneralList list;
     private GeneralTask task;
     private ArrayList<GeneralTask> datos;
     private ArrayList<GeneralList> allLists;
@@ -60,13 +60,14 @@ public class AllTaskActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         cod = getArguments().getInt("user");
-        new AllListTask().execute();
+      //  new AllListTask().execute();
+        new GetTotalTask().execute();
 
-        return inflater.inflate(R.layout.layout_all_lists, container, false);
+        return inflater.inflate(R.layout.layout_all_task, container, false);
     }
 
     //     Task para cargar las listas del usuario
-    class AllListTask extends AsyncTask<String, String, JSONArray> {
+ /*   class AllListTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
         private int count=0;
 
@@ -106,12 +107,12 @@ public class AllTaskActivity extends Fragment {
                 for (int i = 0; i < json.length(); i++) {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
-                        newList = new GeneralList();
-                        newList.setId(jsonObject.getInt("ID_list"));
-                        newList.setId_user(jsonObject.getInt("User"));
-                        newList.setTitle(jsonObject.getString("Title_list"));
-                        newList.setDate(jsonObject.getString("Date"));
-                        allLists.add(newList);
+                        list = new GeneralList();
+                        list.setId(jsonObject.getInt("ID_list"));
+                        list.setId_user(jsonObject.getInt("User"));
+                        list.setTitle(jsonObject.getString("Title_list"));
+                        list.setDate(jsonObject.getString("Date"));
+                        allLists.add(list);
 
 
                     } catch (JSONException e) {
@@ -120,8 +121,6 @@ public class AllTaskActivity extends Fragment {
 
                 }
 
-                new GetTotalTask().execute();
-
 
             } else {
                 Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -129,7 +128,7 @@ public class AllTaskActivity extends Fragment {
 
         }
 
-    }
+    }*/
 
     //     Task para cargar las tareas de la lista actual
     class GetTotalTask extends AsyncTask<String, String, JSONArray> {
