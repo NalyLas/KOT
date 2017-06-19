@@ -148,9 +148,7 @@ public class MainActivity extends AppCompatActivity {
         tvUrgent = (TextView)findViewById(R.id.tvEmptyUrgent);
         barChart = (BarChart)findViewById(R.id.barChart);
 
-      //  url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
-
         createNav();
 
         nav = new NavAdapter(this,items);

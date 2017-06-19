@@ -34,10 +34,10 @@ public class AllTaskActivity extends Fragment {
     private RecyclerView recView;
     private JSONArray jSONArray;
     private Connection conn;
-    private GeneralList list;
+    private GeneralList newList;
     private GeneralTask task;
     private ArrayList<GeneralTask> datos;
-    private ArrayList<GeneralList> arrayList;
+    private ArrayList<GeneralList> allLists;
     private int cod;
 
     public AllTaskActivity() { }
@@ -102,16 +102,16 @@ public class AllTaskActivity extends Fragment {
                 pDialog.dismiss();
             }
             if (json != null) {
-                arrayList =new ArrayList<GeneralList>();
+                allLists =new ArrayList<GeneralList>();
                 for (int i = 0; i < json.length(); i++) {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
-                        list = new GeneralList();
-                        list.setId(jsonObject.getInt("ID_list"));
-                        list.setId_user(jsonObject.getInt("User"));
-                        list.setTitle(jsonObject.getString("Title_list"));
-                        list.setDate(jsonObject.getString("Date"));
-                        arrayList.add(list);
+                        newList = new GeneralList();
+                        newList.setId(jsonObject.getInt("ID_list"));
+                        newList.setId_user(jsonObject.getInt("User"));
+                        newList.setTitle(jsonObject.getString("Title_list"));
+                        newList.setDate(jsonObject.getString("Date"));
+                        allLists.add(newList);
 
 
                     } catch (JSONException e) {

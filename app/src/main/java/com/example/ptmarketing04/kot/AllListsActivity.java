@@ -112,16 +112,14 @@ public class AllListsActivity extends Fragment {
                         list.setDate(jsonObject.getString("Date"));
                         arrayList.add(list);
 
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                 }
-
                 if (arrayList.size()!=0){
                     //Esto no es obligatorio pero si recomendable si siempre va a tener un nº de elementos fijo
-                    recView.setHasFixedSize(true);
+                    //   recView.setHasFixedSize(true);
 
                     final GeneralListAdapter adaptador = new GeneralListAdapter(arrayList);
                     adaptador.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +151,7 @@ public class AllListsActivity extends Fragment {
                 }else{
                     Snackbar.make(getView(), "ARRAY VACIO", Snackbar.LENGTH_LONG).show();
                 }
+
 
 
             } else {
