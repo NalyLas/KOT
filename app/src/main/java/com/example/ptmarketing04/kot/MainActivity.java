@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private String date, monday, sunday,name;
     private Drawable nav_bckg,urgent_bckg;
     private ArrayList<Integer> colors = new ArrayList<Integer>();
+    private  ArrayList<BarEntry> valueSet1, valueSet2;
 
     static public SharedPreferences pref;
     public SharedPreferences.Editor editor;
@@ -376,7 +377,7 @@ public class MainActivity extends AppCompatActivity {
 
    }
 
-    public void fillArray(ArrayList<ChartTask> array){
+    public ArrayList fillArray(ArrayList<ChartTask> array){
         for(int i=0;i<array.size();i++){
             for(int j=0;j<chartWeek.size();j++){
                 if(array.get(i).getEndDate().equals(chartWeek.get(j).getEndDate())){
@@ -384,26 +385,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        return chartWeek;
     }
 
     private ArrayList<BarDataSet> getDataSet() {
         ArrayList<BarDataSet> dataSets = null;
-
-        //Tareas NO urgentes
-        ArrayList<BarEntry> valueSet1 = new ArrayList<>();
-        //Rellenamos los datos
-        for(int i=0;i<7;i++){
-            valueSet1.add(new BarEntry(chartList2.get(i).getNumber(),i));
-        }
-
-
-        //Tareas URGENTES
-        ArrayList<BarEntry> valueSet2 = new ArrayList<>();
-        //Rellenamos los datos
-        for(int i=0;i<7;i++){
-            valueSet2.add(new BarEntry(chartList.get(i).getNumber(),i));
-        }
-
 
         BarDataSet barDataSet1 = new BarDataSet(valueSet1, getResources().getString(R.string.val_no_urgent));
         barDataSet1.setColor(colors.get(0));
@@ -490,8 +476,8 @@ public class MainActivity extends AppCompatActivity {
         }
         chartWeek.add(new ChartTask(0,sunday));
 
-        new GetChartUrgentTask().execute();
-        new GetChartNormalTask().execute();
+        //new GetChartUrgentTask().execute();
+       // new GetChartNormalTask().execute();
     }
 
 
@@ -715,8 +701,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                fillArray(chartList);
-                chartList = chartWeek;
+                chartList = fillArray(chartList);
+
+                //Tareas URGENTES
+                valueSet2 = new ArrayList<>();
+                //Rellenamos los datos
+                for(int i=0;i<7;i++){
+                    valueSet2.add(new BarEntry(chartList.get(i).getNumber(),i));
+                }
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -778,8 +770,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                fillArray(chartList2);
-                chartList2 = chartWeek;
+                chartList2 = fillArray(chartList2);
+                //Tareas NO urgentes
+                valueSet1 = new ArrayList<>();
+                //Rellenamos los datos
+                for(int i=0;i<7;i++){
+                    valueSet1.add(new BarEntry(chartList2.get(i).getNumber(),i));
+                }
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -801,7 +798,10 @@ public class MainActivity extends AppCompatActivity {
         chartList = new ArrayList<ChartTask>();
         chartList2 = new ArrayList<ChartTask>();
         getNumberTask();
+        new GetChartNormalTask().execute();
         new GetTotalTask().execute();
+        getNumberTask();
+        new GetChartUrgentTask().execute();
         new ListTask().execute();
     }
 
