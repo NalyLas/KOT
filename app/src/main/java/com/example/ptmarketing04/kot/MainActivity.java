@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<GeneralList> arrayList;
     private ArrayList<GeneralTask> datos,arrayTask;
     private ArrayList<ChartTask> chartList,chartList2,chartWeek;
-    private int cod,idt,aux;
+    private int cod,idt,aux,todayUT, todayNUT;
     private String date, monday, sunday,name;
     private Drawable nav_bckg,urgent_bckg;
     private ArrayList<Integer> colors = new ArrayList<Integer>();
@@ -228,12 +228,14 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(MainActivity.this,UrgentListActivity.class);
                         intent.putExtra("user",cod);
                         startActivity(intent);
+                        dl.closeDrawer(Gravity.LEFT);
                         break;
                     case 5:
-                       /* intent = new Intent(MainActivity.this,ListActivity.class);
+                        intent = new Intent(MainActivity.this,SummaryActivity.class);
                         intent.putExtra("user",cod);
                         intent.putExtra("tab_activa",0);
-                        startActivity(intent);*/
+                        startActivity(intent);
+                        dl.closeDrawer(Gravity.LEFT);
                         break;
                     case 6:
                         intent = new Intent(MainActivity.this,LoginActivity.class);
@@ -245,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.putInt("cod",0);
                         editor.commit();
                         startActivity(intent);
+                        finish();
                         break;
 
                 }
@@ -475,9 +478,25 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         chartWeek.add(new ChartTask(0,sunday));
+    }
 
-        //new GetChartUrgentTask().execute();
-       // new GetChartNormalTask().execute();
+    private void getTodayTask(){
+        for(int i = 0; i<chartList.size();i++){
+            if(chartList.get(i).getEndDate().equals(date)){
+                todayUT = chartList.get(i).getNumber();
+                Log.e("AQUIIIII","--------->"+todayUT);
+            }
+        }
+
+        for(int i = 0; i<chartList2.size();i++){
+            if(chartList2.get(i).getEndDate().equals(date)){
+                todayNUT = chartList2.get(i).getNumber();
+                Log.e("AQUIIIIINNNNNN","--------->"+todayNUT);
+
+            }
+        }
+
+
     }
 
 

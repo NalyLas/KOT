@@ -63,4 +63,8 @@
     <string name="thur">Thursday</string>
     <string name="tue">Tuesday</string>
     <string name="wed">Wednesday</string>
+    <string name="noTask">You don\'t have any task today.</string>
+    <string name="today">Today</string>
+    <string name="val_no_urgent">Non-urgent tasks</string>
+    <string name="val_urgent">Urgent tasks</string>
 </resources>

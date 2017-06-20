@@ -178,4 +178,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

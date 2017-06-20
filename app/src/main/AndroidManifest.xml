@@ -30,7 +30,8 @@
             android:name=".MainTaskActivity"
             android:label="@string/title_activity_main_task"
             android:theme="@style/AppTheme" />
-        <activity android:name=".UrgentListActivity"></activity>
+        <activity android:name=".UrgentListActivity" />
+        <activity android:name=".SummaryActivity"></activity>
     </application>
 
 </manifest>
