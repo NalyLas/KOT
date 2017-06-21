@@ -1,7 +1,10 @@
 package com.example.ptmarketing04.kot;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -114,6 +117,31 @@ public class MainTaskActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        FloatingActionButton del = (FloatingActionButton) findViewById(R.id.fab);
+        del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //alert
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainTaskActivity.this);
+                builder.setTitle(getResources().getString(R.string.del_task));
+                builder.setMessage(getResources().getString(R.string.del_task_text));
+                builder.setPositiveButton(getResources().getString(R.string.acept),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Comprobamos si la lista tiene tareas asociadas
+                                   new DeleteContentTask().execute();
+                            }
+                        });
+
+                builder.setNegativeButton(getResources().getString(R.string.cancel),null);
+                builder.create();
+                builder.show();
+
+
+            }
+        });
+
 
         new GetListTask().execute();
 
@@ -267,5 +295,124 @@ public class MainTaskActivity extends AppCompatActivity {
         }
 
     }
+
+    //task para eliminar listas
+    class DeleteTask extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+        int add;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(MainTaskActivity.this);
+            pDialog.setMessage("Cargando...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            try {
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "Delete from TASK where ID_task="+ id);
+
+                jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
+
+                if (jsonObject != null) {
+                    return jsonObject;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(JSONObject json) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (json != null) {
+                try {
+                    add = json.getInt("added");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if(add!=0){
+
+                    Snackbar.make(findViewById(android.R.id.content), "eliminado", Snackbar.LENGTH_LONG).show();
+                    Intent i = new Intent(MainTaskActivity.this, ListActivity.class);
+                    i.putExtra("user",cod);
+                    startActivity(i);
+
+                }else{
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+                }
+
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
+    //task para eliminar listas
+    class DeleteContentTask extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+        int add;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(MainTaskActivity.this);
+            pDialog.setMessage("Cargando...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            try {
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "Delete from CONTENT where Task="+ id);
+
+                jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
+
+                if (jsonObject != null) {
+                    return jsonObject;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(JSONObject json) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (json != null) {
+                try {
+                    add = json.getInt("added");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if(add!=0){
+                    Snackbar.make(findViewById(android.R.id.content), "eliminado", Snackbar.LENGTH_LONG).show();
+                    new DeleteTask().execute();
+                }else{
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+                }
+
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
 
 }

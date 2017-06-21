@@ -60,6 +60,9 @@
     <string name="task_urgent_title">Mis tareas urgentes</string>
     <string name="task_urgent_end">Finaliza:</string>
     <string name="task_info">Detalles de la tarea:</string>
+    <string name="del_task">Eliminar tarea</string>
+    <string name="del_task_text">¿Estás seguro de querer eliminar esta tarea?</string>
+
 
     <!--    RESUMENES       -->
     <string name="chart_title">Mi resumen semanal</string>
