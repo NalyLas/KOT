@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ptmarketing04.kot.BasicListActivity">
+    tools:context="com.example.ptmarketing04.kot.MainListActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbarLayout"

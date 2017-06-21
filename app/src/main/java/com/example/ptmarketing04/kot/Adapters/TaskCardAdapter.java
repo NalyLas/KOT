@@ -54,9 +54,13 @@ public class TaskCardAdapter extends RecyclerView.Adapter<TaskCardAdapter.ListVi
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(itemView.getContext(), MainTaskActivity.class);
-                    i.putExtra("tarea",l.getId_task());
                     i.putExtra("title",l.getTitle());
-                   // i.putExtra("user",cod);
+                    i.putExtra("tarea",l.getId_task());
+                    i.putExtra("urgente",l.getUrgent());
+                    i.putExtra("acabada",l.getFinished());
+                    i.putExtra("inicio",l.getStart_date());
+                    i.putExtra("fin",l.getEnd_date());
+                    i.putExtra("lista",l.getId_list());
                     itemView.getContext().startActivity(i);
 
                 }

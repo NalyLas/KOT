@@ -43,6 +43,7 @@
 
     <!--     TAREAS       -->
     <string name="add_task">Crear tareas</string>
+    <string name="created">Creada: </string>
     <string name="task_start_adapter">Fecha de inicio:</string>
     <string name="task_end_adapter">Fecha limite:</string>
     <string name="all_task_title">Mis tareas</string>
@@ -55,8 +56,10 @@
     <string name="task_date">Hasta: </string>
     <string name="task_details_hint">Detalles de la tarea </string>
     <string name="task_urgent">Tarea urgente</string>
+    <string name="task_no_urgent">Tarea no urgente</string>
     <string name="task_urgent_title">Mis tareas urgentes</string>
     <string name="task_urgent_end">Finaliza:</string>
+    <string name="task_info">Detalles de la tarea:</string>
 
     <!--    RESUMENES       -->
     <string name="chart_title">Mi resumen semanal</string>

@@ -36,7 +36,7 @@
     <string name="log_text">¿Do not have an account yet? Get it now!</string>
     <string name="nav_add_list">Add lists</string>
     <string name="nav_add_task">Add task</string>
-    <string name="nav_chart">Mu summaries</string>
+    <string name="nav_chart">My summaries</string>
     <string name="nav_logout">Log out</string>
     <string name="nav_urgent">Urgent tasks</string>
     <string name="no_finish">Unfinished task</string>
@@ -70,4 +70,5 @@
     <string name="summaries">Summaries</string>
     <string name="week">Weekly</string>
     <string name="month">Monthly</string>
+    <string name="task_info">Task details;</string>
 </resources>
