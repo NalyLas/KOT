@@ -72,7 +72,7 @@ public class SummaryActivity extends AppCompatActivity {
         tabs.setSelectedTabIndicatorHeight(15);
 
         if(tb != null){
-            tb.setTitle("ninini");
+            tb.setTitle(getResources().getString(R.string.summaries));
             setSupportActionBar(tb);
         }
 
@@ -129,16 +129,19 @@ public class SummaryActivity extends AppCompatActivity {
         //Enviamos datos
         bundle=new Bundle();
         bundle.putInt("user",cod);
+        bundle.putInt("colorU",colors.get(1));
+        bundle.putInt("colorN",colors.get(0));
 
         //Creamos los fragment
         SummaryDay sd = new SummaryDay();
         sd.setArguments(bundle);
-       // AddTask at = new AddTask();
-      //  at.setArguments(bundle);
+        SummaryWeek sw = new SummaryWeek();
+        sw.setArguments(bundle);
 
         //Cargamos los fragment
         adapter.addFragment(sd, getResources().getString(R.string.today));
-        //adapter.addFragment(at, getResources().getString(R.string.add_task));
+        adapter.addFragment(sw, getResources().getString(R.string.week));
+
         viewPager.setAdapter(adapter);
 
         viewPager.setCurrentItem(tab_activa);

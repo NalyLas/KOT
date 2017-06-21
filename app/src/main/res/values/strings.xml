@@ -60,6 +60,7 @@
 
     <!--    RESUMENES       -->
     <string name="chart_title">Mi resumen semanal</string>
+    <string name="summaries">Resúmenes</string>
     <string name="mon">L</string>
     <string name="tue">M</string>
     <string name="wed">X</string>
@@ -67,9 +68,11 @@
     <string name="fri">V</string>
     <string name="sat">S</string>
     <string name="sun">D</string>
-    <string name="val_urgent">Tareas urgentes</string>
-    <string name="val_no_urgent">Tareas no urgentes</string>
-    <string name="today">Hoy</string>
+    <string name="val_urgent">Urgentes</string>
+    <string name="val_no_urgent">No urgentes</string>
+    <string name="today">Diario</string>
+    <string name="week">Semanal</string>
+    <string name="month">Mensual</string>
 
     <!--     CAMPOS VACIOS    -->
     <string name="emptyFields">Debe rellenar todos los campos.</string>

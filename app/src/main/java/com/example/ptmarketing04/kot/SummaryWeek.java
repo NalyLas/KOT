@@ -6,18 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.ptmarketing04.kot.Objects.ChartTask;
-import com.example.ptmarketing04.kot.Objects.GeneralList;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -29,13 +24,14 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
  * Created by ptmarketing04 on 03/05/2017.
  */
 
-public class SummaryDay extends Fragment {
+public class SummaryWeek extends Fragment {
 
     private PieChart dayChart;
     private TextView tvEmpty;
@@ -49,7 +45,7 @@ public class SummaryDay extends Fragment {
     private String date,title;
 
 
-    public SummaryDay() { }
+    public SummaryWeek() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +72,14 @@ public class SummaryDay extends Fragment {
         getParams();
 
         return inflater.inflate(R.layout.layout_summary_day, container, false);
+    }
+
+    public Date getWeek(Date fecha, int dias){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha); // Configuramos la fecha que se recibe
+        calendar.add(Calendar.DAY_OF_YEAR, dias);  // numero de días a añadir, o restar en caso de días<0
+
+        return calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
     }
 
     public void getParams(){
