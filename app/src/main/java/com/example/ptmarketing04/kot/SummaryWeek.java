@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class SummaryWeek extends Fragment {
     private ChartTask chartTask;
     private ArrayList<ChartTask> chartList,chartList2;
     private int cod,tu = 0,tnu = 0, colorU,colorN;
-    private String date,title;
+    private String date, monday, sunday;
 
 
     public SummaryWeek() { }
@@ -87,6 +88,44 @@ public class SummaryWeek extends Fragment {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         date = df.format(c.getTime());
 
+        String p = String.valueOf(c.get(Calendar.DAY_OF_WEEK));
+
+        int m = 0;
+        int s = 0;
+        switch (Integer.parseInt(p)){
+            case 1:
+                m = -6;
+                s = 0;
+                break;
+            case 2:
+                m = 0;
+                s = 6;
+                break;
+            case 3:
+                m = -1;
+                s = 5;
+                break;
+            case 4:
+                m = -2;
+                s = 4;
+                break;
+            case 5:
+                m = -3;
+                s = 3;
+                break;
+            case 6:
+                m = -4;
+                s = 2;
+                break;
+            case 7:
+                m = -5;
+                s = 1;
+                break;
+        }
+
+        monday = df.format(getWeek(c.getTime(),m));
+        sunday = df.format(getWeek(c.getTime(),s));
+
         new GetChartNormalTask().execute();
 
     }
@@ -109,7 +148,7 @@ public class SummaryWeek extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `End_date` AS fecha FROM `TASK` WHERE `User`= "+cod+" AND `Urgent` = 0 AND `End_date` = '"+ date +"'");
+                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number FROM `TASK` WHERE `User`= "+cod+" AND `Urgent` = 0 AND `End_date` BETWEEN '"+ monday +"' AND '"+ sunday +"'");
 
                 jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
@@ -127,26 +166,21 @@ public class SummaryWeek extends Fragment {
                 pDialog.dismiss();
             }
             if (json != null) {
-                chartList = new ArrayList<ChartTask>();
+                int aux = 0;
                 for (int i = 0; i < json.length(); i++) {
                     try {
 
                         JSONObject jsonObject = json.getJSONObject(i);
-                        chartTask = new ChartTask();
-                        chartTask.setNumber(jsonObject.getInt("total_number"));
-                        chartTask.setEndDate(jsonObject.getString("fecha"));
-
-                        chartList.add(chartTask);
-
+                        aux = jsonObject.getInt("total_number");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-                if(chartList.size() == 0){
+                if(aux == 0){
                     tnu = 0;
                 }else{
-                    tnu = chartList.get(0).getNumber();
+                    tnu = aux;
                 }
 
                 new GetChartUrgentTask().execute();
@@ -179,7 +213,7 @@ public class SummaryWeek extends Fragment {
 
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number, `End_date` AS fecha FROM `TASK` WHERE `User`= "+cod+" AND `Urgent` = 1 AND `End_date` = '"+ date +"'");
+                parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number FROM `TASK` WHERE `User`= "+cod+" AND `Urgent` = 1 AND `End_date` BETWEEN '"+ monday +"' AND '"+ sunday +"'");
 
                 jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
@@ -197,28 +231,24 @@ public class SummaryWeek extends Fragment {
                 pDialog.dismiss();
             }
             if (json != null) {
-                chartList2 = new ArrayList<ChartTask>();
+                int aux = 0;
                 for (int i = 0; i < json.length(); i++) {
                     try {
 
                         JSONObject jsonObject = json.getJSONObject(i);
-                        chartTask = new ChartTask();
-                        chartTask.setNumber(jsonObject.getInt("total_number"));
-                        chartTask.setEndDate(jsonObject.getString("fecha"));
-
-                        chartList2.add(chartTask);
+                        aux = jsonObject.getInt("total_number");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-                if(chartList.size() == 0){
+                if(aux == 0){
                     tu = 0;
                     dayChart.setVisibility(View.GONE);
                     tvEmpty.setVisibility(View.VISIBLE);
                 }else{
-                    tu = chartList2.get(0).getNumber();
+                    tu = aux;
 
                     //Ocultamos pantalla vacia y m ostramos grafico
                     dayChart.setVisibility(View.VISIBLE);

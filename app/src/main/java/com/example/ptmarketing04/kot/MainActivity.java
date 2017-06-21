@@ -480,26 +480,6 @@ public class MainActivity extends AppCompatActivity {
         chartWeek.add(new ChartTask(0,sunday));
     }
 
-    private void getTodayTask(){
-        for(int i = 0; i<chartList.size();i++){
-            if(chartList.get(i).getEndDate().equals(date)){
-                todayUT = chartList.get(i).getNumber();
-                Log.e("AQUIIIII","--------->"+todayUT);
-            }
-        }
-
-        for(int i = 0; i<chartList2.size();i++){
-            if(chartList2.get(i).getEndDate().equals(date)){
-                todayNUT = chartList2.get(i).getNumber();
-                Log.e("AQUIIIIINNNNNN","--------->"+todayNUT);
-
-            }
-        }
-
-
-    }
-
-
     //     Task para cargar las listas del usuario
     class ListTask extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
