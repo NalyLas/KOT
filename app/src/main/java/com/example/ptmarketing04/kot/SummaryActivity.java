@@ -137,10 +137,13 @@ public class SummaryActivity extends AppCompatActivity {
         sd.setArguments(bundle);
         SummaryWeek sw = new SummaryWeek();
         sw.setArguments(bundle);
+        SummaryMonth sm = new SummaryMonth();
+        sm.setArguments(bundle);
 
         //Cargamos los fragment
         adapter.addFragment(sd, getResources().getString(R.string.today));
         adapter.addFragment(sw, getResources().getString(R.string.week));
+        adapter.addFragment(sm, getResources().getString(R.string.month));
 
         viewPager.setAdapter(adapter);
 
