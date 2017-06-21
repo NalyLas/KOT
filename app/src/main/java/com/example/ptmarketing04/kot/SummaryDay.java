@@ -209,13 +209,16 @@ public class SummaryDay extends Fragment {
                     }
                 }
 
-                if(chartList.size() == 0){
+                if(chartList2.size() == 0){
                     tu = 0;
+                }else{
+                    tu = chartList2.get(0).getNumber();
+                }
+
+                if(tu == 0 && tnu == 0){
                     dayChart.setVisibility(View.GONE);
                     tvEmpty.setVisibility(View.VISIBLE);
                 }else{
-                    tu = chartList2.get(0).getNumber();
-
                     //Ocultamos pantalla vacia y m ostramos grafico
                     dayChart.setVisibility(View.VISIBLE);
                     tvEmpty.setVisibility(View.GONE);
@@ -227,27 +230,27 @@ public class SummaryDay extends Fragment {
                     dayChart.setRotationEnabled(true);
                     dayChart.animateXY(1500, 1500);
 
-		            //creamos una lista para los valores
+                    //creamos una lista para los valores
                     ArrayList<Entry> valsY = new ArrayList<Entry>();
                     valsY.add(new Entry(tnu,0));
                     valsY.add(new Entry(tu,1));
 
- 		            //Creamos una lista para los elementos
+                    //Creamos una lista para los elementos
                     ArrayList<String> valsX = new ArrayList<String>();
                     valsX.add(getResources().getString(R.string.val_urgent));
                     valsX.add(getResources().getString(R.string.val_no_urgent));
 
- 		            //Colores
+                    //Colores
                     ArrayList<Integer> colors = new ArrayList<Integer>();
                     colors.add(colorU);
                     colors.add(colorN);
 
- 		            //seteamos los valores de Y y los colores
+                    //seteamos los valores de Y y los colores
                     PieDataSet set1 = new PieDataSet(valsY, "Resultados");
                     set1.setSliceSpace(2f);
                     set1.setColors(colors);
 
-		            //seteamos los valores de X
+                    //seteamos los valores de X
                     PieData data = new PieData(valsX, set1);
                     dayChart.setData(data);
                     dayChart.highlightValues(null);
