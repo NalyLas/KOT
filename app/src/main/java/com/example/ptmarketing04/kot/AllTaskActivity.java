@@ -139,7 +139,7 @@ public class AllTaskActivity extends Fragment {
                         public void onClick(View v) {
                             Intent i = new Intent(getContext(), MainTaskActivity.class);
                             i.putExtra("tarea",datos.get(recView.getChildPosition(v)).getId_task());
-                            i.putExtra("titulo",datos.get(recView.getChildPosition(v)).getTitle());
+                            i.putExtra("title",datos.get(recView.getChildPosition(v)).getTitle());
                             i.putExtra("urgente",datos.get(recView.getChildPosition(v)).getUrgent());
                             i.putExtra("acabada",datos.get(recView.getChildPosition(v)).getFinished());
                             i.putExtra("inicio",datos.get(recView.getChildPosition(v)).getStart_date());

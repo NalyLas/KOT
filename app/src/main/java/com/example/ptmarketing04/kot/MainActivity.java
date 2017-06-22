@@ -353,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
                public void onClick(View v) {
                    Intent i = new Intent(MainActivity.this, MainTaskActivity.class);
                    i.putExtra("tarea",arrayTask.get(rvUrgent.getChildPosition(v)).getId_task());
-                   i.putExtra("titulo",arrayTask.get(rvUrgent.getChildPosition(v)).getTitle());
+                   i.putExtra("title",arrayTask.get(rvUrgent.getChildPosition(v)).getTitle());
                    i.putExtra("urgente",arrayTask.get(rvUrgent.getChildPosition(v)).getUrgent());
                    i.putExtra("acabada",arrayTask.get(rvUrgent.getChildPosition(v)).getFinished());
                    i.putExtra("inicio",arrayTask.get(rvUrgent.getChildPosition(v)).getStart_date());

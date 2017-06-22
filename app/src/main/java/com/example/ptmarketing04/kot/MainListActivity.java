@@ -253,6 +253,11 @@ public class MainListActivity extends AppCompatActivity {
                             Intent i = new Intent(MainListActivity.this, MainTaskActivity.class);
                             i.putExtra("tarea",datos.get(recView.getChildPosition(v)).getId_task());
                             i.putExtra("title",datos.get(recView.getChildPosition(v)).getTitle());
+                            i.putExtra("urgente",datos.get(recView.getChildPosition(v)).getUrgent());
+                            i.putExtra("acabada",datos.get(recView.getChildPosition(v)).getFinished());
+                            i.putExtra("inicio",datos.get(recView.getChildPosition(v)).getStart_date());
+                            i.putExtra("fin",datos.get(recView.getChildPosition(v)).getEnd_date());
+                            i.putExtra("lista",datos.get(recView.getChildPosition(v)).getId_list());
                             i.putExtra("user",cod);
                             startActivity(i);
                         }
