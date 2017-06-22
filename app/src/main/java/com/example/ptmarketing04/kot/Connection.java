@@ -1,8 +1,5 @@
 package com.example.ptmarketing04.kot;
 
-/**
- * Created by Natalia on 27/03/2017.
- */
 
 import android.util.Log;
 

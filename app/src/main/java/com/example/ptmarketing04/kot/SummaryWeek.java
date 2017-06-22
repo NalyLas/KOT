@@ -28,9 +28,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-/**
- * Created by ptmarketing04 on 03/05/2017.
- */
 
 public class SummaryWeek extends Fragment {
 

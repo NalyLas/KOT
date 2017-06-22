@@ -31,9 +31,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-/**
- * Created by ptmarketing04 on 03/05/2017.
- */
 
 public class SummaryDay extends Fragment {
 
