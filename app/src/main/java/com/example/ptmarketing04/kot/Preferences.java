@@ -14,6 +14,24 @@ public class Preferences extends PreferenceActivity implements SharedPreferences
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Modificamos tema en función de las preferencias del usuario
+        pref = getSharedPreferences("com.example.ptmarketing04.kot_preferences", MODE_PRIVATE);
+        theme = pref.getString("theme_pref","OR");
+        switch (theme){
+            case "OR":
+                setTheme(R.style.OrangeTheme);
+                break;
+            case "GR":
+                setTheme(R.style.GrayTheme);
+                break;
+            case "TL":
+                setTheme(R.style.TealTheme);
+                break;
+            case "PR":
+                setTheme(R.style.DeepPurpleTheme);
+                break;
+        }
         addPreferencesFromResource(R.xml.preferencias);
 
         Bundle extras = getIntent().getExtras();
