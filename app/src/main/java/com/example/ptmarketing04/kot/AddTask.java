@@ -43,7 +43,7 @@ public class AddTask extends Fragment {
     private Spinner spinner;
     private EditText etTitle, etDetail, etDate;
     private Button addTask;
-    private  ImageButton addCheck, addImg, addPdf, addDate;
+    private  ImageButton addDate;
     private CheckBox cbUrgent;
 
     private JSONArray jSONArray;
@@ -80,9 +80,6 @@ public class AddTask extends Fragment {
         cbUrgent = (CheckBox) view.findViewById(R.id.cbUrgent);
 
         addTask = (Button) view.findViewById(R.id.btAddTask);
-        addCheck = (ImageButton) view.findViewById(R.id.btCheck);
-        addImg = (ImageButton) view.findViewById(R.id.btImage);
-        addPdf = (ImageButton) view.findViewById(R.id.btPdf);
         addDate = (ImageButton) view.findViewById(R.id.btDate);
         new ListTask().execute();
 
@@ -221,7 +218,6 @@ public class AddTask extends Fragment {
 
                 jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
-
                 if (jSONArray != null) {
                     return jSONArray;
                 }
@@ -238,12 +234,13 @@ public class AddTask extends Fragment {
             if (json != null) {
 
                 arrayList =new ArrayList<GeneralList>();
+
                 for (int i = 0; i < json.length(); i++) {
                     try {
                         JSONObject jsonObject = json.getJSONObject(i);
                         list = new GeneralList();
                         list.setId(jsonObject.getInt("ID_list"));
-                        list.setId_user(jsonObject.getInt("user"));
+                        list.setId_user(jsonObject.getInt("User"));
                         list.setTitle(jsonObject.getString("Title_list"));
                         arrayList.add(list);
 
@@ -257,7 +254,7 @@ public class AddTask extends Fragment {
                 for (int i = 0; i <arrayList.size() ; i++) {
                     list.add(arrayList.get(i).getTitle());
                 }
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, list);
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(dataAdapter);
 

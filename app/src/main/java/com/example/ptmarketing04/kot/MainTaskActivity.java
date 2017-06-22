@@ -109,12 +109,23 @@ public class MainTaskActivity extends AppCompatActivity {
             cod = extras.getInt("user");
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton edit = (FloatingActionButton) findViewById(R.id.btnFab);
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(MainTaskActivity.this, EditTaskActivity.class);
+                i.putExtra("user",cod);
+                i.putExtra("tarea",id);
+                i.putExtra("title",title);
+                i.putExtra("inicio",start);
+                i.putExtra("fin",end);
+                i.putExtra("acabada",finish);
+                i.putExtra("urgente",urgent);
+                i.putExtra("lista",cod_list);
+                i.putExtra("detail",info);
+                startActivity(i);
+                finish();
+
             }
         });
 

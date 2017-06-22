@@ -31,7 +31,8 @@
             android:label="@string/title_activity_main_task"
             android:theme="@style/AppTheme" />
         <activity android:name=".UrgentListActivity" />
-        <activity android:name=".SummaryActivity"></activity>
+        <activity android:name=".SummaryActivity" />
+        <activity android:name=".EditTaskActivity"></activity>
     </application>
 
 </manifest>
