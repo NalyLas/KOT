@@ -110,7 +110,6 @@ public class AddActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
                 return true;
-
         }
 
         return super.onOptionsItemSelected(item);
@@ -137,7 +136,6 @@ public class AddActivity extends AppCompatActivity {
 
         viewPager.setCurrentItem(tab_activa);
     }
-
 
 
 }

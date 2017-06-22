@@ -453,10 +453,8 @@ public class AddTask extends Fragment {
                 if(add!=0){
                     if(details.equals(null) || details.equals("")){
                         Snackbar.make(getView(), getResources().getString(R.string.no_content), Snackbar.LENGTH_LONG).show();
-                        Intent intent = new Intent(getContext(),ListActivity.class);
-                        intent.putExtra("user",cod);
-                        intent.putExtra("tab_activa",1);
-                        startActivity(intent);
+                        Snackbar.make(getView(), getResources().getString(R.string.add_task_text), Snackbar.LENGTH_LONG).show();
+
                     }else{
                         new AddContentTask().execute();
                     }
@@ -516,11 +514,7 @@ public class AddTask extends Fragment {
                 }
 
                 if(add!=0){
-                    Intent intent = new Intent(getContext(),ListActivity.class);
-                    intent.putExtra("user",cod);
-                    intent.putExtra("tab_activa",1);
-                    startActivity(intent);
-
+                    Snackbar.make(getView(), getResources().getString(R.string.add_task_text), Snackbar.LENGTH_LONG).show();
                 }else{
                     Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
                 }

@@ -260,6 +260,7 @@ public class MainListActivity extends AppCompatActivity {
                             i.putExtra("lista",datos.get(recView.getChildPosition(v)).getId_list());
                             i.putExtra("user",cod);
                             startActivity(i);
+                            finish();
                         }
                     });
                     recView.setAdapter(adaptador);
@@ -447,6 +448,7 @@ public class MainListActivity extends AppCompatActivity {
                     i.putExtra("user",cod);
                     i.putExtra("tab_activa",0);
                     startActivity(i);
+                    finish();
 
                 }else{
                     Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();

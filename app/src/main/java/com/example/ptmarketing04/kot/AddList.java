@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,8 +63,9 @@ public class AddList extends Fragment {
             Snackbar.make(getView(), "Debe introducir un titulo para la lista", Snackbar.LENGTH_LONG).show();
         }
 
-        if(arrayList.size()>0){
+        if(arrayList.size()!=0){
             id = (arrayList.get(arrayList.size()-1).getId())+1;
+            Log.e("id list","------>"+id);
         }else{
             id=0;
         }
@@ -160,7 +162,7 @@ public class AddList extends Fragment {
                         list = new GeneralList();
                         list.setId(jsonObject.getInt("ID_list"));
                         list.setId_user(jsonObject.getInt("User"));
-                        list.setTitle(jsonObject.getString("Title"));
+                        list.setTitle(jsonObject.getString("Title_list"));
                         arrayList.add(list);
 
                     } catch (JSONException e) {
@@ -198,6 +200,7 @@ public class AddList extends Fragment {
                 HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "Insert into LIST (`ID_list`, `Title_list`, `User`, `Date`) VALUES ("+ id +",'"+ title +"',"+ cod +",'"+ date +"')");
 
+                Log.e("consulta","----->"+parametrosPost);
                 jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {

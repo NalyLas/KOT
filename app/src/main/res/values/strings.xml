@@ -75,6 +75,7 @@
     <string name="no_content">No ha añadido ningún detalle a la tarea</string>
     <string name="edit_task">Editar</string>
     <string name="update_task">Modificar tarea</string>
+    <string name="add_task_text">Tarea agregada correctamente</string>
     <string name="update_task_text">¿Seguro que quieres modificar esta tarea?</string>
     <string name="finish_task">Finalizar tarea</string>
     <string name="finish_task_text">¿Seguro que quieres finalizar esta tarea? Una vez finalizada no podrás cambiar su estado.</string>

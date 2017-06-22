@@ -20,7 +20,8 @@
             android:layout_weight="1"
             android:paddingTop="12dp"
             android:text="TextView"
-            android:textSize="18sp" />
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/ivUrgent"
