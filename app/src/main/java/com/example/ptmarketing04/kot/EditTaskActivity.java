@@ -105,7 +105,7 @@ public class EditTaskActivity extends AppCompatActivity {
         tb = (Toolbar) findViewById(R.id.toolbar);
 
         if(tb != null){
-            tb.setTitle(getResources().getString(R.string.update_task));
+            tb.setTitle(getResources().getString(R.string.edit_task));
             setSupportActionBar(tb);
         }
 

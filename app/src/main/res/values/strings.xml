@@ -11,6 +11,14 @@
     <string name="nav_urgent">Tareas urgentes</string>
     <string name="nav_chart">Mis resumenes</string>
     <string name="nav_logout">Desconectar</string>
+    <string name="or">Naranja</string>
+    <string name="gr">Gris</string>
+    <string name="tl">Verde</string>
+    <string name="pr">Morado</string>
+    <string name="theme">Tema</string>
+    <string name="theme_text">Elige un tema:</string>
+    <string name="not">Activar notificaciones:</string>
+    <string name="not_text">KOT te avisará cuando tengas tareas urgentes</string>
 
     <!--    LOGUIN    -->
     <string name="mail">Email</string>
@@ -65,6 +73,7 @@
     <string name="del_task">Eliminar tarea</string>
     <string name="del_task_text">¿Estás seguro de querer eliminar esta tarea?</string>
     <string name="no_content">No ha añadido ningún detalle a la tarea</string>
+    <string name="edit_task">Editar</string>
     <string name="update_task">Modificar tarea</string>
     <string name="update_task_text">¿Seguro que quieres modificar esta tarea?</string>
     <string name="finish_task">Finalizar tarea</string>

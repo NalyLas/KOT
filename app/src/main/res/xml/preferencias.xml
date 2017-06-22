@@ -6,12 +6,12 @@
         android:entries="@array/tema"
         android:entryValues="@array/codTema"
         android:key="theme_pref"
-        android:summary="Elige un tema"
-        android:title="Tema" />
+        android:summary="@string/theme_text"
+        android:title="@string/theme" />
 
     <SwitchPreference
         android:key="notification"
-        android:title="Activar notificaciones"
-        android:summary="KOT te avisará cuando tengas tareas urgentes"/>
+        android:title="@string/not"
+        android:summary="@string/not_text"/>
 
 </PreferenceScreen>

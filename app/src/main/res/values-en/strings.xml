@@ -89,4 +89,9 @@
     <string name="choose_task_date">Choose an end date for the task.</string>
     <string name="choose_task_title">Choose a title for the task.</string>
     <string name="content_update">Modified correctly.</string>
+    <string name="gr">Gray</string>
+    <string name="edit_task">Edit</string>
+    <string name="or">Orange</string>
+    <string name="pr">Purple</string>
+    <string name="tl">Teal</string>
 </resources>
