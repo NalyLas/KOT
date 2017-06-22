@@ -111,7 +111,6 @@ public class SummaryMonth extends Fragment {
                 HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "SELECT COUNT(*) AS total_number FROM `TASK` WHERE `User`= "+cod+" AND `Urgent` = 0 AND `End_date` BETWEEN '"+ first +"' AND '"+ last +"'");
 
-                Log.e ("Consulta","----->"+parametrosPost);
                 jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
                 if (jSONArray != null) {

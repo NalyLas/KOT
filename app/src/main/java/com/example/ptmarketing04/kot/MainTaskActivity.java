@@ -380,9 +380,10 @@ public class MainTaskActivity extends AppCompatActivity {
 
                 if(add!=0){
                     Intent i = new Intent(MainTaskActivity.this, ListActivity.class);
-                    i.putExtra("user",cod);
+                    i.putExtra("user",pref.getInt("cod",0));
                     i.putExtra("tab_activa",1);
                     startActivity(i);
+                    finish();
 
                 }else{
                     Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();

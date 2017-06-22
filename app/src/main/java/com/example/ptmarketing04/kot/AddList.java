@@ -65,7 +65,6 @@ public class AddList extends Fragment {
 
         if(arrayList.size()!=0){
             id = (arrayList.get(arrayList.size()-1).getId())+1;
-            Log.e("id list","------>"+id);
         }else{
             id=0;
         }
@@ -200,7 +199,6 @@ public class AddList extends Fragment {
                 HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "Insert into LIST (`ID_list`, `Title_list`, `User`, `Date`) VALUES ("+ id +",'"+ title +"',"+ cod +",'"+ date +"')");
 
-                Log.e("consulta","----->"+parametrosPost);
                 jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {

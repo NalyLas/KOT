@@ -360,7 +360,6 @@ public class EditTaskActivity extends AppCompatActivity {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "UPDATE `CONTENT` SET `Info`='"+ details +"' WHERE `Task`="+idt);
-                Log.e("consulta","----->"+parametrosPost);
 
                 jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 

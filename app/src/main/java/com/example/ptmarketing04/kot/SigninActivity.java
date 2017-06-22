@@ -170,7 +170,6 @@ public class SigninActivity extends AppCompatActivity {
                 HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql",  "INSERT INTO USER (`ID_user`, `Name`, `Email`, `Password`) VALUES ("+id+",'" + name + "','" + mail + "','" + pass + "')");
 
-                Log.e("WTF2",parametrosPost.toString());
                 jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {
