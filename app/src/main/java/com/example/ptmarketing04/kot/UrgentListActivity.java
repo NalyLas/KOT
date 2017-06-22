@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.example.ptmarketing04.kot.Adapters.GeneralTaskAdapter;
 import com.example.ptmarketing04.kot.Objects.GeneralList;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 public class UrgentListActivity extends AppCompatActivity {
 
     private Toolbar tb;
+    private RelativeLayout rlEmpty;
     private RecyclerView recView;
     private JSONArray jSONArray;
     private Connection conn;
@@ -69,6 +71,8 @@ public class UrgentListActivity extends AppCompatActivity {
         //añadimos toolbar
         tb = (Toolbar) findViewById(R.id.toolbar);
         recView = (RecyclerView)findViewById(R.id.recView);
+        rlEmpty = (RelativeLayout) findViewById(R.id.rlEmpty);
+
 
         conn = new Connection();
 
@@ -107,6 +111,14 @@ public class UrgentListActivity extends AppCompatActivity {
 
             case R.id.list:
                 i = new Intent(this,ListActivity.class);
+                i.putExtra("user",cod);
+                i.putExtra("tab_activa",0);
+                startActivity(i);
+                finish();
+                return true;
+
+            case R.id.chart:
+                i = new Intent(this,SummaryActivity.class);
                 i.putExtra("user",cod);
                 i.putExtra("tab_activa",0);
                 startActivity(i);
@@ -177,7 +189,7 @@ public class UrgentListActivity extends AppCompatActivity {
                 }
 
                 if(datos.size()>0){
-                    // emptyList.setVisibility(View.GONE);
+                    rlEmpty.setVisibility(View.GONE);
                     recView.setVisibility(View.VISIBLE);
                     final GeneralTaskAdapter adaptador = new GeneralTaskAdapter(datos);
 
@@ -203,7 +215,7 @@ public class UrgentListActivity extends AppCompatActivity {
                     recView.setItemAnimator(new DefaultItemAnimator());
 
                 }else{
-                    // emptyList.setVisibility(View.VISIBLE);
+                    rlEmpty.setVisibility(View.VISIBLE);
                     recView.setVisibility(View.GONE);
                 }
 

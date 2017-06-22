@@ -212,6 +212,13 @@ public class EditTaskActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
                 return true;
+            case R.id.add:
+                i = new Intent(this,AddActivity.class);
+                i.putExtra("user",cod);
+                i.putExtra("tab_activa",0);
+                startActivity(i);
+                finish();
+                return true;
             case R.id.important:
                 i = new Intent(this,UrgentListActivity.class);
                 i.putExtra("user",cod);

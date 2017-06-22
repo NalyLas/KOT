@@ -89,6 +89,7 @@
     <string name="emptyFields">Debe rellenar todos los campos.</string>
     <string name="empty_text">Debes escribir un título.</string>
     <string name="empty_list">Aún no tienes ninguna tarea en esta lista</string>
+    <string name="empty_add_list">Aún no tienes ninguna lista, crea alguna lista para poder agregar tareas.</string>
     <string name="empty_main">Aún no tienes ninguna lista, crea algunas listas y tareas para verlas en esta pantalla.</string>
     <string name="empty_urgent">No tienes ninguna tarea urgente sin finalizar.</string>
     <string name="empty_chart">No tienes ninguna tarea pendiente durante esta semana.</string>

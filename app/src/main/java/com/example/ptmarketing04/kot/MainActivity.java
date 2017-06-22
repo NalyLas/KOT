@@ -53,7 +53,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView tv,tvUrgent;
+    private TextView tv,tvUrgent, tvChartEmpty;
     private Toolbar tb;
     private String theme;
     private RecyclerView rvTask,rvList,rvUrgent;
@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
         tv = (TextView)findViewById(R.id.tvEmpty);
         tvUrgent = (TextView)findViewById(R.id.tvEmptyUrgent);
         barChart = (BarChart)findViewById(R.id.barChart);
+        tvChartEmpty = (TextView)findViewById(R.id.tvChartEmpty);
 
         conn = new Connection();
         createNav();
@@ -568,6 +569,7 @@ public class MainActivity extends AppCompatActivity {
                     rvList.setVisibility(View.VISIBLE);
                     createChart();
                     tvUrgent.setVisibility(View.GONE);
+                    tvChartEmpty.setVisibility(View.GONE);
                     barChart.setVisibility(View.VISIBLE);
 
                     urgentTask();
@@ -576,6 +578,7 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     rvList.setVisibility(View.GONE);
                     tvUrgent.setVisibility(View.VISIBLE);
+                    tvChartEmpty.setVisibility(View.VISIBLE);
                     barChart.setVisibility(View.GONE);
                     tv.setVisibility(View.VISIBLE);
                 }

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.example.ptmarketing04.kot.Adapters.GeneralListAdapter;
 import com.example.ptmarketing04.kot.Adapters.GeneralTaskAdapter;
@@ -33,6 +34,7 @@ import java.util.HashMap;
 public class AllListsActivity extends Fragment {
 
     private RecyclerView recViewList;
+    private RelativeLayout rlEmpty;
 
     private JSONArray jSONArray;
     private Connection conn;
@@ -55,6 +57,7 @@ public class AllListsActivity extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recViewList = (RecyclerView) view.findViewById(R.id.recViewList);
+        rlEmpty = (RelativeLayout) view.findViewById(R.id.rlEmpty);
     }
 
     @Override
@@ -120,6 +123,9 @@ public class AllListsActivity extends Fragment {
 
                 }
                 if (arrayList.size()!=0){
+                    recViewList.setVisibility(View.VISIBLE);
+                    rlEmpty.setVisibility(View.GONE);
+
                     //Esto no es obligatorio pero si recomendable si siempre va a tener un nº de elementos fijo
                     recViewList.setHasFixedSize(true);
 
@@ -141,21 +147,9 @@ public class AllListsActivity extends Fragment {
 
                     recViewList.setAdapter(adaptadorl);
 
-
-                  /*  recViewList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-                    //recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-                    // recView.setLayoutManager(new GridLayoutManager(this,3));
-
-                    recViewList.addItemDecoration(
-                            new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
-
-                    //   recView.addItemDecoration(
-                    //           new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL_LIST));
-
-                    recViewList.setItemAnimator(new DefaultItemAnimator());*/
-
                 }else{
-                    Snackbar.make(getView(), "ARRAY VACIO", Snackbar.LENGTH_LONG).show();
+                    recViewList.setVisibility(View.GONE);
+                    rlEmpty.setVisibility(View.VISIBLE);
                 }
 
 

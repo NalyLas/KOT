@@ -18,6 +18,8 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import com.example.ptmarketing04.kot.Objects.GeneralContent;
@@ -41,6 +43,9 @@ import java.util.List;
  */
 
 public class AddTask extends Fragment {
+
+    private ScrollView scTask;
+    private RelativeLayout rlEmpty;
     private Spinner spinner;
     private EditText etTitle, etDetail, etDate;
     private Button addTask;
@@ -68,12 +73,13 @@ public class AddTask extends Fragment {
         super.onCreate(savedInstanceState);
         conn = new Connection();
 
-
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rlEmpty = (RelativeLayout) view.findViewById(R.id.rlEmpty);
+        scTask = (ScrollView) view.findViewById(R.id.svTask);
         etTitle = (EditText) view.findViewById(R.id.etTitleTask);
         etDetail = (EditText) view.findViewById(R.id.etDetailTask);
         etDate = (EditText) view.findViewById(R.id.etDate);
@@ -251,13 +257,22 @@ public class AddTask extends Fragment {
                     }
                 }
 
-                List<String> list = new ArrayList<String>();
-                for (int i = 0; i <arrayList.size() ; i++) {
-                    list.add(arrayList.get(i).getTitle());
+                if(arrayList.size()!=0){
+                    scTask.setVisibility(View.VISIBLE);
+                    rlEmpty.setVisibility(View.GONE);
+                    List<String> list = new ArrayList<String>();
+                    for (int i = 0; i <arrayList.size() ; i++) {
+                        list.add(arrayList.get(i).getTitle());
+                    }
+                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
+                    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(dataAdapter);
+                }else{
+                    scTask.setVisibility(View.GONE);
+                    rlEmpty.setVisibility(View.VISIBLE);
                 }
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(dataAdapter);
+
+
 
             } else {
                 Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();

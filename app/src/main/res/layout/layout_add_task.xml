@@ -6,7 +6,27 @@
     android:layout_margin="6dp"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/rlEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="158dp"
+            android:padding="12dp"
+            android:text="@string/empty_add_list"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
     <ScrollView
+        android:id="@+id/svTask"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

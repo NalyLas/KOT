@@ -110,6 +110,13 @@ public class ListActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
                 return true;
+            case R.id.chart:
+                i = new Intent(this,SummaryActivity.class);
+                i.putExtra("user",cod);
+                i.putExtra("tab_activa",0);
+                startActivity(i);
+                finish();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

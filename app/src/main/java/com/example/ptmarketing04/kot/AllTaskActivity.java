@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.example.ptmarketing04.kot.Adapters.GeneralTaskAdapter;
 import com.example.ptmarketing04.kot.Objects.GeneralList;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 public class AllTaskActivity extends Fragment {
 
     private RecyclerView recView;
+    private RelativeLayout rlEmpty;
     private JSONArray jSONArray;
     private Connection conn;
     private GeneralList list;
@@ -54,6 +56,8 @@ public class AllTaskActivity extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recView = (RecyclerView) view.findViewById(R.id.recView);
+        rlEmpty = (RelativeLayout) view.findViewById(R.id.rlEmpty);
+
     }
 
     @Override
@@ -126,7 +130,7 @@ public class AllTaskActivity extends Fragment {
                 }
 
                 if(datos.size()>0){
-                    // emptyList.setVisibility(View.GONE);
+                    rlEmpty.setVisibility(View.GONE);
                     recView.setVisibility(View.VISIBLE);
                     final GeneralTaskAdapter adaptador = new GeneralTaskAdapter(datos);
 
@@ -152,7 +156,7 @@ public class AllTaskActivity extends Fragment {
                     recView.setItemAnimator(new DefaultItemAnimator());
 
                 }else{
-                    // emptyList.setVisibility(View.VISIBLE);
+                    rlEmpty.setVisibility(View.VISIBLE);
                     recView.setVisibility(View.GONE);
                 }
 
