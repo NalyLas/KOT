@@ -38,6 +38,8 @@
     <string name="update_title">Modificar lista</string>
     <string name="update_text">Introduce el nuevo nombre de tu lista</string>
     <string name="title">Nuevo título</string>
+    <string name="name_list">Ya tiene una lista con ese nombre.</string>
+    <string name="created_list">Lista creada correctamente.</string>
     <string name="del_list">Eliminar lista</string>
     <string name="del_list_text">¡Atención! Al eliminar esta lista, eliminarás todas las tareas asociadas a ella. ¿Estás seguro de querer eliminarla?</string>
 
@@ -67,6 +69,9 @@
     <string name="update_task_text">¿Seguro que quieres modificar esta tarea?</string>
     <string name="finish_task">Finalizar tarea</string>
     <string name="finish_task_text">¿Seguro que quieres finalizar esta tarea? Una vez finalizada no podrás cambiar su estado.</string>
+    <string name="choose_task_date">Elija una fecha de finalización para la tarea.</string>
+    <string name="choose_task_title">Debe introducir un titulo para la tarea</string>
+    <string name="content_update">Modificado correctamente.</string>
 
 
     <!--    RESUMENES       -->

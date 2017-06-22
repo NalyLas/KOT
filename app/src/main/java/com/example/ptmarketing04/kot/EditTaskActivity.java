@@ -242,7 +242,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
         //Comprobamos la fecha limite de la tarea
         if(etDate.getText().toString().equals("") || etDate.getText() == null){
-            Snackbar.make(findViewById(android.R.id.content), "Elija una fecha de finalización para la tarea", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.choose_task_date), Snackbar.LENGTH_LONG).show();
         }else{
             dateEnd = etDate.getText().toString();
         }
@@ -251,7 +251,7 @@ public class EditTaskActivity extends AppCompatActivity {
         if(!etTitle.getText().toString().equals(" ") && !etTitle.getText().equals(null)){
             title = etTitle.getText().toString();
         }else{
-            Snackbar.make(findViewById(android.R.id.content), "Debe introducir un titulo para la tarea", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.choose_task_title), Snackbar.LENGTH_LONG).show();
         }
 
         //obtenemos el id de la lista a la que pertenece
@@ -323,8 +323,6 @@ public class EditTaskActivity extends AppCompatActivity {
                 }
 
                 if(add!=0){
-
-                    Snackbar.make(findViewById(android.R.id.content), "añadido", Snackbar.LENGTH_LONG).show();
                     if(empty){
                         new AddContentTask().execute();
                     }else{
@@ -332,7 +330,7 @@ public class EditTaskActivity extends AppCompatActivity {
                     }
 
                 }else{
-                    Snackbar.make(findViewById(android.R.id.content), "un carajo", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.no_content), Snackbar.LENGTH_LONG).show();
                 }
 
             } else {
@@ -382,16 +380,14 @@ public class EditTaskActivity extends AppCompatActivity {
             if (json != null) {
                 try {
                     add = json.getInt("added");
-
-                    Log.e("añadido detaaalle??", add+"");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 if(add!=0){
-                    Snackbar.make(findViewById(android.R.id.content), "añadido", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.content_update), Snackbar.LENGTH_LONG).show();
                 }else{
-                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.no_content), Snackbar.LENGTH_LONG).show();
                 }
 
                 Intent i = new Intent(EditTaskActivity.this, MainTaskActivity.class);
@@ -453,17 +449,15 @@ public class EditTaskActivity extends AppCompatActivity {
             if (json != null) {
                 try {
                     add = json.getInt("added");
-
-                    Log.e("añadido detaaalle??", add+"");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 if(add!=0){
-                    Snackbar.make(findViewById(android.R.id.content), "añadido", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.content_update), Snackbar.LENGTH_LONG).show();
 
                 }else{
-                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.no_content), Snackbar.LENGTH_LONG).show();
                 }
 
                 Intent i = new Intent(EditTaskActivity.this, MainTaskActivity.class);

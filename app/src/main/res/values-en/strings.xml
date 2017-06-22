@@ -71,4 +71,22 @@
     <string name="week">Weekly</string>
     <string name="month">Monthly</string>
     <string name="task_info">Task details;</string>
+    <string name="created">Created:</string>
+    <string name="del_task">Delete task</string>
+    <string name="del_task_text">Are you sure to delete this task?</string>
+    <string name="empty_add_list">You don\'t have any list yet, create a list to add tasks.</string>
+    <string name="empty_month">You don\'t have any task this month.</string>
+    <string name="finish_task">End task</string>
+    <string name="finish_task_text">Are you sure to complete this task? Once completed you will not be able to change its status.</string>
+    <string name="no_content">You have not added any detail.</string>
+    <string name="task_no_urgent">Non-urgent task</string>
+    <string name="task_urgent_end">Ends:</string>
+    <string name="update_task">Update task</string>
+    <string name="update_task_text">Are you sure to modify this task?</string>
+    <string name="name_task">You already have a task with that name.</string>
+    <string name="name_list">You already have a list with that name.</string>
+    <string name="created_list">List created correctly.</string>
+    <string name="choose_task_date">Choose an end date for the task.</string>
+    <string name="choose_task_title">Choose a title for the task.</string>
+    <string name="content_update">Modified correctly.</string>
 </resources>

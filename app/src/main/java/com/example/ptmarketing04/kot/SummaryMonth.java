@@ -147,8 +147,6 @@ public class SummaryMonth extends Fragment {
 
                 new GetChartUrgentTask().execute();
 
-
-
             } else {
                 Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
             }

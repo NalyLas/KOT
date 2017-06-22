@@ -322,7 +322,7 @@ public class MainListActivity extends AppCompatActivity {
 
                 if(add!=0){
 
-                    Snackbar.make(findViewById(android.R.id.content), "modificado", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.content_update), Snackbar.LENGTH_LONG).show();
                     dialog.dismiss();
                     ctlLayout.setTitle(new_title);
 
@@ -381,8 +381,6 @@ public class MainListActivity extends AppCompatActivity {
                 }
 
                 if(add!=0){
-
-                    Snackbar.make(findViewById(android.R.id.content), "eliminadas", Snackbar.LENGTH_LONG).show();
                     new DelListTask().execute();
 
                 }else{
@@ -440,10 +438,9 @@ public class MainListActivity extends AppCompatActivity {
                 }
 
                 if(add!=0){
-
-                    Snackbar.make(findViewById(android.R.id.content), "eliminado", Snackbar.LENGTH_LONG).show();
                     Intent i = new Intent(MainListActivity.this, ListActivity.class);
                     i.putExtra("user",cod);
+                    i.putExtra("tab_activa",0);
                     startActivity(i);
 
                 }else{

@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         bt1 = (Button)findViewById(R.id.btLogin);
         bt2 = (Button)findViewById(R.id.btSignin);
 
-     //   url = "http://iesayala.ddns.net/natalia/php.php";
         conn = new Connection();
 
         Bundle extras = getIntent().getExtras();

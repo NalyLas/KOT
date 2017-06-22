@@ -181,7 +181,6 @@ public class MainTaskActivity extends AppCompatActivity {
                 builder.create();
                 builder.show();
 
-
             }
         });
 
@@ -380,10 +379,9 @@ public class MainTaskActivity extends AppCompatActivity {
                 }
 
                 if(add!=0){
-
-                    Snackbar.make(findViewById(android.R.id.content), "eliminado", Snackbar.LENGTH_LONG).show();
                     Intent i = new Intent(MainTaskActivity.this, ListActivity.class);
                     i.putExtra("user",cod);
+                    i.putExtra("tab_activa",1);
                     startActivity(i);
 
                 }else{
@@ -441,7 +439,6 @@ public class MainTaskActivity extends AppCompatActivity {
                 }
 
                 if(add!=0){
-                    Snackbar.make(findViewById(android.R.id.content), "eliminado", Snackbar.LENGTH_LONG).show();
                     new DeleteTask().execute();
                 }else{
                     Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -501,7 +498,7 @@ public class MainTaskActivity extends AppCompatActivity {
                     fin.setVisibility(View.GONE);
                     tvFinish.setText(getResources().getString(R.string.finish));
                 }else{
-                    Snackbar.make(findViewById(android.R.id.content), "un carajo", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
                 }
 
             } else {

@@ -186,8 +186,6 @@ public class SummaryWeek extends Fragment {
 
                 new GetChartUrgentTask().execute();
 
-
-
             } else {
                 Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
             }
@@ -296,8 +294,6 @@ public class SummaryWeek extends Fragment {
                     //Ocultar leyenda
                     dayChart.setDrawLegend(false);
                 }
-
-
 
             } else {
                 Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();

@@ -157,7 +157,7 @@ public class AddTask extends Fragment {
 
         //Comprobamos la fecha limite de la tarea
         if(etDate.getText().toString().equals("") || etDate.getText() == null){
-            Snackbar.make(getView(), "Elija una fecha de finalización para la tarea", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getView(), getResources().getString(R.string.choose_task_date), Snackbar.LENGTH_LONG).show();
         }else{
             dateEnd = etDate.getText().toString();
         }
@@ -166,7 +166,7 @@ public class AddTask extends Fragment {
         if(!etTitle.getText().toString().equals(" ") && !etTitle.getText().equals(null)){
             title = etTitle.getText().toString();
         }else{
-            Snackbar.make(getView(), "Debe introducir un titulo para la tarea", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getView(), getResources().getString(R.string.choose_task_title), Snackbar.LENGTH_LONG).show();
         }
 
         //obtenemos el id de la lista a la que pertenece
@@ -451,8 +451,6 @@ public class AddTask extends Fragment {
                 }
 
                 if(add!=0){
-
-                    Snackbar.make(getView(), "añadido", Snackbar.LENGTH_LONG).show();
                     if(details.equals(null) || details.equals("")){
                         Snackbar.make(getView(), getResources().getString(R.string.no_content), Snackbar.LENGTH_LONG).show();
                         Intent intent = new Intent(getContext(),ListActivity.class);
@@ -464,7 +462,7 @@ public class AddTask extends Fragment {
                     }
 
                 }else{
-                    Snackbar.make(getView(), "un carajo", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getView(), getResources().getString(R.string.no_content), Snackbar.LENGTH_LONG).show();
                 }
 
             } else {
@@ -495,8 +493,6 @@ public class AddTask extends Fragment {
                 HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "INSERT INTO `CONTENT`(`ID_content`, `Type`, `Info`, `Task`) VALUES ("+ idc +",1,'"+ details +"',"+ idt +")");
 
-                Log.e("consulta","------> "+parametrosPost);
-
                 jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
                 if (jsonObject != null) {
@@ -515,15 +511,11 @@ public class AddTask extends Fragment {
             if (json != null) {
                 try {
                     add = json.getInt("added");
-
-                    Log.e("añadido detaaalle??", add+"");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 if(add!=0){
-
-                    Snackbar.make(getView(), "añadido", Snackbar.LENGTH_LONG).show();
                     Intent intent = new Intent(getContext(),ListActivity.class);
                     intent.putExtra("user",cod);
                     intent.putExtra("tab_activa",1);

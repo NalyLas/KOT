@@ -93,7 +93,7 @@ public class AddList extends Fragment {
                 getParams();
 
                 if(isExist()){
-                    Snackbar.make(getView(), "ya tiene una tarea con ese nombre", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getView(), getResources().getString(R.string.name_list), Snackbar.LENGTH_LONG).show();
                 }else{
                     new AddListTask().execute();
                     //recargamos las listas nuevas
@@ -221,9 +221,7 @@ public class AddList extends Fragment {
                 }
 
                 if(add!=0){
-
-                    Snackbar.make(getView(), "añadido", Snackbar.LENGTH_LONG).show();
-
+                    Snackbar.make(getView(), getResources().getString(R.string.created_list), Snackbar.LENGTH_LONG).show();
                 }else{
                     Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
                 }
