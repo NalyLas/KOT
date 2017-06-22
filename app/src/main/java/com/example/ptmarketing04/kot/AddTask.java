@@ -2,6 +2,7 @@ package com.example.ptmarketing04.kot;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -437,7 +438,15 @@ public class AddTask extends Fragment {
                 if(add!=0){
 
                     Snackbar.make(getView(), "añadido", Snackbar.LENGTH_LONG).show();
-                    new AddContentTask().execute();
+                    if(details.equals(null) || details.equals("")){
+                        Snackbar.make(getView(), getResources().getString(R.string.no_content), Snackbar.LENGTH_LONG).show();
+                        Intent intent = new Intent(getContext(),ListActivity.class);
+                        intent.putExtra("user",cod);
+                        intent.putExtra("tab_activa",1);
+                        startActivity(intent);
+                    }else{
+                        new AddContentTask().execute();
+                    }
 
                 }else{
                     Snackbar.make(getView(), "un carajo", Snackbar.LENGTH_LONG).show();
@@ -469,11 +478,9 @@ public class AddTask extends Fragment {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "INSERT INTO `CONTENT`(`ID_content`, `Type`, `Info`, `Task`) VALUES ("+ idc +","+ tipe +","+ details +",'"+ idt +"')");
-                //
-                //  Formato para añadir más de un item a la vez
-                //  INSERT INTO `Listas` (`ID_lista`, `Titulo`, `user`, `Fecha`) VALUES ('2', 'Lista numero 2', '1', '02/05/2017'), ('6', 'Lista numero 2', '1', '02/05/2017');
-                //
+                parametrosPost.put("ins_sql", "INSERT INTO `CONTENT`(`ID_content`, `Type`, `Info`, `Task`) VALUES ("+ idc +",1,'"+ details +"',"+ idt +")");
+
+                Log.e("consulta","------> "+parametrosPost);
 
                 jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
@@ -502,6 +509,10 @@ public class AddTask extends Fragment {
                 if(add!=0){
 
                     Snackbar.make(getView(), "añadido", Snackbar.LENGTH_LONG).show();
+                    Intent intent = new Intent(getContext(),ListActivity.class);
+                    intent.putExtra("user",cod);
+                    intent.putExtra("tab_activa",1);
+                    startActivity(intent);
 
                 }else{
                     Snackbar.make(getView(), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
