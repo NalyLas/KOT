@@ -274,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.preferencias:
                 i = new Intent(this,Preferences.class);
                 i.putExtra("user",cod);
+                i.putExtra("name",name);
                 startActivity(i);
                 finish();
                 return true;

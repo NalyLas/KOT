@@ -45,9 +45,9 @@ public class TaskCardAdapter extends RecyclerView.Adapter<TaskCardAdapter.ListVi
         public void bindList(final GeneralTask l) {
             tvTitle.setText(l.getTitle());
             if(l.getUrgent()==0){
-                ivUrgent.setImageResource(R.mipmap.ic_launcher);
+                ivUrgent.setImageResource(R.mipmap.ic_item_no_urgent);
             }else{
-                ivUrgent.setImageResource(R.mipmap.ic_launcher_round);
+                ivUrgent.setImageResource(R.mipmap.ic_item_urgent);
             }
 
             llinear.setOnClickListener(new View.OnClickListener() {

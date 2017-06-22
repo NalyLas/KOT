@@ -8,7 +8,7 @@ import android.preference.PreferenceActivity;
 public class Preferences extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     protected int cod;
-    protected String theme;
+    protected String theme,name;
     static public SharedPreferences pref;
 
     @Override
@@ -37,6 +37,7 @@ public class Preferences extends PreferenceActivity implements SharedPreferences
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
             cod = extras.getInt("user");
+            name = extras.getString("name");
         }
 
     }
@@ -46,6 +47,7 @@ public class Preferences extends PreferenceActivity implements SharedPreferences
         if (key.equals("theme_pref")) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("user",cod);
+            intent.putExtra("name",name);
             startActivity(intent);
             finish();
         }
@@ -56,6 +58,7 @@ public class Preferences extends PreferenceActivity implements SharedPreferences
         super.onBackPressed();
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("user",cod);
+        intent.putExtra("name",name);
         startActivity(intent);
         finish();
     }
