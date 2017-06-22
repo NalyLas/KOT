@@ -92,8 +92,10 @@
     <string name="empty_main">Aún no tienes ninguna lista, crea algunas listas y tareas para verlas en esta pantalla.</string>
     <string name="empty_urgent">No tienes ninguna tarea urgente sin finalizar.</string>
     <string name="empty_chart">No tienes ninguna tarea pendiente durante esta semana.</string>
+    <string name="empty_month">No tienes ninguna tarea pendiente durante este mes.</string>
+    <string name="noTask">No tienes ninguna tarea para hoy</string>
+
 
     <string name="title_activity_main_task" translatable="false">MainTaskActivity</string>
-    <string name="noTask">No tienes ninguna tarea para hoy</string>
 
 </resources>

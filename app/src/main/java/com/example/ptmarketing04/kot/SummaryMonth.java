@@ -60,6 +60,8 @@ public class SummaryMonth extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         dayChart = (PieChart) view.findViewById(R.id.dayChart);
         tvEmpty = (TextView) view.findViewById(R.id.tvEmpty);
+        tvEmpty.setText(getResources().getString(R.string.empty_month));
+
 
     }
 
