@@ -12,27 +12,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SigninActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Preferences" />
-        <activity android:name=".AddActivity" />
-        <activity android:name=".ListActivity" />
-        <activity android:name=".MainListActivity" />
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SigninActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Preferences"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".AddActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainListActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainTaskActivity"
-            android:label="@string/title_activity_main_task"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".UrgentListActivity" />
-        <activity android:name=".SummaryActivity" />
-        <activity android:name=".EditTaskActivity"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UrgentListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SummaryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".EditTaskActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
