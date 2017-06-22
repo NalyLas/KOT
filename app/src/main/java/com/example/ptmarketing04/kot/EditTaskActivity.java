@@ -1,7 +1,9 @@
 package com.example.ptmarketing04.kot;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -34,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class EditTaskActivity extends AppCompatActivity {
 
@@ -54,7 +58,7 @@ public class EditTaskActivity extends AppCompatActivity {
     private ArrayList<GeneralTask> arrayTask;
     private ArrayList<GeneralContent> arrayContent;
     private int cod,urgent,idt,idl,idc,finish;
-    private String date,title,dateEnd, details;
+    private String date,title,dateEnd, details,start;
     private boolean empty;
 
     static public SharedPreferences pref;
@@ -109,6 +113,7 @@ public class EditTaskActivity extends AppCompatActivity {
         if(extras!=null){
             idt = extras.getInt("tarea");
             title = extras.getString("title");
+            start = extras.getString("inicio");
             dateEnd = extras.getString("fin");
             finish = extras.getInt("acabada");
             urgent = extras.getInt("urgente");
@@ -120,7 +125,7 @@ public class EditTaskActivity extends AppCompatActivity {
             etDetail.setText(details);
             etDate.setText(dateEnd);
 
-            if(details.equals(null) || details.equals("")){
+            if(details == null || details.equals("")){
                 empty = true;
             }else{
                 empty = false;
@@ -132,6 +137,7 @@ public class EditTaskActivity extends AppCompatActivity {
             }else{
                 cbUrgent.setChecked(false);
             }
+
         }
 
         addDate.setOnClickListener(new View.OnClickListener(){
@@ -166,15 +172,26 @@ public class EditTaskActivity extends AppCompatActivity {
         addTask.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-              /*  getParams();
+                //alert
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditTaskActivity.this);
+                builder.setTitle(getResources().getString(R.string.update_task));
+                builder.setMessage(getResources().getString(R.string.update_task_text));
+                builder.setPositiveButton(getResources().getString(R.string.acept),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                getParams();
+                                new UpdateTask().execute();
+                            }
+                        });
 
-                new AddTask.AddNewTask().execute();
-                //Recargamos tareas
-                new AddTask.GetTotalTask().execute();
-                new AddTask.GetContentTask().execute();*/
-
+                builder.setNegativeButton(getResources().getString(R.string.cancel),null);
+                builder.create();
+                builder.show();
             }
         });
+
+        new ListTask().execute();
+        new GetContentTask().execute();
     }
 
     @Override
@@ -254,7 +271,6 @@ public class EditTaskActivity extends AppCompatActivity {
 
         //Comprobamos los detalles
         details = etDetail.getText().toString();
-
     }
 
     //task para modificar tareas
@@ -302,7 +318,11 @@ public class EditTaskActivity extends AppCompatActivity {
                 if(add!=0){
 
                     Snackbar.make(findViewById(android.R.id.content), "añadido", Snackbar.LENGTH_LONG).show();
-                    new UpdateContentTask().execute();
+                    if(empty){
+                        new AddContentTask().execute();
+                    }else{
+                        new UpdateContentTask().execute();
+                    }
 
                 }else{
                     Snackbar.make(findViewById(android.R.id.content), "un carajo", Snackbar.LENGTH_LONG).show();
@@ -334,7 +354,8 @@ public class EditTaskActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "UPDATE `CONTENT` SET `Info`='"+ details +"',`Task`="+ idt +" WHERE `ID_content`="+idc);
+                parametrosPost.put("ins_sql", "UPDATE `CONTENT` SET `Info`='"+ details +"' WHERE `Task`="+idt);
+                Log.e("consulta","----->"+parametrosPost);
 
                 jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
@@ -361,12 +382,23 @@ public class EditTaskActivity extends AppCompatActivity {
                 }
 
                 if(add!=0){
-
                     Snackbar.make(findViewById(android.R.id.content), "añadido", Snackbar.LENGTH_LONG).show();
-
                 }else{
                     Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
                 }
+
+                Intent i = new Intent(EditTaskActivity.this, MainTaskActivity.class);
+                i.putExtra("user",cod);
+                i.putExtra("tarea",idt);
+                i.putExtra("title",title);
+                i.putExtra("inicio",start);
+                i.putExtra("fin",dateEnd);
+                i.putExtra("acabada",finish);
+                i.putExtra("urgente",urgent);
+                i.putExtra("lista",idl);
+                i.putExtra("detail",details);
+                startActivity(i);
+                finish();
 
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
@@ -394,7 +426,7 @@ public class EditTaskActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... args) {
             try {
                 HashMap<String, String> parametrosPost = new HashMap<>();
-                parametrosPost.put("ins_sql", "INSERT INTO `CONTENT`(`ID_content`, `Type`, `Info`, `Task`) VALUES ("+ idc +",1,"+ details +",'"+ idt +"')");
+                parametrosPost.put("ins_sql", "INSERT INTO `CONTENT`(`ID_content`, `Type`, `Info`, `Task`) VALUES ("+ idc +",1,'"+ details +"',"+ idt +")");
 
                 jsonObject = conn.sendDMLRequest(Global_params.url_dml, parametrosPost);
 
@@ -421,11 +453,84 @@ public class EditTaskActivity extends AppCompatActivity {
                 }
 
                 if(add!=0){
-
                     Snackbar.make(findViewById(android.R.id.content), "añadido", Snackbar.LENGTH_LONG).show();
 
                 }else{
                     Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+                }
+
+                Intent i = new Intent(EditTaskActivity.this, MainTaskActivity.class);
+                i.putExtra("user",cod);
+                i.putExtra("tarea",idt);
+                i.putExtra("title",title);
+                i.putExtra("inicio",start);
+                i.putExtra("fin",dateEnd);
+                i.putExtra("acabada",finish);
+                i.putExtra("urgente",urgent);
+                i.putExtra("lista",idl);
+                i.putExtra("detail",details);
+                startActivity(i);
+                finish();
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
+    //     Task para cargar el contenido de las tareas
+    class GetContentTask extends AsyncTask<String, String, JSONArray> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(EditTaskActivity.this);
+            pDialog.setMessage(getResources().getString(R.string.loading));
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... args) {
+
+            try {
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "Select * from CONTENT");
+
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
+
+                if (jSONArray != null) {
+                    return jSONArray;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(JSONArray json) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (json != null) {
+                arrayContent =new ArrayList<GeneralContent>();
+                for (int i = 0; i < json.length(); i++) {
+                    try {
+
+                        JSONObject jsonObject = json.getJSONObject(i);
+                        content = new GeneralContent();
+                        content.setId(jsonObject.getInt("ID_content"));
+                        content.setTask(jsonObject.getInt("Task"));
+                        content.setTipe(jsonObject.getInt("Type"));
+                        content.setDetail(jsonObject.getString("Info"));
+
+                        arrayContent.add(content);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             } else {
@@ -435,4 +540,73 @@ public class EditTaskActivity extends AppCompatActivity {
         }
 
     }
+
+    //     Task para cargar las listas del usuario
+    class ListTask extends AsyncTask<String, String, JSONArray> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(EditTaskActivity.this);
+            pDialog.setMessage(getResources().getString(R.string.loading));
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... args) {
+
+            try {
+                HashMap<String, String> parametrosPost = new HashMap<>();
+                parametrosPost.put("ins_sql", "Select * from LIST where User ="+pref.getInt("cod",0));
+
+                jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
+
+                if (jSONArray != null) {
+                    return jSONArray;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(JSONArray json) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (json != null) {
+
+                arrayList =new ArrayList<GeneralList>();
+
+                for (int i = 0; i < json.length(); i++) {
+                    try {
+                        JSONObject jsonObject = json.getJSONObject(i);
+                        list = new GeneralList();
+                        list.setId(jsonObject.getInt("ID_list"));
+                        list.setId_user(jsonObject.getInt("User"));
+                        list.setTitle(jsonObject.getString("Title_list"));
+                        arrayList.add(list);
+
+                    } catch (JSONException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+
+                List<String> list = new ArrayList<String>();
+                for (int i = 0; i <arrayList.size() ; i++) {
+                    list.add(arrayList.get(i).getTitle());
+                }
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(EditTaskActivity.this, android.R.layout.simple_spinner_item, list);
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(dataAdapter);
+
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.error), Snackbar.LENGTH_LONG).show();
+            }
+        }
+    }
+
 }

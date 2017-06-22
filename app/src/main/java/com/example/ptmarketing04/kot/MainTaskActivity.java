@@ -262,8 +262,6 @@ public class MainTaskActivity extends AppCompatActivity {
                 HashMap<String, String> parametrosPost = new HashMap<>();
                 parametrosPost.put("ins_sql", "Select * from LIST where `ID_list` ="+cod_list);
 
-                Log.e("consulta","----> "+parametrosPost);
-
                 jSONArray = conn.sendRequest(Global_params.url_select, parametrosPost);
 
                 if (jSONArray != null) {

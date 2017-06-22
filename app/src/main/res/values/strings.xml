@@ -63,6 +63,8 @@
     <string name="del_task">Eliminar tarea</string>
     <string name="del_task_text">¿Estás seguro de querer eliminar esta tarea?</string>
     <string name="no_content">No ha añadido ningún detalle a la tarea</string>
+    <string name="update_task">Modificar tarea</string>
+    <string name="update_task_text">¿Seguro que quieres modificar esta tarea?</string>
 
 
     <!--    RESUMENES       -->
