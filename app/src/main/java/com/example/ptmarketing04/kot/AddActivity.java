@@ -57,7 +57,6 @@ public class AddActivity extends AppCompatActivity {
         tb = (Toolbar) findViewById(R.id.toolbar);
 
         if(tb != null){
-            tb.setTitle("ninini");
             setSupportActionBar(tb);
         }
 

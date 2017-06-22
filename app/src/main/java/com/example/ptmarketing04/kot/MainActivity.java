@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         lv.setAdapter(nav);
 
         if(tb != null){
-            tb.setTitle("ninini");
+            tb.setTitle(getResources().getString(R.string.app_name));
             setSupportActionBar(tb);
         }
 

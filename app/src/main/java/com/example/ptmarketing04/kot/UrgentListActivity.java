@@ -77,7 +77,6 @@ public class UrgentListActivity extends AppCompatActivity {
         conn = new Connection();
 
         if(tb != null){
-            tb.setTitle("ninini");
             setSupportActionBar(tb);
         }
 
