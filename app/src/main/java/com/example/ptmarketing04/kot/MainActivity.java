@@ -278,35 +278,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
                 return true;
-            case R.id.list:
-                i = new Intent(this,ListActivity.class);
-                i.putExtra("user",cod);
-                startActivity(i);
-                return true;
-            case R.id.add:
-                i = new Intent(this,AddActivity.class);
-                i.putExtra("user",cod);
-                i.putExtra("tab_activa",0);
-                startActivity(i);
-                return true;
-
-            case R.id.important:
-            //    i = new Intent(this,ListActivity.class);
-            //    i.putExtra("user",cod);
-            //    startActivity(i);
-                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-
-   //Tendras que averiguar una forma más optima de realizar este proceso
-    //De esta forma por ahora es la unica que funciona
-    //Pero carga todas las tareas de la tabla y luego comprueba una a una
-    // Cuano existan muchas tareas irá muy lento
-    //Intenta crear un nuevo array cada vez que lances la task y averigua como pasarle todos los ids
-    //Sienpre se saltaba el primero
 
     //Obtenemos las tareas de cada lista
    public void fillTask(){
@@ -325,11 +300,6 @@ public class MainActivity extends AppCompatActivity {
        }
 
    }
-
-
-   //Planteate hacer esto filtrando por tareas urgentes
-    // select * from task where urgent = 1 and finished = 0 order by fecha_final ASC;
-    // es decir obtener solo aquellas tareas que sean urgentes y no esten finalizadas
 
     //Obtenemos las tareas urgentes
    public void urgentTask(){
