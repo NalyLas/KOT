@@ -63,6 +63,7 @@ public class AddTask extends Fragment {
     private ArrayList<GeneralContent> arrayContent;
     private int cod,urgent,idt,idl,idc,tipe;
     private String date,title,dateEnd, details;
+    private boolean isOk,isOkD;
 
     public AddTask() {
         // Required empty public constructor
@@ -125,10 +126,14 @@ public class AddTask extends Fragment {
             public void onClick(View v) {
                 getParams();
 
-                new AddNewTask().execute();
-                //Recargamos tareas
-                new GetTotalTask().execute();
-                new GetContentTask().execute();
+                if(isOk && isOkD){
+                    new AddNewTask().execute();
+                    //Recargamos tareas
+                    new GetTotalTask().execute();
+                    new GetContentTask().execute();
+                }else{
+                    Snackbar.make(getView(), getResources().getString(R.string.emptyFields), Snackbar.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -156,16 +161,20 @@ public class AddTask extends Fragment {
         date = df.format(c.getTime());
 
         //Comprobamos la fecha limite de la tarea
-        if(etDate.getText().toString().equals("") || etDate.getText() == null){
-            Snackbar.make(getView(), getResources().getString(R.string.choose_task_date), Snackbar.LENGTH_LONG).show();
+        dateEnd = etDate.getText().toString();
+        if(!dateEnd.equals("") && dateEnd!=null){
+            isOkD = true;
         }else{
-            dateEnd = etDate.getText().toString();
+            isOkD=false;
+            Snackbar.make(getView(), getResources().getString(R.string.choose_task_date), Snackbar.LENGTH_LONG).show();
         }
 
         //Comprobamos el titulo de la tarea
-        if(!etTitle.getText().toString().equals(" ") && !etTitle.getText().equals(null)){
+        if(!etTitle.getText().toString().equals("") && !etTitle.getText().equals(null)){
             title = etTitle.getText().toString();
+            isOk=true;
         }else{
+            isOk=false;
             Snackbar.make(getView(), getResources().getString(R.string.choose_task_title), Snackbar.LENGTH_LONG).show();
         }
 
